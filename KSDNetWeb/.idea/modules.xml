@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KSDNet.iml" filepath="$PROJECT_DIR$/KSDNet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KSDNetWeb.iml" filepath="$PROJECT_DIR$/KSDNetWeb.iml" />
     </modules>
   </component>
 </project>
