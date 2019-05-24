@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="KSDNetWeb:war exploded" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ff39fb37-4244-4eaf-8c29-202c52e3b5ff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KSDNetWeb.iml" beforeDir="false" afterPath="$PROJECT_DIR$/KSDNetWeb.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CourseServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Servlets/CourseServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProjectServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Servlets/ProjectServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Servlets/UserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-grid.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-grid.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-grid.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-grid.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-grid.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-reboot.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-reboot.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-reboot.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-reboot.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap-reboot.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/css/bootstrap.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/css/bootstrap.min.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.bundle.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.bundle.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.bundle.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.bundle.min.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/js/bootstrap.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/bootstrap/js/bootstrap.min.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.annotation.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.annotation.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.ejb.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.ejb.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.jms.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.jms.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.persistence.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.persistence.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.resource.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.resource.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.servlet.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.servlet.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.servlet.jsp.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.servlet.jsp.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.servlet.jsp.jstl.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/javax.transaction.jar" beforeDir="false" afterPath="$PROJECT_DIR$/web/lib/javax.transaction.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/KSDNetWeb_war_exploded/WEB-INF/classes/Servlets/UserServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/KSDNetWeb_war_exploded/WEB-INF/classes/Servlets/UserServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/KSDNetWeb_war_exploded/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/KSDNetWeb_war_exploded/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KSDNetWeb/Servlets/UserServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KSDNetWeb/Servlets/UserServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Servlets/UserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Servlets/UserServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,11 +100,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+            <state relative-caret-position="252">
+              <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -80,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Servlets/UserServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+            <state relative-caret-position="150">
+              <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,29 +121,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
               <caret line="11" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="17" selection-start-column="17" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Student.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -154,9 +168,10 @@
         <option value="$PROJECT_DIR$/src/Project.java" />
         <option value="$PROJECT_DIR$/src/Student.java" />
         <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/src/Servlets/UserServlet.java" />
-        <option value="$PROJECT_DIR$/web/index.html" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/Servlets/UserServlet.java" />
+        <option value="$PROJECT_DIR$/web/Login.html" />
+        <option value="$PROJECT_DIR$/web/index.html" />
       </list>
     </option>
   </component>
@@ -167,11 +182,11 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+  <component name="ProjectFrameBounds" extendedState="4">
+    <option name="x" value="425" />
+    <option name="y" value="27" />
+    <option name="width" value="941" />
+    <option name="height" value="741" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -188,24 +203,7 @@
             <path>
               <item name="KSDNetWeb" type="b2602c69:ProjectViewProjectNode" />
               <item name="KSDNetWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="KSDNetWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KSDNetWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Servlets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="KSDNetWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KSDNetWeb" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="KSDNetWeb" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KSDNetWeb" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="KSDNetWeb" type="b2602c69:ProjectViewProjectNode" />
@@ -215,8 +213,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -225,7 +223,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/postgresql-42.2.2.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -233,15 +231,16 @@
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="C:\Users\dgaze\IdeaProjects\KSDNetWeb" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="C:\Users\dgaze\IdeaProjects\KSDNetWeb" />
       <recent name="C:\Users\dgaze\IdeaProjects\KSDNetWeb\web" />
       <recent name="D:\GitHub\hlektroniko-vivliopolio\KSDNetWeb\web" />
-      <recent name="D:\GitHub\hlektroniko-vivliopolio\KSDNetWeb\src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\dgaze\IdeaProjects\KSDNetWeb" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -411,23 +410,23 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13925000" />
+    <option name="totallyTimeSpent" value="17752000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="27" width="1299" height="741" extended-state="6" />
+    <frame x="425" y="27" width="941" height="741" extended-state="4" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5675676" visible="true" weight="0.26496407" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5661765" visible="true" weight="0.23351955" />
+      <window_info id="Structure" order="1" sideWeight="0.43382353" side_tool="true" weight="0.2697526" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info id="Web" order="7" sideWeight="0.43243244" side_tool="true" visible="true" weight="0.26496407" />
+      <window_info id="Web" order="7" sideWeight="0.43382353" side_tool="true" visible="true" weight="0.23351955" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3289256" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3272727" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32561985" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -447,7 +446,7 @@
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="SciView" order="6" />
-      <window_info anchor="right" id="Database" order="7" weight="0.32997987" />
+      <window_info anchor="right" id="Database" order="7" weight="0.32960895" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
     </layout>
@@ -539,13 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Student.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Servlets/CourseServlet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -560,20 +552,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/Login.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Servlets/UserServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        <state relative-caret-position="150">
+          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index.html">
+    <entry file="file://$PROJECT_DIR$/web/bootstrap/css/bootstrap.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        <state relative-caret-position="-2430" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bootstrap/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-66003">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bootstrap/js/bootstrap.bundle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/bootstrap/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Student.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
@@ -581,6 +600,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
       </provider>
     </entry>
