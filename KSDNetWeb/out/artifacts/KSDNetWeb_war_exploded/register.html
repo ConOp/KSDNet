@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="./bootstrap/css/*">
+</head>
+<body>
+    <div style="padding-top:1%" style="align:center">
+        <h3>Create New Account</h3>
+        <!-- homepage is under creation. Name might change!-->
+        <form action="homepage.html">
+            <div class="input-group">
+                <table>
+                    <tr>
+                        <td><h4>Please enter your Username</h4></td>
+                        <td><input type="text" placeholder="Enter Username"></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Please enter your Password</h4></td>
+                        <td><input type="password" placeholder="Enter Password"></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Please reenter your Password</h4></td>
+                        <td><input type="password" placeholder="Enter Password Again"></td>
+                    </tr>
+                    <tr>
+                        <td><h4>Are you a Student or a Teacher?</h4></td>
+                        <td><label><input type="checkbox">Student</label></td>
+                        <td><label><input type="checkbox">Teacher</label></td>
+                    </tr>
+                </table>
+            </div>
+            <button id="registerButton" type="submit">Register</button>
+        </form>
+        <form action="/Login">
+            <br>
+            <button id="BackToLogin" type="submit">Already Have an Account</button>
+        </form>
+    </div>
+</body>
+</html>
