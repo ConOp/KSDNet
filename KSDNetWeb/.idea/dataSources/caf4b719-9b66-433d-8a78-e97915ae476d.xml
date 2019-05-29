@@ -1,64 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="GradeAssign@localhost">
+<dataSource name="GiveBase@localhost">
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.15">
     <root id="1">
       <ServerVersion>10.4</ServerVersion>
     </root>
-    <database id="2" parent="1" name="GradeAssign">
-      <ObjectId>16908</ObjectId>
-      <StateNumber>916</StateNumber>
+    <database id="2" parent="1" name="DB5">
+      <ObjectId>49653</ObjectId>
+      <StateNumber>1203</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>923</IntrospectionStateNumber>
+    </database>
+    <database id="3" parent="1" name="DbTest">
+      <ObjectId>33006</ObjectId>
+      <StateNumber>902</StateNumber>
+      <Owner>postgres</Owner>
+    </database>
+    <database id="4" parent="1" name="Ergasia2">
+      <ObjectId>16393</ObjectId>
+      <StateNumber>557</StateNumber>
+      <Owner>postgres</Owner>
+    </database>
+    <database id="5" parent="1" name="GiveBase">
+      <ObjectId>49761</ObjectId>
+      <StateNumber>1262</StateNumber>
+      <Owner>postgres</Owner>
+      <IntrospectionStateNumber>1271</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </database>
-    <database id="3" parent="1" name="Road_Safety">
-      <ObjectId>16809</ObjectId>
-      <StateNumber>874</StateNumber>
+    <database id="6" parent="1" name="JavaEx2">
+      <ObjectId>24676</ObjectId>
+      <StateNumber>692</StateNumber>
       <Owner>postgres</Owner>
     </database>
-    <database id="4" parent="1" name="SerCarDB">
-      <ObjectId>16523</ObjectId>
-      <StateNumber>606</StateNumber>
+    <database id="7" parent="1" name="JavaEx3">
+      <ObjectId>41460</ObjectId>
+      <StateNumber>1115</StateNumber>
       <Owner>postgres</Owner>
     </database>
-    <database id="5" parent="1" name="javadatabase">
-      <ObjectId>16711</ObjectId>
-      <StateNumber>807</StateNumber>
+    <database id="8" parent="1" name="Testerman">
+      <ObjectId>49676</ObjectId>
+      <StateNumber>1217</StateNumber>
       <Owner>postgres</Owner>
     </database>
-    <database id="6" parent="1" name="postgres">
+    <database id="9" parent="1" name="postgres">
       <ObjectId>12938</ObjectId>
       <Comment>default administrative connection database</Comment>
       <StateNumber>554</StateNumber>
       <Owner>postgres</Owner>
     </database>
-    <role id="7" parent="1" name="pg_monitor">
+    <role id="10" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="8" parent="1" name="pg_read_all_settings">
+    <role id="11" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="9" parent="1" name="pg_read_all_stats">
+    <role id="12" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="10" parent="1" name="pg_signal_backend">
+    <role id="13" parent="1" name="pg_signal_backend">
       <ObjectId>4200</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="11" parent="1" name="pg_stat_scan_tables">
+    <role id="14" parent="1" name="pg_stat_scan_tables">
       <ObjectId>3377</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="12" parent="1" name="postgres">
+    <role id="15" parent="1" name="postgres">
       <ObjectId>10</ObjectId>
       <SuperRole>1</SuperRole>
       <Inherit>1</Inherit>
@@ -69,43 +84,43 @@
       <Replication>1</Replication>
       <BypassRls>1</BypassRls>
     </role>
-    <schema id="13" parent="2" name="information_schema">
+    <schema id="16" parent="5" name="information_schema">
       <ObjectId>12648</ObjectId>
       <StateNumber>354</StateNumber>
       <Owner>postgres</Owner>
     </schema>
-    <schema id="14" parent="2" name="pg_catalog">
+    <schema id="17" parent="5" name="pg_catalog">
       <ObjectId>11</ObjectId>
       <Comment>system catalog schema</Comment>
       <StateNumber>351</StateNumber>
       <Owner>postgres</Owner>
     </schema>
-    <schema id="15" parent="2" name="pg_temp_1">
+    <schema id="18" parent="5" name="pg_temp_1">
       <ObjectId>11736</ObjectId>
       <StateNumber>114</StateNumber>
       <Owner>postgres</Owner>
     </schema>
-    <schema id="16" parent="2" name="pg_toast">
+    <schema id="19" parent="5" name="pg_toast">
       <ObjectId>99</ObjectId>
       <Comment>reserved schema for TOAST tables</Comment>
       <StateNumber>1</StateNumber>
       <Owner>postgres</Owner>
     </schema>
-    <schema id="17" parent="2" name="pg_toast_temp_1">
+    <schema id="20" parent="5" name="pg_toast_temp_1">
       <ObjectId>11737</ObjectId>
       <StateNumber>114</StateNumber>
       <Owner>postgres</Owner>
     </schema>
-    <schema id="18" parent="2" name="public">
+    <schema id="21" parent="5" name="public">
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
       <StateNumber>352</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>924</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1272</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
-    <access-method id="19" parent="2" name="btree">
+    <access-method id="22" parent="5" name="btree">
       <ObjectId>403</ObjectId>
       <Comment>b-tree index access method</Comment>
       <StateNumber>1</StateNumber>
@@ -113,7 +128,7 @@
       <HandlerId>330</HandlerId>
       <Type>index</Type>
     </access-method>
-    <access-method id="20" parent="2" name="hash">
+    <access-method id="23" parent="5" name="hash">
       <ObjectId>405</ObjectId>
       <Comment>hash index access method</Comment>
       <StateNumber>1</StateNumber>
@@ -121,7 +136,7 @@
       <HandlerId>331</HandlerId>
       <Type>index</Type>
     </access-method>
-    <access-method id="21" parent="2" name="gist">
+    <access-method id="24" parent="5" name="gist">
       <ObjectId>783</ObjectId>
       <Comment>GiST index access method</Comment>
       <StateNumber>1</StateNumber>
@@ -129,7 +144,7 @@
       <HandlerId>332</HandlerId>
       <Type>index</Type>
     </access-method>
-    <access-method id="22" parent="2" name="gin">
+    <access-method id="25" parent="5" name="gin">
       <ObjectId>2742</ObjectId>
       <Comment>GIN index access method</Comment>
       <StateNumber>1</StateNumber>
@@ -137,7 +152,7 @@
       <HandlerId>333</HandlerId>
       <Type>index</Type>
     </access-method>
-    <access-method id="23" parent="2" name="spgist">
+    <access-method id="26" parent="5" name="spgist">
       <ObjectId>4000</ObjectId>
       <Comment>SP-GiST index access method</Comment>
       <StateNumber>1</StateNumber>
@@ -145,7 +160,7 @@
       <HandlerId>334</HandlerId>
       <Type>index</Type>
     </access-method>
-    <access-method id="24" parent="2" name="brin">
+    <access-method id="27" parent="5" name="brin">
       <ObjectId>3580</ObjectId>
       <Comment>block range index (BRIN) access method</Comment>
       <StateNumber>1</StateNumber>
@@ -153,7 +168,7 @@
       <HandlerId>335</HandlerId>
       <Type>index</Type>
     </access-method>
-    <extension id="25" parent="2" name="plpgsql">
+    <extension id="28" parent="5" name="plpgsql">
       <ObjectId>12924</ObjectId>
       <Comment>PL/pgSQL procedural language</Comment>
       <StateNumber>506</StateNumber>
@@ -161,339 +176,318 @@
       <SchemaName>pg_catalog</SchemaName>
       <SchemaId>11</SchemaId>
     </extension>
-    <table id="26" parent="18" name="courses">
-      <ObjectId>16922</ObjectId>
+    <table id="29" parent="21" name="courses">
+      <ObjectId>49778</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>920</StateNumber>
+      <StateNumber>1266</StateNumber>
     </table>
-    <table id="27" parent="18" name="groups">
-      <ObjectId>16945</ObjectId>
+    <table id="30" parent="21" name="grade">
+      <ObjectId>49802</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>922</StateNumber>
+      <StateNumber>1270</StateNumber>
     </table>
-    <table id="28" parent="18" name="projects">
-      <ObjectId>16932</ObjectId>
+    <table id="31" parent="21" name="group">
+      <ObjectId>49794</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>921</StateNumber>
+      <StateNumber>1269</StateNumber>
     </table>
-    <table id="29" parent="18" name="students">
-      <ObjectId>16955</ObjectId>
+    <table id="32" parent="21" name="projects">
+      <ObjectId>49786</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>922</StateNumber>
+      <StateNumber>1268</StateNumber>
     </table>
-    <table id="30" parent="18" name="teachers">
-      <ObjectId>16909</ObjectId>
+    <table id="33" parent="21" name="students">
+      <ObjectId>49762</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>919</StateNumber>
+      <StateNumber>1263</StateNumber>
     </table>
-    <column id="31" parent="26" name="course_id">
+    <table id="34" parent="21" name="teachers">
+      <ObjectId>49770</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>1267</StateNumber>
+    </table>
+    <column id="35" parent="29" name="course_id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>919</StateNumber>
-      <TypeId>23</TypeId>
+      <StateNumber>1265</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="32" parent="26" name="teacher_id">
+    <column id="36" parent="29" name="teacher_id">
       <Position>2</Position>
-      <DataType>varchar(6)|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>919</StateNumber>
-      <TypeId>1043</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1265</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="33" parent="26" name="name">
+    <column id="37" parent="29" name="name">
       <Position>3</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>919</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1265</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="34" parent="26" name="number_projects">
+    <column id="38" parent="29" name="number_projects">
       <Position>4</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>919</StateNumber>
-      <TypeId>23</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1265</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="35" parent="26" name="total_grade">
-      <Position>5</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>919</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <index id="36" parent="26" name="courses_pkey">
-      <ObjectId>16925</ObjectId>
-      <StateNumber>919</StateNumber>
+    <index id="39" parent="29" name="Courses_pkey">
+      <ObjectId>49784</ObjectId>
+      <StateNumber>1265</StateNumber>
       <ColNames>course_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="37" parent="26" name="courses_pkey">
-      <ObjectId>16926</ObjectId>
-      <StateNumber>919</StateNumber>
+    <key id="40" parent="29" name="Courses_pkey">
+      <ObjectId>49785</ObjectId>
+      <StateNumber>1265</StateNumber>
       <ColNames>course_id</ColNames>
       <Primary>1</Primary>
-      <UnderlyingIndexName>courses_pkey</UnderlyingIndexName>
+      <UnderlyingIndexName>Courses_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="38" parent="26" name="courses_teacher_id_fkey">
-      <ObjectId>16927</ObjectId>
-      <StateNumber>919</StateNumber>
-      <ColNames>teacher_id</ColNames>
-      <RefTableId>16909</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>teachers</RefTableName>
-      <RefKeyName>teachers_pkey</RefKeyName>
-      <RefColNames>teacher_id</RefColNames>
-    </foreign-key>
-    <column id="39" parent="27" name="group_id">
+    <column id="41" parent="30" name="group_id">
       <Position>1</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>921</StateNumber>
-      <TypeId>23</TypeId>
+      <StateNumber>1270</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="40" parent="27" name="project_id">
+    <column id="42" parent="30" name="project_id">
       <Position>2</Position>
-      <DataType>integer|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>921</StateNumber>
-      <TypeId>23</TypeId>
+      <StateNumber>1270</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="41" parent="27" name="grade">
+    <column id="43" parent="30" name="grade">
       <Position>3</Position>
       <DataType>integer|0s</DataType>
-      <StateNumber>921</StateNumber>
+      <StateNumber>1270</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="42" parent="27" name="groups_pkey">
-      <ObjectId>16948</ObjectId>
-      <StateNumber>921</StateNumber>
-      <ColNames>group_id</ColNames>
-      <Unique>1</Unique>
-      <Primary>1</Primary>
-    </index>
-    <key id="43" parent="27" name="groups_pkey">
-      <ObjectId>16949</ObjectId>
-      <StateNumber>921</StateNumber>
-      <ColNames>group_id</ColNames>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>groups_pkey</UnderlyingIndexName>
-    </key>
-    <foreign-key id="44" parent="27" name="groups_project_id_fkey">
-      <ObjectId>16950</ObjectId>
-      <StateNumber>921</StateNumber>
-      <ColNames>project_id</ColNames>
-      <RefTableId>16932</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>projects</RefTableName>
-      <RefKeyName>projects_pkey</RefKeyName>
-      <RefColNames>project_id</RefColNames>
-    </foreign-key>
-    <column id="45" parent="28" name="project_id">
-      <Position>1</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>920</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="46" parent="28" name="course_id">
-      <Position>2</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>920</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="47" parent="28" name="max_grade">
-      <Position>3</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>920</StateNumber>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="48" parent="28" name="group_members">
+    <column id="44" parent="30" name="upload_date">
       <Position>4</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>920</StateNumber>
-      <TypeId>23</TypeId>
+      <DataType>date|0s</DataType>
+      <StateNumber>1270</StateNumber>
+      <TypeId>1082</TypeId>
     </column>
-    <column id="49" parent="28" name="upload_date">
+    <column id="45" parent="30" name="filename">
       <Position>5</Position>
-      <DataType>timestamp|0s</DataType>
-      <StateNumber>920</StateNumber>
-      <TypeId>1114</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1270</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="50" parent="28" name="deadline">
+    <column id="46" parent="30" name="file">
       <Position>6</Position>
-      <DataType>timestamp|0s</DataType>
+      <DataType>text|0s</DataType>
+      <StateNumber>1270</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="47" parent="30" name="grade_pkey">
+      <ObjectId>49808</ObjectId>
+      <StateNumber>1270</StateNumber>
+      <ColNames>group_id
+project_id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="48" parent="30" name="grade_pkey">
+      <ObjectId>49809</ObjectId>
+      <StateNumber>1270</StateNumber>
+      <ColNames>group_id
+project_id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>grade_pkey</UnderlyingIndexName>
+    </key>
+    <column id="49" parent="31" name="group_id">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>920</StateNumber>
-      <TypeId>1114</TypeId>
+      <StateNumber>1269</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="51" parent="28" name="filename">
-      <Position>7</Position>
-      <DataType>varchar(15)|0s</DataType>
-      <StateNumber>920</StateNumber>
-      <TypeId>1043</TypeId>
+    <column id="50" parent="31" name="course_id">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1269</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="52" parent="28" name="file">
-      <Position>8</Position>
-      <DataType>bytea|0s</DataType>
-      <StateNumber>920</StateNumber>
-      <TypeId>17</TypeId>
+    <column id="51" parent="31" name="totalgrade">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>1269</StateNumber>
+      <TypeId>23</TypeId>
     </column>
-    <index id="53" parent="28" name="projects_pkey">
-      <ObjectId>16938</ObjectId>
-      <StateNumber>920</StateNumber>
+    <index id="52" parent="31" name="group_pkey">
+      <ObjectId>49800</ObjectId>
+      <StateNumber>1269</StateNumber>
+      <ColNames>group_id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="53" parent="31" name="group_pkey">
+      <ObjectId>49801</ObjectId>
+      <StateNumber>1269</StateNumber>
+      <ColNames>group_id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>group_pkey</UnderlyingIndexName>
+    </key>
+    <column id="54" parent="32" name="project_id">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1268</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="55" parent="32" name="course_id">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1268</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="56" parent="32" name="groupMembers">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>1268</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="57" parent="32" name="deadline">
+      <Position>4</Position>
+      <DataType>date|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1268</StateNumber>
+      <TypeId>1082</TypeId>
+    </column>
+    <index id="58" parent="32" name="projects_pkey">
+      <ObjectId>49792</ObjectId>
+      <StateNumber>1268</StateNumber>
       <ColNames>project_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="54" parent="28" name="projects_pkey">
-      <ObjectId>16939</ObjectId>
-      <StateNumber>920</StateNumber>
+    <key id="59" parent="32" name="projects_pkey">
+      <ObjectId>49793</ObjectId>
+      <StateNumber>1268</StateNumber>
       <ColNames>project_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>projects_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="55" parent="28" name="projects_course_id_fkey">
-      <ObjectId>16940</ObjectId>
-      <StateNumber>920</StateNumber>
-      <ColNames>course_id</ColNames>
-      <RefTableId>16922</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>courses</RefTableName>
-      <RefKeyName>courses_pkey</RefKeyName>
-      <RefColNames>course_id</RefColNames>
-    </foreign-key>
-    <column id="56" parent="29" name="student_id">
+    <column id="60" parent="33" name="student_id">
       <Position>1</Position>
-      <DataType>varchar(6)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1263</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="57" parent="29" name="group_id">
+    <column id="61" parent="33" name="group_id">
       <Position>2</Position>
-      <DataType>integer|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
-      <TypeId>23</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1263</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="58" parent="29" name="name">
+    <column id="62" parent="33" name="name">
       <Position>3</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1263</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="59" parent="29" name="surname">
+    <column id="63" parent="33" name="surname">
       <Position>4</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1263</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="60" parent="29" name="password">
+    <column id="64" parent="33" name="password">
       <Position>5</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
+      <StateNumber>1263</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="61" parent="29" name="email">
+    <column id="65" parent="33" name="email">
       <Position>6</Position>
-      <DataType>varchar(40)|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
-      <TypeId>1043</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1263</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="62" parent="29" name="salt">
+    <column id="66" parent="33" name="salt">
       <Position>7</Position>
-      <DataType>bytea|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>922</StateNumber>
-      <TypeId>17</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1263</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <index id="63" parent="29" name="students_pkey">
-      <ObjectId>16961</ObjectId>
-      <StateNumber>922</StateNumber>
+    <index id="67" parent="33" name="students_pkey">
+      <ObjectId>49768</ObjectId>
+      <StateNumber>1263</StateNumber>
       <ColNames>student_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="64" parent="29" name="students_pkey">
-      <ObjectId>16962</ObjectId>
-      <StateNumber>922</StateNumber>
+    <key id="68" parent="33" name="students_pkey">
+      <ObjectId>49769</ObjectId>
+      <StateNumber>1263</StateNumber>
       <ColNames>student_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>students_pkey</UnderlyingIndexName>
     </key>
-    <foreign-key id="65" parent="29" name="students_group_id_fkey">
-      <ObjectId>16963</ObjectId>
-      <StateNumber>922</StateNumber>
-      <ColNames>group_id</ColNames>
-      <RefTableId>16945</RefTableId>
-      <RefColPositions>1</RefColPositions>
-      <RefTableName>groups</RefTableName>
-      <RefKeyName>groups_pkey</RefKeyName>
-      <RefColNames>group_id</RefColNames>
-    </foreign-key>
-    <column id="66" parent="30" name="teacher_id">
+    <column id="69" parent="34" name="teacher_id">
       <Position>1</Position>
-      <DataType>varchar(6)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>917</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1264</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="67" parent="30" name="name">
+    <column id="70" parent="34" name="name">
       <Position>2</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>917</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1264</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="68" parent="30" name="surname">
+    <column id="71" parent="34" name="surname">
       <Position>3</Position>
-      <DataType>varchar(30)|0s</DataType>
+      <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>917</StateNumber>
-      <TypeId>1043</TypeId>
+      <StateNumber>1264</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="69" parent="30" name="password">
+    <column id="72" parent="34" name="password">
       <Position>4</Position>
       <DataType>text|0s</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>917</StateNumber>
+      <StateNumber>1264</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="70" parent="30" name="email">
+    <column id="73" parent="34" name="email">
       <Position>5</Position>
-      <DataType>varchar(40)|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>917</StateNumber>
-      <TypeId>1043</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1264</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <column id="71" parent="30" name="salt">
+    <column id="74" parent="34" name="salt">
       <Position>6</Position>
-      <DataType>bytea|0s</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>917</StateNumber>
-      <TypeId>17</TypeId>
+      <DataType>text|0s</DataType>
+      <StateNumber>1264</StateNumber>
+      <TypeId>25</TypeId>
     </column>
-    <index id="72" parent="30" name="teachers_pkey">
-      <ObjectId>16915</ObjectId>
-      <StateNumber>917</StateNumber>
+    <index id="75" parent="34" name="Teachers_pkey">
+      <ObjectId>49776</ObjectId>
+      <StateNumber>1264</StateNumber>
       <ColNames>teacher_id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="73" parent="30" name="teachers_pkey">
-      <ObjectId>16916</ObjectId>
-      <StateNumber>917</StateNumber>
+    <key id="76" parent="34" name="Teachers_pkey">
+      <ObjectId>49777</ObjectId>
+      <StateNumber>1264</StateNumber>
       <ColNames>teacher_id</ColNames>
       <Primary>1</Primary>
-      <UnderlyingIndexName>teachers_pkey</UnderlyingIndexName>
+      <UnderlyingIndexName>Teachers_pkey</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
