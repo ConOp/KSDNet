@@ -38,18 +38,27 @@ public class UserServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
 
-        String uni_type = request.getParameter("option"); //S or T
         String uname = request.getParameter("uname");
         String surname = request.getParameter("surname");
         String userid = request.getParameter("userid");
         String pass = request.getParameter("pass");
         String email = request.getParameter("email");
+        String user_type = "";
+        String id = "";
+
+        if(userid.charAt(0) == 'S'){
+            user_type = "students";
+            id = "student_id";
+        }else if(userid.charAt(0) == 'T'){
+            user_type = "teachers";
+            id = "teacher_id";
+        }
 
         try {
             salt = getSalt();
             securePassword = SecurePassword(pass, salt);
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("INSERT INTO students(student_id,name,surname,password,email,salt) VALUES(?,?,?,?,?,?);");
+            PreparedStatement st = con.prepareStatement("INSERT INTO " + user_type +"("+ id +",name,surname,password,email,salt) VALUES(?,?,?,?,?,?);");
             st.setString(1, userid);
             st.setString(2, uname);
             st.setString(3, surname);

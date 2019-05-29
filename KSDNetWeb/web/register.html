@@ -26,17 +26,17 @@
                 </tr>
                 <tr>
                     <td><h4>Enter your Username</h4></td>
-                    <td><input name ="userid" placeholder=" " type="text" maxlength="6" pattern="^[S|T][0-9][0-9][0-9][0-9][0-9]"
+                    <td><input id="userid" name ="userid" placeholder=" " type="text" maxlength="6" pattern="^[S|T][0-9][0-9][0-9][0-9][0-9]"
                                title="First character must be S for Students or T for teachers, followed by 5 digits" onchange="check_id()" required></td>
                 </tr>
                 <tr>
                     <td><h4>Enter your Password</h4></td>
-                    <td><input  name ="pass" placeholder="Enter Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}"
+                    <td><input  id="pass" name ="pass" placeholder="Enter Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}"
                                 title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 to 15 characters" required></td>
                 </tr>
                 <tr>
                     <td><h4>Please reenter your Password</h4></td>
-                    <td><input  name ="conpass" placeholder="Enter Password Again" type="password" required></td>
+                    <td><input  id="conpass" name ="conpass" placeholder="Enter Password Again" type="password" required></td>
                 </tr>
                 <tr>
                     <td><h4>Enter email address</h4></td>
@@ -85,7 +85,6 @@
             } else {
                 conpass.setCustomValidity('');
             }
-
 
         }
         pass.onchange = validation();
