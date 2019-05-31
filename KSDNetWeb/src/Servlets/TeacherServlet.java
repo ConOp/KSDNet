@@ -15,8 +15,6 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "TeacherServlet", value="/Teacher")
 public class TeacherServlet extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
     private DataSource ds = null;
 
     public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
@@ -38,15 +36,17 @@ public class TeacherServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        //out.println("<h1>"+"HELLO!"+"</h1>");
 
 
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement(""); //παίρνουμε το userid από τη βάση
+            PreparedStatement st = con.prepareStatement("Select name From courses"); //παίρνουμε το userid από τη βάση
             ResultSet Rs = st.executeQuery();
+            while(Rs.next()){
+                out.println("<h1>\""+Rs.getString(0)+"\"</h1><br>");//doesn't print for some reason...
+            }
+            out.println("<h1>\"Nothingness\"</h1>");//doesn't print either...
         }catch(Exception e){}
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

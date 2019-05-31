@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-@WebServlet(name = "StudentServlet")
+@WebServlet(name = "StudentServlet", value="/Student")
 public class StudentServlet extends HttpServlet {
     private DataSource ds = null;
     public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
