@@ -50,6 +50,8 @@ public class LoginServlet extends HttpServlet {
         }else if(userid.charAt(0) == 'T'){
             user_type = "teachers";
             id = "teacher_id";
+        }else{
+            response.sendRedirect("index.html");
         }
 
         try{
@@ -69,15 +71,22 @@ public class LoginServlet extends HttpServlet {
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
 
                     if(userid.equals(Rs1.getString(""+id+""))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
-
                         session.setAttribute("username", userid);
-                        response.sendRedirect("st_homepage.html");
+                        if(id.equals("student_id")){
+                            con.close();
+                            response.sendRedirect("st_homepage.html");
+                        }else{
+                            con.close();
+                            response.sendRedirect("/Teacher");
+                        }
                     }else {
+                        con.close();
                         response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
                     }
                 }
 
             }else {
+                con.close();
                 response.sendRedirect("index.html"); //αν δώσει λάθος username(που δεν υπάρχει στη βάση), χωρίς να με ενδιαφέρει ο κωδικός τον στέλνω απευθείας στο login
             }
         }catch (Exception e){
