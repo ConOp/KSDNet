@@ -57,9 +57,7 @@ public class LoginServlet extends HttpServlet {
             PreparedStatement st = con.prepareStatement("SELECT "+id+" FROM "+user_type+";"); //παίρνουμε το userid από τη βάση
             ResultSet Rs = st.executeQuery();
             while(Rs.next()) {
-                //if(userid==Rs.getString(id)) { //έλεγχος αν υπάρχει καταχωρημένος χρήστης με τέτοιο userid
                     flag=true;
-               // }
             }
 
             if(flag) {
@@ -69,7 +67,7 @@ public class LoginServlet extends HttpServlet {
                     salt = Rs1.getBytes("salt");
                     securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
-                    System.out.println(securePassword);
+
                     if(userid.equals(Rs1.getString(""+id+""))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
 
                         session.setAttribute("username", userid);
