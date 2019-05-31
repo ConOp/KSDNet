@@ -18,11 +18,11 @@
                 </tr>
                 <tr>
                     <td><h4>Enter your name:</h4></td>
-                    <td><input name ="uname" placeholder="name" onkeypress="return onlyLetters(event)" type="text" required></td>
+                    <td><input name ="uname" placeholder="name" pattern="^[a-zA-Z]+$" type="text" required></td>
                 </tr>
                 <tr>
                     <td><h4>Enter your surname:</h4></td>
-                    <td><input name ="surname" placeholder="surname" onkeypress="return onlyLetters(event)" type="text" required></td>
+                    <td><input name ="surname" placeholder="surname" pattern="^[a-zA-Z]+$" type="text" required></td>
                 </tr>
                 <tr>
                     <td><h4>Enter your Username</h4></td>
@@ -53,21 +53,13 @@
     <script>
         var user_type = "";
         function check_holder(X) {
-            if (X == 1){
+            if (X == 1) {
                 document.getElementById("userid").placeholder = "Sxxxxx";
                 user_type = "S";
-            }else{
+            } else {
                 document.getElementById("userid").placeholder = "Txxxxx";
                 user_type = "T";
             }
-        }
-        function onlyLetters(evt)
-        {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode != 46 && charCode > 31
-                && (charCode < 48 || charCode > 57))
-                return true;
-            return false;
         }
         function check_id(){
             var userid = document.getElementById("userid").value;

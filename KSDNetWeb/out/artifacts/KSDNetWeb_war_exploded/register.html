@@ -18,11 +18,11 @@
                 </tr>
                 <tr>
                     <td><h4>Enter your name:</h4></td>
-                    <td><input name ="uname" placeholder="name" onkeypress="return onlyLetters(event)" type="text" required></td>
+                    <td><input name ="uname" placeholder="name" pattern="^[a-zA-Z]+$" type="text" required></td>
                 </tr>
                 <tr>
                     <td><h4>Enter your surname:</h4></td>
-                    <td><input name ="surname" placeholder="surname" onkeypress="return onlyLetters(event)" type="text" required></td>
+                    <td><input name ="surname" placeholder="surname" pattern="^[a-zA-Z]+$" type="text" required></td>
                 </tr>
                 <tr>
                     <td><h4>Enter your Username</h4></td>
