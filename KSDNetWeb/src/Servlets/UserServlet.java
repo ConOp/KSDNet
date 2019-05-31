@@ -17,9 +17,10 @@ import java.security.*;
 @WebServlet(name ="Servlets.UserServlet",value ="/Register")
 public class UserServlet extends HttpServlet {
 
-    static String generatedPassword = null;
-    String securePassword = null;
-    static byte[] salt;
+    private static String generatedPassword = null;
+    private String securePassword = null;
+    private static byte[] salt;
+
 
     private static final long serialVersionUID = 1L;
     private DataSource ds = null;
@@ -43,8 +44,9 @@ public class UserServlet extends HttpServlet {
         String userid = request.getParameter("userid");
         String pass = request.getParameter("pass");
         String email = request.getParameter("email");
-        String user_type = "";
+
         String id = "";
+        String user_type = "";
 
         if(userid.charAt(0) == 'S'){
             user_type = "students";
@@ -87,7 +89,7 @@ public class UserServlet extends HttpServlet {
 
     }
 
-    private static String SecurePassword(String pass,byte[] salt) {
+    public static String SecurePassword(String pass,byte[] salt) {
 
         try {
             //αρχικοποιήση αντικειμένου MessageDigest χρησιμοποιώντας τον αλγόριθμο SHA-256
