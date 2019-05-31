@@ -67,7 +67,7 @@ public class LoginServlet extends HttpServlet {
                 ResultSet Rs1 = sm.executeQuery();
                 while(Rs1.next()) {
                     salt = Rs1.getBytes("salt");
-                    securePassword = UserServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
+                    securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
                     System.out.println(securePassword);
                     if(userid.equals(Rs1.getString(""+id+""))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username

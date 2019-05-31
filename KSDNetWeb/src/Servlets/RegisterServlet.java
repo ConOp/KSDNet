@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import javax.sql.*;
 import java.security.*;
 
-@WebServlet(name ="Servlets.UserServlet",value ="/Register")
-public class UserServlet extends HttpServlet {
+@WebServlet(name ="RegisterServlet",value ="/Register")
+public class RegisterServlet extends HttpServlet {
 
     private static String generatedPassword = null;
     private String securePassword = null;
