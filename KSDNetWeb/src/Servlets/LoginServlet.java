@@ -57,9 +57,9 @@ public class LoginServlet extends HttpServlet {
             PreparedStatement st = con.prepareStatement("SELECT "+id+" FROM "+user_type+";"); //παίρνουμε το userid από τη βάση
             ResultSet Rs = st.executeQuery();
             while(Rs.next()) {
-                if(userid==Rs.getString(id)) { //έλεγχος αν υπάρχει καταχωρημένος χρήστης με τέτοιο userid
+                //if(userid==Rs.getString(id)) { //έλεγχος αν υπάρχει καταχωρημένος χρήστης με τέτοιο userid
                     flag=true;
-                }
+               // }
             }
 
             if(flag) {
