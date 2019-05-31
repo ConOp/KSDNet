@@ -50,12 +50,15 @@ public class LoginServlet extends HttpServlet {
         }else if(userid.charAt(0) == 'T'){
             user_type = "teachers";
             id = "teacher_id";
+        }else{
+            response.sendRedirect("index.html"); //an to userid 3ekinaei apo opoiodhpote allo xarakthra
         }
 
         try{
             Connection con = ds.getConnection();
             PreparedStatement st = con.prepareStatement("SELECT "+id+" FROM "+user_type+";"); //παίρνουμε το userid από τη βάση
             ResultSet Rs = st.executeQuery();
+            st.close();
             while(Rs.next()) {
                     flag=true;
             }
@@ -71,7 +74,7 @@ public class LoginServlet extends HttpServlet {
                     if(userid.equals(Rs1.getString(""+id+""))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
 
                         session.setAttribute("username", userid);
-                        response.sendRedirect("st_homepage.html");
+                        response.sendRedirect("student_homepage.html");
                     }else {
                         response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
                     }
@@ -80,9 +83,11 @@ public class LoginServlet extends HttpServlet {
             }else {
                 response.sendRedirect("index.html"); //αν δώσει λάθος username(που δεν υπάρχει στη βάση), χωρίς να με ενδιαφέρει ο κωδικός τον στέλνω απευθείας στο login
             }
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+
     }
 
 
