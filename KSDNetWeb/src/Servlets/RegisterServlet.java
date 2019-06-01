@@ -72,6 +72,18 @@ public class RegisterServlet extends HttpServlet {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            PrintWriter out = response.getWriter();	//για εκτύπωση στην html
+            String title = "Registration failed";
+            String docType ="<!doctype html public\">\n";
+            out.println(docType +
+                    "<html>\n" +
+                    "<head><title>" + title + "</title><style>input[type=button]{margin:50px 42% auto;font-size:10pt;font-weight:bold;}" +
+                    "</style></head>\n" +
+                    "<body bgcolor = \"#f0f0f0\">\n" +
+                    "<h1 align = \"center\">" + title + "</h1>\n" +
+                    "<h3 align=\"center\">Userid already used!!!</h3>"+
+                    "<input onclick=\"location.href='register.html'\" type=\"button\" value=\"GO_BACK_TO_LOGIN\">"+"</body></html>");
+            return;
         }
 
         PrintWriter out = response.getWriter();	//για εκτύπωση στην html
