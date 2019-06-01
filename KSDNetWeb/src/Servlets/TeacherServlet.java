@@ -36,17 +36,18 @@ public class TeacherServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
+        out.println("<!DOCTYPE HTML><html><head></head><body>");
 
 
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("Select name From courses"); //παίρνουμε το userid από τη βάση
+            PreparedStatement st = con.prepareStatement("Select * From courses"); //παίρνουμε το userid από τη βάση
             ResultSet Rs = st.executeQuery();
             while(Rs.next()){
-                out.println("<h1>\""+Rs.getString(0)+"\"</h1><br>");//doesn't print for some reason...
+                out.println("<h1>"+Rs.getString("name")+"</h1><br>");//doesn't print for some reason...
             }
-            out.println("<h1>\"Nothingness\"</h1>"+
-            "<input onclick=\"location.href='new_course.html'\" type=\"button\" value=\"Add new course\">"+"</body></html>");//doesn't print either...
+            out.println("<button onclick=\"location.href='new_course.html'\" > Add new course</button>");//doesn't print either...
+            out.println("</body></html>");
         }catch(Exception e){}
     }
 
