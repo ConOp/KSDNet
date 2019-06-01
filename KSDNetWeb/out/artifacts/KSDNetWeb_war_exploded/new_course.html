@@ -2,34 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Cousrse</title>
+    <title>Add Course</title>
     <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="./bootstrap/css/bootstrap-grid.css" rel="stylesheet">
     <link href="./bootstrap/css/bootstrap-reboot.css" rel="stylesheet"><link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
 </head>
 <body>
-
+    <h3>Add new Course</h3>
+    <form action="/Add_course" method="post">
     <table>
         <tr>
 
         </tr>
         <tr>
             <td><h4>Course Name:</h4></td>
-            <td><input id="name" placeholder="name" onkeypress="return onlyLetters(event)" type="text" required></td>
+            <td><input name="name" id="name" placeholder="name" onkeypress="return onlyLetters(event)" type="text" required></td>
         </tr>
         <tr>
             <td><h4>Course id:</h4></td>
-            <td><input id="courseid" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]" required></td>
+            <td><input name="course_id" id="course_id" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]" required></td>
         </tr>
 
         <tr>
             <td><h4>Enter the number of projects</h4></td>
-            <td><input id="Nrofprojects" placeholder="number of projects:" type="number" min="0" step="1"/>
+            <td><input name="number_projects" id="number_projects" placeholder="number of projects:" type="number" min="0" step="1"/>
 
         </tr>
 
     </table>
-    <button id="coursebtn" onclick="validation()" type="submit">Add Course</button>
+        <form action="index.html">
+            <br>
+            <button id="BackToLogin" type="submit">Add Course</button>
+        </form>
     <script>
 
         function onlyLetters(evt)
