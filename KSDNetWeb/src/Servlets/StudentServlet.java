@@ -11,8 +11,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-@WebServlet(name = "StudentServlet", value="/Student")
+@WebServlet(name = "StudentServlet", value="/StudentHomepage")
 public class StudentServlet extends HttpServlet {
     private DataSource ds = null;
     public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
@@ -36,11 +38,26 @@ public class StudentServlet extends HttpServlet {
         try {
             Connection con = ds.getConnection();
             PreparedStatement st = con.prepareStatement("SELECT * FROM COURSES");
-            st.executeUpdate();
+            ResultSet rs= st.executeQuery();
+            PrintResults(rs,out);
+
         }
         catch (Exception e){
 
         }
 
+    }
+
+    protected void PrintResults(ResultSet rs,PrintWriter out) {
+        out.println("<table><tr><td>Course ID</td><td>Course Name</td><td>Number Of Projects</td></tr>");
+        try {
+            while (rs.next()){
+                out.println("<tr><td>"+rs.getString("course_id")+"</td><td>"+rs.getString("name")+"</td><td>"+rs.getString("number_projects")+"</td></tr>");
+            }
+            out.println("</table>");
+        }
+        catch (SQLException e){
+
+        }
     }
 }
