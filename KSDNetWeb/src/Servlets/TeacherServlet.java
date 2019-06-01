@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet(name = "TeacherServlet", value="/Teacher")
+@WebServlet(name = "TeacherServlet", value="/TeacherHomepage")
 public class TeacherServlet extends HttpServlet {
     private DataSource ds = null;
 

@@ -1,6 +1,7 @@
 package Servlets;
 
 import javax.naming.InitialContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,10 +65,17 @@ public class LoginServlet extends HttpServlet {
                     securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
 
-                    if(userid.equals(Rs1.getString(""+id+""))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
-
+                    if(userid.equals(Rs1.getString(id))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
                         session.setAttribute("username", userid);
-                        response.sendRedirect("student_homepage.html");
+
+                        if(user_type=="teachers"){
+                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
+                            dispatcher.forward(request, response);
+                        }
+                        else{
+                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
+                            dispatcher.forward(request, response);
+                        }
                     }else {
                         response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
                         return;
