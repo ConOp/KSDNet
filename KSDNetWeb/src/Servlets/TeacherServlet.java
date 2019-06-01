@@ -45,7 +45,8 @@ public class TeacherServlet extends HttpServlet {
             while(Rs.next()){
                 out.println("<h1>\""+Rs.getString(0)+"\"</h1><br>");//doesn't print for some reason...
             }
-            out.println("<h1>\"Nothingness\"</h1>");//doesn't print either...
+            out.println("<h1>\"Nothingness\"</h1>"+
+            "<input onclick=\"location.href='new_course.html'\" type=\"button\" value=\"Add new course\">"+"</body></html>");//doesn't print either...
         }catch(Exception e){}
     }
 

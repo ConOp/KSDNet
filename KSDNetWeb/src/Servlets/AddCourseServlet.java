@@ -38,17 +38,16 @@ public class AddCourseServlet extends HttpServlet {
 
         String name = request.getParameter("name");
         String course_id = request.getParameter("course_id");
-        String number_projects = request.getParameter("number_projects");
+        int number_projects = Integer.parseInt(request.getParameter("number_projects"));
 
         try {
 
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement(" insert into courses (course_id, teacher_id, name, number_projects)\"\n" +
-                            "        + \" values (?, ?, ?, ?)");
+            PreparedStatement st = con.prepareStatement(" insert into courses (course_id, teacher_id, name, number_projects) values (?, ?, ?, ?)");
             st.setString(1, course_id);
             st.setString(2, userid);
             st.setString(3, name);
-            st.setString(4, number_projects);
+            st.setInt(4, number_projects);
 
             st.executeUpdate();
             st.close();

@@ -82,7 +82,7 @@ public class RegisterServlet extends HttpServlet {
                     "<body bgcolor = \"#f0f0f0\">\n" +
                     "<h1 align = \"center\">" + title + "</h1>\n" +
                     "<h3 align=\"center\">Userid already used!!!</h3>"+
-                    "<input onclick=\"location.href='register.html'\" type=\"button\" value=\"GO_BACK_TO_LOGIN\">"+"</body></html>");
+                    "<input onclick=\"location.href='register.html'\" type=\"button\" value=\"GO_BACK_TO_REGISTER\">"+"</body></html>");
             return;
         }
 
