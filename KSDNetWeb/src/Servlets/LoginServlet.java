@@ -52,21 +52,14 @@ public class LoginServlet extends HttpServlet {
             id = "teacher_id";
         }else{
             response.sendRedirect("index.html"); //an to userid 3ekinaei apo opoiodhpote allo xarakthra
+            return;
         }
 
         try{
-            Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT "+id+" FROM "+user_type+";"); //παίρνουμε το userid από τη βάση
-            ResultSet Rs = st.executeQuery();
-            st.close();
-            while(Rs.next()) {
-                    flag=true;
-            }
-
-            if(flag) {
+                Connection con = ds.getConnection();
                 PreparedStatement sm = con.prepareStatement("SELECT "+id+", password, salt FROM "+user_type+" where "+id+" = '"+ userid +"';");
                 ResultSet Rs1 = sm.executeQuery();
-                while(Rs1.next()) {
+                if(Rs1.next()) {
                     salt = Rs1.getBytes("salt");
                     securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
@@ -77,15 +70,18 @@ public class LoginServlet extends HttpServlet {
                         response.sendRedirect("student_homepage.html");
                     }else {
                         response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
+                        return;
                     }
                 }
+                else{
+                    response.sendRedirect("index.html");
+                    return;
+                }
 
-            }else {
-                response.sendRedirect("index.html"); //αν δώσει λάθος username(που δεν υπάρχει στη βάση), χωρίς να με ενδιαφέρει ο κωδικός τον στέλνω απευθείας στο login
-            }
 
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            response.sendRedirect("index.html");
+            return;
         }
 
     }
