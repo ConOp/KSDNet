@@ -57,35 +57,35 @@ public class LoginServlet extends HttpServlet {
         }
 
         try{
-            Connection con = ds.getConnection();
-            PreparedStatement sm = con.prepareStatement("SELECT "+id+", password, salt FROM "+user_type+" where "+id+" = '"+ userid +"';");
-            ResultSet Rs1 = sm.executeQuery();
-            if(Rs1.next()) {
-                salt = Rs1.getBytes("salt");
-                securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
+                Connection con = ds.getConnection();
+                PreparedStatement sm = con.prepareStatement("SELECT "+id+", password, salt FROM "+user_type+" where "+id+" = '"+ userid +"';");
+                ResultSet Rs1 = sm.executeQuery();
+                if(Rs1.next()) {
+                    salt = Rs1.getBytes("salt");
+                    securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
 
-                if(userid.equals(Rs1.getString(id))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
-                    session.setAttribute("username", userid);
+                    if(userid.equals(Rs1.getString(id))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
+                        session.setAttribute("username", userid);
 
-                    if(user_type=="teachers"){
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
-                        dispatcher.forward(request, response);
+                        if(user_type=="teachers"){
+                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
+                            dispatcher.forward(request, response);
+                        }
+                        else{
+                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
+                            dispatcher.forward(request, response);
+                        }
+                    }else {
+                        response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
+                        return;
                     }
-                    else{
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
-                        dispatcher.forward(request, response);
-                    }
-                }else {
-                    response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
+                }
+                else{
+                    response.sendRedirect("index.html");
                     return;
                 }
-            }
-            else{
-                response.sendRedirect("index.html");
-                return;
-            }
-
+                sm.close();
 
         }catch (Exception e){
             response.sendRedirect("index.html");
