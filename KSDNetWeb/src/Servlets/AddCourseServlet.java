@@ -1,6 +1,7 @@
 package Servlets;
 
 import javax.naming.InitialContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -51,6 +52,10 @@ public class AddCourseServlet extends HttpServlet {
 
             st.executeUpdate();
             st.close();
+
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
+            dispatcher.forward(request, response);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
