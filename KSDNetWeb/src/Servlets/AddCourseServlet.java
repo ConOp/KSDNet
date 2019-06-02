@@ -1,7 +1,6 @@
 package Servlets;
 
 import javax.naming.InitialContext;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,8 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import javax.servlet.RequestDispatcher;
+
 
 @WebServlet(name = "AddCourseServlet",value ="/Add_course")
 
@@ -48,12 +50,23 @@ public class AddCourseServlet extends HttpServlet {
 
             st.executeUpdate();
             st.close();
-
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            PrintWriter out = response.getWriter();	//για εκτύπωση στην html
+            String title = "Course already exists";
+            String docType ="<!doctype html public\">\n";
+            out.println(docType +
+                    "<html>\n" +
+                    "<head><title>" + title + "</title><style>input[type=button]{margin:50px 42% auto;font-size:10pt;font-weight:bold;}" +
+                    "</style></head>\n" +
+                    "<body bgcolor = \"#f0f0f0\">\n" +
+                    "<h1 align = \"center\">" + title + "</h1>\n" +
+                    "<h3 align=\"center\">Courseid already used!!!</h3>"+
+                    "<input onclick=\"location.href='new_course.html'\" type=\"button\" value=\"GO_BACK_TO_ADD_COURSE\">"+"</body></html>");
+            return;
         }
     }
 }
