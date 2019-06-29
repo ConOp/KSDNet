@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap-reboot.css" rel="stylesheet"><link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+</head>
+<body>
+<h3>Add new Project</h3>
+<form action="/TCourse" method="post">
+    <table>
+        <tr>
+
+        </tr>
+        <tr>
+            <td><h4>Group Members:</h4></td>
+            <td><input name="groupmembers"   type="number" min="0" max="20" step="1" required></td>
+        </tr>
+        <tr>
+            <td><h4>Project ID:</h4></td>
+            <td><input name="ProjectID"  placeholder="P???"  type="text"  maxlength="4" pattern="^[P][0-9][0-9][0-9]"
+                       title="First character must be P, followed by 3 digits" required></td>
+        </tr>
+        <tr>
+        <td><h4>Max Grade:</h4></td>
+        <td><input name="maxgrade"   type="number" min="0" max="100" step="10" required></td>
+    </tr>
+
+        <tr>
+            <td><h4>Deadline</h4></td>
+            <td><input name="Deadline"   placeholder="Deadline" type="datetime-local">
+
+        </tr>
+
+    </table><br>
+    <input name="added_project"  type="submit" value="Add Project">
+</form>
+<script src="./bootstrap/js/bootstrap.bundle.js" ></script>
+<script src="./bootstrap/js/bootstrap.js" ></script>
+</body>
+</html>
+</html>
