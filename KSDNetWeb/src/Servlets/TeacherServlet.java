@@ -44,12 +44,12 @@ public class TeacherServlet extends HttpServlet {
                 "<link href=\"./bootstrap/css/bootstrap.css\" rel=\"stylesheet\">" +
                 "<link href=\"./bootstrap/css/bootstrap-grid.css\" rel=\"stylesheet\">" +
                 "<link href=\"./bootstrap/css/bootstrap-reboot.css\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"./bootstrap/css/bootstrap.css\">" +
-                "</head><body><div class=\"container d-flex justify-content-center\">\n" +
+                "</head><body>" +
+                "<div class=\"container d-flex justify-content-center\">\n" +
                 "<div class=\"shadow p-3 mb-5 bg-white rounded\">\n" +
                 "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">\n" +
-                "<h5 class=\"card-title\">Κατάλογος μαθημάτων</h5>\n" +
-                "<h6 class=\"card-subtitle mb-2 text-muted\">Επιλεγμένα μαθήματα</h6><div class = \"col\">\n" +
-                "<form method=\"post\" action=\"/TeacherHomepage\"><ul class=\"list-group list-group-flush\">");
+                "<h5 class=\"card-title\">Course List</h5>\n" +
+                "<h6 class=\"card-subtitle mb-2 text-muted\">Selected Courses</h6><div class = \"col\">\n");
 
 
         try{
@@ -65,18 +65,25 @@ public class TeacherServlet extends HttpServlet {
                 response.sendRedirect("index.html");
             }
             st.close();
+            con.close();
         }catch(Exception e){
 
         }
     }
     protected void PrintResults(ResultSet rs,PrintWriter out) {
         try {
+            int i =0;
+            out.println("<form method=\"POST\" action=\"/TCourse\">" +
+                    "<ul class=\"list-group list-group-flush\">");
             while (rs.next()){
-                out.println("<a href=\"#\" class=\"list-group-item list-group-item-action\">"+rs.getString("name")+"</a>");
+                out.println("<input type=\"submit\" name=\"coursename\" id="+i+" class=\"list-group-item list-group-item-action\" value=\""+rs.getString("name")+"\">");
+            i++;
             }
+            out.println("</form>");
             out.println("</ul><br>" +
-                    "<input type=\"button\" onclick=\"location.href='new_course.html'\" value=\"Add new course\"><br>" +
-                    "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
+                    "<form method=\"post\" action=\"/TeacherHomepage\">" +
+                    "<input type=\"button\" onclick=\"location.href='new_course.html'\"  value=\"Add new course\"><br>" +
+                    "<input type=\"submit\" id=\"log\"  value=\"LOGOUT\" name=\"logout\">\n" +
                     "</form></div></div></div></div></div>" +
                     "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
                     "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
