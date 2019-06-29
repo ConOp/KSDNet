@@ -27,13 +27,13 @@ public class GradeServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter  out=response.getWriter();
-        String testname = "C57832";//(String)request.getParameter();
+        String id = request.getParameter("name");
         ResultSet Rs=null;
 
 
@@ -55,7 +55,7 @@ public class GradeServlet extends HttpServlet {
 
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT  group_id,totalgrade FROM groups WHERE course_id='"+testname+"' and  totalgrade=0 asc"); //παίρνουμε το userid από τη βάση
+            PreparedStatement st = con.prepareStatement("SELECT  group_id,totalgrade FROM groups WHERE course_id='"+testname+"'"); //παίρνουμε το userid από τη βάση
             Rs = st.executeQuery();
             PrintResults(Rs,out);
             if (request.getParameter("logout") != null) {
