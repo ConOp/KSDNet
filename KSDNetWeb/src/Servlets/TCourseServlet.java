@@ -50,6 +50,8 @@ public class TCourseServlet extends HttpServlet {
 
                 PreparedStatement st = con.prepareStatement("DELETE FROM  courses WHERE name='"+Coursename+"'");
                 int val = st.executeUpdate();
+                st = con.prepareStatement("DELETE FROM  projects WHERE course_id='"+Courseid+"'");
+                 val = st.executeUpdate();
                 st.close();
                 con.close();
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
@@ -69,6 +71,9 @@ public class TCourseServlet extends HttpServlet {
                 out.println(       "<form action=\"/TCourse\" method=\"Post\">" +
                         "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" />" +
                         "</form>" +
+                                "<form action=\"/GradingTeacher\" method=\"Post\">" +
+                                "<input type=\"submit\" name=\""+Courseid+"\" value=\"Assign Grades\" />"+
+                        "</form>" +
                         "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" />");
 
                 PreparedStatement st = con.prepareStatement("SELECT course_id FROM courses WHERE name = '"+Coursename+"'");
@@ -76,11 +81,11 @@ public class TCourseServlet extends HttpServlet {
                 Rs.next();
                Courseid= Rs.getString("course_id");
 
-                 st = con.prepareStatement("SELECT project_id,groupMembers FROM projects WHERE course_id = '"+Courseid+"'");
+                 st = con.prepareStatement("SELECT project_id,groupmembers FROM projects WHERE course_id = '"+Courseid+"'");
                  Rs = st.executeQuery();
 
                     while(Rs.next()){
-                        out.println("<a>"+Rs.getString(0)+","+Rs.getString(1)+"</a>");
+                        out.println("<a>"+Rs.getString("project_id")+","+Rs.getString("groupmembers")+"</a>");
                     }
 
 
@@ -94,16 +99,18 @@ public class TCourseServlet extends HttpServlet {
             String projectid = request.getParameter("ProjectID");
             String groupmembers = request.getParameter("groupmembers");
             String deadline =request.getParameter("Deadline");
+            String max_grade = request.getParameter("maxgrade");
+            int max = Integer.parseInt(max_grade);
             //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            OffsetDateTime odt = OffsetDateTime.parse( deadline );
+            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+            //OffsetDateTime odt = OffsetDateTime.parse( deadline );
             try {
 
-                Date parsed = java.util.Date.from( instant );
+                Date parsed = df1.parse(deadline);
                 Connection con = ds.getConnection();
 
-                PreparedStatement st = con.prepareStatement("INSERT INTO projects(project_id, course_id, groupMembers, deadline) VALUES ('"+projectid+"','"+Courseid+"','"+groupmembers+"',"+parsed+")");
-                ResultSet Rs = st.executeQuery();
+                PreparedStatement st = con.prepareStatement("INSERT INTO projects(project_id, course_id,groupMembers, deadline,max_grade) VALUES ('"+projectid+"','"+Courseid+"','"+groupmembers+"','"+parsed+"',"+max+")");
+               int val = st.executeUpdate();
 
             }
             catch (Exception e){
