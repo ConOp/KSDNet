@@ -69,6 +69,7 @@ public class RegisterServlet extends HttpServlet {
             st.setBytes(6, salt);
             st.executeUpdate();
             st.close();
+            con.close();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

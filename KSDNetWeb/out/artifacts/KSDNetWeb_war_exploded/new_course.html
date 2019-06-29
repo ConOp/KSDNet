@@ -10,43 +10,33 @@
 <body>
     <h3>Add new Course</h3>
     <form action="/Add_course" method="post">
-    <table>
-        <tr>
+        <table>
+            <tr>
 
-        </tr>
-        <tr>
-            <td><h4>Course Name:</h4></td>
-            <td><input name="name" id="name" placeholder="name" onkeypress="return onlyLetters(event)" type="text" required></td>
-        </tr>
-        <tr>
-            <td><h4>Course id:</h4></td>
-            <td><input name="course_id" id="course_id" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]" required></td>
-        </tr>
+            </tr>
+            <tr>
+                <td><h4>Course Name:</h4></td>
+                <td><input name="name" id="name" placeholder="name" pattern="^[a-zA-Z ]+$" type="text" required></td>
+            </tr>
+            <tr>
+                <td><h4>Course id:</h4></td>
+                <td><input name="course_id" id="course_id" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]"
+                           title="First character must be C, followed by 5 digits" required></td>
+            </tr>
 
-        <tr>
-            <td><h4>Enter the number of projects</h4></td>
-            <td><input name="number_projects" id="number_projects" placeholder="number of projects:" type="number" min="0" step="1"/>
+            <tr>
+                <td><h4>Enter the number of projects</h4></td>
+                <td><input name="number_projects" id="number_projects" placeholder="number of projects:" type="number" min="0" step="1">
 
-        </tr>
+            </tr>
 
-    </table>
-        <form action="index.html">
-            <br>
-            <button id="BackToLogin" type="submit">Add Course</button>
-        </form>
+        </table><br>
+            <input name="added_course" id="added_course" type="submit" value="Add Course">
+    </form>
     <script>
-
-        function onlyLetters(evt)
-        {
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode != 46 && charCode > 31
-                && (charCode < 48 || charCode > 57))
-                return true;
-            return false;
-        }
         function check_id(){
             var courseid = document.getElementById("courseid").value;
-            if(courseid.charAt(0)!= user_type){
+            if(courseid.charAt(0)!= "C"){
                 document.getElementById("courseid").value = "";
             }
         }
