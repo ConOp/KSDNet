@@ -55,7 +55,7 @@ public class GradeServlet extends HttpServlet {
 
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT  group_id,totalgrade FROM groups WHERE course_id='"+testname+"'"); //παίρνουμε το userid από τη βάση
+            PreparedStatement st = con.prepareStatement("SELECT  group_id,totalgrade FROM groups WHERE course_id='"+id+"'"); //παίρνουμε το userid από τη βάση
             Rs = st.executeQuery();
             PrintResults(Rs,out);
             if (request.getParameter("logout") != null) {
