@@ -53,5 +53,19 @@ public class CourseMapper {
         }
 
     }
+    public ResultSet get_allcourses(String teacherid) throws  SQLException{
+        try{
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("SELECT name FROM courses WHERE  teacher_id=?");
+            st.setString(1, teacherid);
+            ResultSet rs = st.executeQuery();
+            return  rs;
+        }
+        catch (Exception e){
+            throw new SQLException("Could not obtain data.");
+
+        }
+
+    }
 
 }
