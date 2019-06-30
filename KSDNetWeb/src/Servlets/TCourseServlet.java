@@ -1,57 +1,44 @@
 package Servlets;
 
-import javax.naming.InitialContext;
+import Classes.CourseMapper;
+import Classes.ProjectMapper;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+
 
 @WebServlet(name = "TCourseServlet",value = "/TCourse")
 public class TCourseServlet extends HttpServlet {
-    private DataSource ds = null;
     public static String Coursename="";
     public static String Courseid="";
-    public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
-        try {
-            InitialContext ctx = new InitialContext(); //πόροι για datasource
-            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/postgres"); //lookup δεσμεύει το αντικείμενο ds τύπου datasource με το string που θέλουμε
-        } catch (Exception e) {
-            throw new ServletException(e.toString());
-        }
-    }
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        try {
-            Coursename = request.getParameter("coursename");
-            Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT course_id FROM courses WHERE name = '"+Coursename+"'");
-            ResultSet Rs = st.executeQuery();
-            Rs.next();
-            Courseid= Rs.getString("course_id");
-        }
-        catch (Exception e){
+        out.println("<!DOCTYPE HTML>" +
+                "<html>" +
+                "<head>" +
+                "<meta charset=\"UTF-8\">" +
+                " <body>" );
+        if (request.getParameter("coursename") != null) {
+            try {
+                Coursename = request.getParameter("coursename");
+                CourseMapper cm = new CourseMapper();
+                ResultSet Rs =cm.get_courseid(Coursename);
+                Rs.next();
+                Courseid= Rs.getString("course_id");
+            }
+            catch (Exception e){
 
+            }
         }
         try {
-            Connection con = ds.getConnection();
-            System.out.println("SELECT * FROM courses WHERE courses.name = '" + request.getParameter("coursename") + "'");
             out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
                     "<h3>Current Projects:</h3><br>");
             out.println(       "<form action=\"/TCourse\" method=\"Post\">" +
@@ -63,9 +50,8 @@ public class TCourseServlet extends HttpServlet {
                     "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\"/>" +
                     "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
 
-
-            PreparedStatement st = con.prepareStatement("SELECT project_id,groupmembers FROM projects WHERE course_id = '"+Courseid+"'");
-            ResultSet Rs = st.executeQuery();
+            ProjectMapper pm = new ProjectMapper();
+            ResultSet Rs = pm.get_projectid_groupmembers(Courseid);
 
             while(Rs.next()){
                 out.println("<tr><td><h2>"+Rs.getString("project_id")+"</h2></td><td><h2>"+Rs.getString("groupmembers")+"</h2></td></tr>");
@@ -73,26 +59,16 @@ public class TCourseServlet extends HttpServlet {
 
             out.println("</table>");
 
-            st.close();
         } catch (Exception e) {
 
         }
-        out.println("<!DOCTYPE HTML>" +
-                "<html>" +
-                "<head>" +
-                "<meta charset=\"UTF-8\">" +
-                " <body>" );
+
         if (request.getParameter("DeleteCourse") != null) {
             try {
-                Connection con = ds.getConnection();
-                System.out.println("SELECT * FROM courses WHERE courses.name = '" + request.getParameter("coursename") + "'");
-
-                PreparedStatement st = con.prepareStatement("DELETE FROM  courses WHERE name='"+Coursename+"'");
-                int val = st.executeUpdate();
-                st = con.prepareStatement("DELETE FROM  projects WHERE course_id='"+Courseid+"'");
-                 val = st.executeUpdate();
-                st.close();
-                con.close();
+                CourseMapper cm = new CourseMapper();
+                cm.deleteCourse(Courseid);
+                ProjectMapper pm = new ProjectMapper();
+                pm.deleteallProjects(Courseid);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
                 dispatcher.forward(request, response);
             }
@@ -101,27 +77,21 @@ public class TCourseServlet extends HttpServlet {
         }
         }
         else if ( request.getParameter("added_project")!= null){
+
             String projectid = request.getParameter("ProjectID");
             String groupmembers = request.getParameter("groupmembers");
             String deadline =request.getParameter("Deadline");
             String max_grade = request.getParameter("maxgrade");
             int max = Integer.parseInt(max_grade);
-            //SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-            //OffsetDateTime odt = OffsetDateTime.parse( deadline );
             try {
-
-                Date parsed = df1.parse(deadline);
-                Connection con = ds.getConnection();
-
-                PreparedStatement st = con.prepareStatement("INSERT INTO projects(project_id, course_id,groupMembers, deadline,max_grade) VALUES ('"+projectid+"','"+Courseid+"','"+groupmembers+"','"+parsed+"',"+max+")");
-               int val = st.executeUpdate();
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse?p=1");
+                ProjectMapper pm = new ProjectMapper();
+                pm.createProject(projectid, Courseid, groupmembers, deadline, max_grade);
+                request.removeAttribute("added_project");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse?coursename="+Coursename);
                 dispatcher.forward(request, response);
-
             }
             catch (Exception e){
-                System.out.println("CANT GET DATE");
+
             }
 
         }

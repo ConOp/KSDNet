@@ -1,5 +1,8 @@
 package Servlets;
 
+import Classes.CourseMapper;
+import Classes.Dbconnector;
+
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +19,6 @@ import java.sql.SQLException;
 
 @WebServlet(name = "TeacherServlet", value="/TeacherHomepage")
 public class TeacherServlet extends HttpServlet {
-    private DataSource ds = null;
-
-    public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
-        try {
-            InitialContext ctx = new InitialContext(); //πόροι για datasource
-            ds = (DataSource)ctx.lookup("java:comp/env/jdbc/postgres"); //lookup δεσμεύει το αντικείμενο ds τύπου datasource με το string που θέλουμε
-        }catch(Exception e) {
-            throw new ServletException(e.toString());
-        }
-    }
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +37,8 @@ public class TeacherServlet extends HttpServlet {
                 "<link href=\"./bootstrap/css/bootstrap.css\" rel=\"stylesheet\">" +
                 "<link href=\"./bootstrap/css/bootstrap-grid.css\" rel=\"stylesheet\">" +
                 "<link href=\"./bootstrap/css/bootstrap-reboot.css\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"./bootstrap/css/bootstrap.css\">" +
-                "</head><body>" +
+                "</head>" +
+                "<body>" +
                 "<div class=\"container d-flex justify-content-center\">\n" +
                 "<div class=\"shadow p-3 mb-5 bg-white rounded\">\n" +
                 "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">\n" +
@@ -53,32 +47,9 @@ public class TeacherServlet extends HttpServlet {
 
 
         try{
-            Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT name FROM courses WHERE teacher_id = '"+userid+"'"); //παίρνουμε το userid από τη βάση
-            ResultSet Rs = st.executeQuery();
+            CourseMapper cm = new CourseMapper();
+            ResultSet Rs = cm.get_allcourses(userid);
             PrintResults(Rs,out);
-            if (request.getParameter("logout") != null) {
-
-                request.getSession().removeAttribute("username");
-                request.getSession().invalidate();
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                response.sendRedirect("index.html");
-            }
-            st.close();
-            con.close();
-        }catch(Exception e){
-
-        }
-    }
-    protected void PrintResults(ResultSet rs,PrintWriter out) {
-        try {
-            int i =0;
-            out.println("<form method=\"POST\" action=\"/TCourse\">" +
-                    "<ul class=\"list-group list-group-flush\">");
-            while (rs.next()){
-                out.println("<input type=\"submit\" name=\"coursename\" id="+i+" class=\"list-group-item list-group-item-action\" value=\""+rs.getString("name")+"\">");
-            i++;
-            }
             out.println("</form>");
             out.println("</ul><br>" +
                     "<form method=\"post\" action=\"/TeacherHomepage\">" +
@@ -89,6 +60,25 @@ public class TeacherServlet extends HttpServlet {
                     "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
                     "</body>" +
                     "</html>");
+            if (request.getParameter("logout") != null) {
+
+                request.getSession().removeAttribute("username");
+                request.getSession().invalidate();
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                response.sendRedirect("index.html");
+            }
+        }catch(Exception e){
+
+        }
+    }
+    protected void PrintResults(ResultSet rs,PrintWriter out) {
+        try {
+            out.println("<form method=\"POST\" action=\"/TCourse\">" +
+                    "<ul class=\"list-group list-group-flush\">");
+            while (rs.next()){
+                out.println("<input type=\"submit\" name=\"coursename\"  class=\"list-group-item list-group-item-action\" value=\""+rs.getString("name")+"\">");
+            }
+
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
