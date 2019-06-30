@@ -38,6 +38,45 @@ public class TCourseServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+        try {
+            Coursename = request.getParameter("coursename");
+            Connection con = ds.getConnection();
+            PreparedStatement st = con.prepareStatement("SELECT course_id FROM courses WHERE name = '"+Coursename+"'");
+            ResultSet Rs = st.executeQuery();
+            Rs.next();
+            Courseid= Rs.getString("course_id");
+        }
+        catch (Exception e){
+
+        }
+        try {
+            Connection con = ds.getConnection();
+            System.out.println("SELECT * FROM courses WHERE courses.name = '" + request.getParameter("coursename") + "'");
+            out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
+                    "<h3>Current Projects:</h3><br>");
+            out.println(       "<form action=\"/TCourse\" method=\"Post\">" +
+                    "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" />" +
+                    "</form>" +
+                    "<form action=\"/GradingTeacher\" method=\"Post\">" +
+                    "<input type=\"submit\" name=\""+Courseid+"\" value=\"Assign Grades\" />"+
+                    "</form>" +
+                    "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\"/>" +
+                    "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
+
+
+            PreparedStatement st = con.prepareStatement("SELECT project_id,groupmembers FROM projects WHERE course_id = '"+Courseid+"'");
+            ResultSet Rs = st.executeQuery();
+
+            while(Rs.next()){
+                out.println("<tr><td><h2>"+Rs.getString("project_id")+"</h2></td><td><h2>"+Rs.getString("groupmembers")+"</h2></td></tr>");
+            }
+
+            out.println("</table>");
+
+            st.close();
+        } catch (Exception e) {
+
+        }
         out.println("<!DOCTYPE HTML>" +
                 "<html>" +
                 "<head>" +
@@ -61,40 +100,6 @@ public class TCourseServlet extends HttpServlet {
 
         }
         }
-        else if (request.getParameter("coursename") != null){
-            Coursename=request.getParameter("coursename");
-            try {
-                Connection con = ds.getConnection();
-                System.out.println("SELECT * FROM courses WHERE courses.name = '" + request.getParameter("coursename") + "'");
-                out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
-                        "<h3>Current Projects:</h3><br>");
-                out.println(       "<form action=\"/TCourse\" method=\"Post\">" +
-                        "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" />" +
-                        "</form>" +
-                                "<form action=\"/GradingTeacher\" method=\"Post\">" +
-                                "<input type=\"submit\" name=\""+Courseid+"\" value=\"Assign Grades\" />"+
-                        "</form>" +
-                        "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" />");
-
-                PreparedStatement st = con.prepareStatement("SELECT course_id FROM courses WHERE name = '"+Coursename+"'");
-                ResultSet Rs = st.executeQuery();
-                Rs.next();
-               Courseid= Rs.getString("course_id");
-
-                 st = con.prepareStatement("SELECT project_id,groupmembers FROM projects WHERE course_id = '"+Courseid+"'");
-                 Rs = st.executeQuery();
-
-                    while(Rs.next()){
-                        out.println("<a>"+Rs.getString("project_id")+","+Rs.getString("groupmembers")+"</a>");
-                    }
-
-
-
-                st.close();
-            } catch (Exception e) {
-
-            }
-        }
         else if ( request.getParameter("added_project")!= null){
             String projectid = request.getParameter("ProjectID");
             String groupmembers = request.getParameter("groupmembers");
@@ -111,6 +116,8 @@ public class TCourseServlet extends HttpServlet {
 
                 PreparedStatement st = con.prepareStatement("INSERT INTO projects(project_id, course_id,groupMembers, deadline,max_grade) VALUES ('"+projectid+"','"+Courseid+"','"+groupmembers+"','"+parsed+"',"+max+")");
                int val = st.executeUpdate();
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse?p=1");
+                dispatcher.forward(request, response);
 
             }
             catch (Exception e){
