@@ -2,6 +2,7 @@ package Classes;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CourseMapper {
@@ -36,6 +37,21 @@ public class CourseMapper {
         catch (Exception e){
             throw new SQLException("Could not delete course");
         }
+    }
+
+    public ResultSet get_courseid(String coursename) throws  SQLException{
+        try{
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("SELECT course_id FROM courses WHERE  name=?");
+            st.setString(1, coursename);
+            ResultSet rs = st.executeQuery();
+            return  rs;
+        }
+        catch (Exception e){
+            throw new SQLException("Could not obtain data.");
+
+        }
+
     }
 
 }

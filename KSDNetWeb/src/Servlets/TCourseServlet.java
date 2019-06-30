@@ -41,8 +41,8 @@ public class TCourseServlet extends HttpServlet {
         try {
             Coursename = request.getParameter("coursename");
             Dbconnector con = new Dbconnector();
-            PreparedStatement st = con.connect().prepareStatement("SELECT course_id FROM courses WHERE name = '"+Coursename+"'");
-            ResultSet Rs = st.executeQuery();
+            CourseMapper cm = new CourseMapper();
+            ResultSet Rs =cm.get_courseid(Coursename);
             Rs.next();
             Courseid= Rs.getString("course_id");
         }
@@ -50,8 +50,6 @@ public class TCourseServlet extends HttpServlet {
 
         }
         try {
-            Dbconnector con = new Dbconnector();
-            System.out.println("SELECT * FROM courses WHERE courses.name = '" + request.getParameter("coursename") + "'");
             out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
                     "<h3>Current Projects:</h3><br>");
             out.println(       "<form action=\"/TCourse\" method=\"Post\">" +
@@ -63,9 +61,10 @@ public class TCourseServlet extends HttpServlet {
                     "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\"/>" +
                     "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
 
-
-            PreparedStatement st = con.connect().prepareStatement("SELECT project_id,groupmembers FROM projects WHERE course_id = '"+Courseid+"'");
-            ResultSet Rs = st.executeQuery();
+            Dbconnector con = new Dbconnector();
+            ProjectMapper pm = new ProjectMapper();
+            System.out.println(Courseid);
+            ResultSet Rs = pm.get_projectid_groupmembers(Courseid);
 
             while(Rs.next()){
                 out.println("<tr><td><h2>"+Rs.getString("project_id")+"</h2></td><td><h2>"+Rs.getString("groupmembers")+"</h2></td></tr>");
@@ -73,7 +72,6 @@ public class TCourseServlet extends HttpServlet {
 
             out.println("</table>");
 
-            st.close();
         } catch (Exception e) {
 
         }
@@ -101,7 +99,7 @@ public class TCourseServlet extends HttpServlet {
             try {
                 ProjectMapper pm = new ProjectMapper();
                 pm.createProject(projectid, Courseid, groupmembers, deadline, max_grade);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse?coursename="+Coursename);
                 dispatcher.forward(request, response);
             }
             catch (Exception e){

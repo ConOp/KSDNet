@@ -60,8 +60,6 @@ public class ProjectMapper {
             PreparedStatement st = connector.connect().prepareStatement("SELECT project_id,groupmembers FROM projects WHERE  course_id=?");
             st.setString(1, courseid);
             ResultSet rs = st.executeQuery();
-            st.close();
-            connector.disconnect();
             return  rs;
         }
         catch (Exception e){
