@@ -15,11 +15,11 @@ import java.sql.ResultSet;
 
 @WebServlet(name = "TCourseServlet",value = "/TCourse")
 public class TCourseServlet extends HttpServlet {
-    public static String Coursename="";
-    public static String Courseid="";
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String Coursename="";
+        String Courseid="";
         PrintWriter out = response.getWriter();
         out.println("<!DOCTYPE HTML>" +
                 "<html>" +
@@ -27,16 +27,22 @@ public class TCourseServlet extends HttpServlet {
                 "<meta charset=\"UTF-8\">" +
                 " <body>" );
         if (request.getParameter("coursename") != null) {
-            try {
                 Coursename = request.getParameter("coursename");
+                request.getSession().setAttribute("coursename",Coursename);
+            try {
                 CourseMapper cm = new CourseMapper();
                 ResultSet Rs =cm.get_courseid(Coursename);
                 Rs.next();
                 Courseid= Rs.getString("course_id");
+                request.getSession().setAttribute("courseid",Courseid);
             }
             catch (Exception e){
 
             }
+        }
+        else{
+            Coursename=(String)request.getSession().getAttribute("coursename");
+            Courseid=(String)request.getSession().getAttribute("courseid");
         }
         try {
             out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
@@ -76,25 +82,7 @@ public class TCourseServlet extends HttpServlet {
 
         }
         }
-        else if ( request.getParameter("added_project")!= null){
 
-            String projectid = request.getParameter("ProjectID");
-            String groupmembers = request.getParameter("groupmembers");
-            String deadline =request.getParameter("Deadline");
-            String max_grade = request.getParameter("maxgrade");
-            int max = Integer.parseInt(max_grade);
-            try {
-                ProjectMapper pm = new ProjectMapper();
-                pm.createProject(projectid, Courseid, groupmembers, deadline, max_grade);
-                request.removeAttribute("added_project");
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse?coursename="+Coursename);
-                dispatcher.forward(request, response);
-            }
-            catch (Exception e){
-
-            }
-
-        }
     }
 }
 

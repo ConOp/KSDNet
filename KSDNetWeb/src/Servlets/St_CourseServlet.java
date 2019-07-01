@@ -1,5 +1,6 @@
 package Servlets;
 
+import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,10 +34,15 @@ public class St_CourseServlet extends HttpServlet {
         String userid = (String) request.getSession().getAttribute("username");
         String teacher_id = "";
         String teacher_name = "";
-        if (userid.charAt(0) != 'S') {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        } else {
-            String coursename = request.getParameter("coursename");
+        String coursename = "";
+        if(request.getParameter("coursename")!=null) {
+            coursename = request.getParameter("coursename");
+            request.getSession().setAttribute("coursename",coursename);
+        }
+        else{
+            coursename = (String) request.getSession().getAttribute("coursename");
+        }
+
             out.println("<!DOCTYPE HTML>" +
                     "<html>" +
                     "<head>" +
@@ -81,7 +87,7 @@ public class St_CourseServlet extends HttpServlet {
 
             }catch (Exception e){}
 
-        }
+
 
     }
 

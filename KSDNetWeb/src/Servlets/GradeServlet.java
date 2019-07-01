@@ -54,7 +54,7 @@ public class GradeServlet extends HttpServlet {
 
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT  group_id FROM groups WHERE course_id='"+TCourseServlet.Courseid+"' and totalgrade is null"); //παίρνουμε το userid από τη βάση
+            PreparedStatement st = con.prepareStatement("SELECT  group_id FROM groups WHERE course_id='"+request.getSession().getAttribute("courseid")+"' and totalgrade is null"); //παίρνουμε το userid από τη βάση
             Rs = st.executeQuery();
             PrintResults(Rs,out);
             if (request.getParameter("logout") != null) {
@@ -69,6 +69,13 @@ public class GradeServlet extends HttpServlet {
         }catch(Exception e){
 
         }
+        out.println("<form method=\"post\" action=\"/index.html\">" +
+                "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
+                "</form></div></div></div></div></div>" +
+                "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
+                "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
+                "</body>" +
+                "</html>");
     }
     protected void PrintResults(ResultSet rs,PrintWriter out) {
         try {
@@ -81,14 +88,7 @@ public class GradeServlet extends HttpServlet {
                 i++;
             }
             out.println("</form>");
-            out.println("</ul><br>" +
-                    "<form method=\"post\" action=\"/index.html\">" +
-                    "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
-                    "</form></div></div></div></div></div>" +
-                    "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
-                    "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
-                    "</body>" +
-                    "</html>");
+            out.println("</ul><br>");
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

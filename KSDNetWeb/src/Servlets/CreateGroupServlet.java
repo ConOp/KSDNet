@@ -38,7 +38,7 @@ public class CreateGroupServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String userid = (String) request.getSession().getAttribute("username");
-        String coursename = request.getParameter("course");
+        String coursename =(String) request.getSession().getAttribute("coursename");
         if (userid.charAt(0) != 'S') {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {

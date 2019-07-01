@@ -1,15 +1,36 @@
 package Servlets;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import Classes.ProjectMapper;
 
-@WebServlet(name = "Servlets.ProjectServlet")
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Map;
+
+@WebServlet(name = "ProjectServ",value = "/CreateNewProject")
 public class ProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String projectid = request.getParameter("ProjectID");
+        String groupmembers = request.getParameter("groupmembers");
+        String deadline =request.getParameter("Deadline");
+        String max_grade = request.getParameter("maxgrade");
+        int max = Integer.parseInt(max_grade);
+        try {
+            ProjectMapper pm = new ProjectMapper();
+            pm.createProject(projectid,(String) request.getSession().getAttribute("courseid"), groupmembers, deadline, max_grade);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse");
+            dispatcher.forward(request, response);
+        }
+        catch (Exception e){
+
+        }
 
     }
 
