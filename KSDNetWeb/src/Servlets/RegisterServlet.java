@@ -72,7 +72,6 @@ public class RegisterServlet extends HttpServlet {
             con.close();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             PrintWriter out = response.getWriter();	//για εκτύπωση στην html
             String title = "Registration failed";
             String docType ="<!doctype html public\">\n";
