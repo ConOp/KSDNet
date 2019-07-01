@@ -1,6 +1,7 @@
 package Servlets;
 
 import javax.naming.InitialContext;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,14 +47,15 @@ public class StudentServlet extends HttpServlet {
                 "</head><body><div class=\"container d-flex justify-content-center\">\n" +
                 "<div class=\"shadow p-3 mb-5 bg-white rounded\">\n" +
                 "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">\n" +
-                "<h5 class=\"card-title\">Κατάλογος μαθημάτων</h5>\n" +
-                "<h6 class=\"card-subtitle mb-2 text-muted\">Επιλεγμένα μαθήματα</h6><div class = \"col\">\n" +
-                "<form method=\"post\" action=\"/StudentHomepage\"><ul class=\"list-group list-group-flush\">");
+                "<h5 class=\"card-title\">Course List</h5>\n" +
+                "<h6 class=\"card-subtitle mb-2 text-muted\">Selected Courses</h6><div class = \"col\">\n" +
+                "<form method=\"post\" action=\"/Student_CourseHomepage\"><ul class=\"list-group list-group-flush\">");
         try {
             Connection con = ds.getConnection();
             PreparedStatement st = con.prepareStatement("SELECT * FROM COURSES");
             ResultSet rs= st.executeQuery();
             PrintResults(rs,out);
+
             if(request.getParameter("logout")!=null) {
 
                 request.getSession().removeAttribute("username");
@@ -62,6 +64,7 @@ public class StudentServlet extends HttpServlet {
                 response.sendRedirect("index.html");
             }
             st.close();
+            //con.close();
         }
         catch (Exception e){
 
@@ -69,22 +72,24 @@ public class StudentServlet extends HttpServlet {
 
     }
 
+
     protected void PrintResults(ResultSet rs,PrintWriter out) {
-        //out.println("<table><tr><td>Course ID</td><td>Course Name</td><td>Number Of Projects</td></tr>");
+
         try {
             while (rs.next()){
-                //out.println("<tr><td>"+rs.getString("course_id")+"</td><td>"+rs.getString("name")+"</td><td>"+rs.getString("number_projects")+"</td></tr>");
-                out.println("<a href=\"#\" class=\"list-group-item list-group-item-action\">"+rs.getString("name")+"</a>");
+
+                out.println("<input type=\"submit\"  name=\"coursename\" value=\""+rs.getString("name")+"\" class=\"list-group-item list-group-item-action\"> ");
             }
-            out.println("</ul>\n" +
-                    "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
+            out.println("</ul></form>\n" +
+                    "<br><form method=\"post\" action=\"/StudentHomepage\"><input type=\"submit\" id=\"log\" value=\"Logout\" name=\"logout\">\n" +
                     "</form></div></div></div></div></div>" +
                     "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
                     "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
                     "</body>" +
                     "</html>");
+
         }
-        catch (SQLException e){
+        catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
