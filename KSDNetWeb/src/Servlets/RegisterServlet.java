@@ -1,5 +1,8 @@
 package Servlets;
 
+import Classes.StudentMapper;
+import Classes.TeacherMapper;
+
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,32 +48,16 @@ public class RegisterServlet extends HttpServlet {
         String pass = request.getParameter("pass");
         String email = request.getParameter("email");
 
-        String id = "";
-        String user_type = "";
-
-        if(userid.charAt(0) == 'S'){
-            user_type = "students";
-            id = "student_id";
-        }else if(userid.charAt(0) == 'T'){
-            user_type = "teachers";
-            id = "teacher_id";
-        }
-
         try {
             salt = getSalt();
             securePassword = SecurePassword(pass, salt);
-            Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("INSERT INTO " + user_type +"("+ id +",name,surname,password,email,salt) VALUES(?,?,?,?,?,?);");
-            st.setString(1, userid);
-            st.setString(2, uname);
-            st.setString(3, surname);
-            st.setString(4, securePassword);
-            st.setString(5, email);
-            st.setBytes(6, salt);
-            st.executeUpdate();
-            st.close();
-            con.close();
-
+            if(userid.charAt(0) == 'S'){
+                StudentMapper sm = new StudentMapper();
+                sm.register(userid, uname, surname, securePassword, email, salt);
+            }else if(userid.charAt(0) == 'T') {
+                TeacherMapper tm = new TeacherMapper();
+                tm.register(userid, uname, surname, securePassword, email, salt);
+            }
         } catch (Exception e) {
             PrintWriter out = response.getWriter();	//για εκτύπωση στην html
             String title = "Registration failed";

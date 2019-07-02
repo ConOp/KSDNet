@@ -1,5 +1,8 @@
 package Servlets;
 
+import Classes.StudentMapper;
+import Classes.TeacherMapper;
+
 import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,7 +27,6 @@ public class LoginServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     private DataSource ds = null;
-
     public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
         try {
             InitialContext ctx = new InitialContext(); //πόροι για datasource
@@ -41,58 +43,37 @@ public class LoginServlet extends HttpServlet {
 
         String userid = request.getParameter("userid"); //επιστρέφει την τιμή σε μορφή string που έγραψε ο client στο πεδίο username
         String pass = request.getParameter("pass");
-        String user_type = "";
-        String id = "";
         HttpSession session=request.getSession(); //δημιουργείται session και δεσμεύεται με το request
-
-        if(userid.charAt(0) == 'S'){
-            user_type = "students";
-            id = "student_id";
-        }else if(userid.charAt(0) == 'T'){
-            user_type = "teachers";
-            id = "teacher_id";
-        }else{
-            response.sendRedirect("index.html"); //an to userid 3ekinaei apo opoiodhpote allo xarakthra
-            return;
-        }
-
         try{
-                Connection con = ds.getConnection();
-                PreparedStatement sm = con.prepareStatement("SELECT "+id+", password, salt FROM "+user_type+" where "+id+" = '"+ userid +"';");
-                ResultSet Rs1 = sm.executeQuery();
-                if(Rs1.next()) {
-                    salt = Rs1.getBytes("salt");
-                    securePassword = RegisterServlet.SecurePassword(pass,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
-								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
-
-                    if(userid.equals(Rs1.getString(id))&&securePassword.equals(Rs1.getString("password"))){ //έλεγχος έγκυρου password και username
-                        session.setAttribute("username", userid);
-
-                        if(user_type=="teachers"){
-                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
-                            dispatcher.forward(request, response);
-                        }
-                        else{
-                            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
-                            dispatcher.forward(request, response);
-                        }
-                    }else {
-                        response.sendRedirect("index.html"); //αν δώσει σωστό username και λάθος κωδικό
+            if(userid.charAt(0) == 'S'){
+                StudentMapper sm = new StudentMapper();
+                if(sm.login(userid,pass)) {
+                    session.setAttribute("username", userid);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
+                    dispatcher.forward(request, response);
+                }else{
+                        response.sendRedirect("index.html");
                         return;
-                    }
                 }
-                else{
+            }else if(userid.charAt(0) == 'T'){
+                TeacherMapper tm = new TeacherMapper();
+                if(tm.login(userid,pass)) {//if credentials exist
+                    session.setAttribute("username", userid);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
+                    dispatcher.forward(request, response);
+                }else {
                     response.sendRedirect("index.html");
                     return;
                 }
-                sm.close();
-                con.close();
-
+            }
+            else{
+                response.sendRedirect("index.html");
+                return;
+            }
         }catch (Exception e){
-            response.sendRedirect("index.html");
-            return;
+                response.sendRedirect("index.html");
+                return;
         }
-
     }
 
 
