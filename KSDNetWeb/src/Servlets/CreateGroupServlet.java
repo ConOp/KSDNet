@@ -42,7 +42,7 @@ public class CreateGroupServlet extends HttpServlet {
         if (userid.charAt(0) != 'S') {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
-
+            boolean flag = false;
             PrintWriter out = response.getWriter();
             String[] guserids;
             String groupid = "";
@@ -85,22 +85,47 @@ public class CreateGroupServlet extends HttpServlet {
                     for (int i = 1; i <= counter; i++) { guserids[i-1] = request.getParameter(Integer.toString(i)); }
                     for (int i=0;i<guserids.length;i++){ groupid += guserids[i];}
 
-                    String statement = "UPDATE students SET group_id='"+groupid+"' WHERE students.student_id='"+userid+"';";
-
+                    //check below if the given userids for group assignment, get counter for the ones exist in database
+                    String check_statement = "SELECT count(*) FROM students WHERE students.student_id in(";
                     for (int i=0;i<guserids.length;i++){
-                        statement += "UPDATE students SET group_id='"+groupid+"' WHERE students.student_id='"+guserids[i]+"';";
+                        check_statement += "'"+guserids[i]+"'";
+                        if(i==guserids.length-1){ check_statement+=");";}else{ check_statement += ",";}
                     }
-                    PreparedStatement g =con.prepareStatement(statement);
-                    g.executeUpdate();
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Student_CourseHomepage?coursename="+ coursename);
-                    dispatcher.forward(request, response);
-                    g.close();
-                    con.close();
-                    //NA BALW DHLWSH KAI STON PINAKA GROUPS
+                    PreparedStatement initial = con.prepareStatement(check_statement);
+                    ResultSet i_rs = initial.executeQuery();
+                    while(i_rs.next()){
+                        if(i_rs.getInt("count")==counter){
+                            flag = true;
+                        }
+                    }
+                    i_rs.close();
+                    initial.close();
+                    if(flag){
+                        String statement = "UPDATE students SET group_id='"+groupid+"' WHERE students.student_id IN ('"+userid+"'";
+
+                        for (int i=0;i<guserids.length;i++){
+                            statement += ",'"+guserids[i]+"'";
+                            if(i==guserids.length-1){ statement+=");";}
+                        }
+
+                        PreparedStatement g = con.prepareStatement(statement);
+                        g.executeUpdate();
+                        g.close();
+                        PreparedStatement p = con.prepareStatement("INSERT INTO groups(group_id,course_id) VALUES (?,(select course_id from courses where courses.name = '"+coursename+"'));");
+                        p.setString(1, groupid);
+                        p.executeUpdate();
+                        p.close();
+                        con.close();
+                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Student_CourseHomepage?coursename="+ coursename);
+                        dispatcher.forward(request, response);
+
+                    }else{ response.sendRedirect("invalid_group.html");}
+
                 }
 
             }catch (Exception e){
-                response.sendRedirect("invalid_group.html");
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                System.out.println(e); //NA TO BGALOUME AUTO STO TELOS
             }
         }
 
