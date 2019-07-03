@@ -29,7 +29,7 @@ public class St_CourseServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        boolean flag = false;
         PrintWriter out = response.getWriter();
         String userid = (String) request.getSession().getAttribute("username");
         String coursename = "";
@@ -57,6 +57,12 @@ public class St_CourseServlet extends HttpServlet {
 
             try {
                 Connection con = ds.getConnection();
+                PreparedStatement check_team = con.prepareStatement("SELECT EXISTS (SELECT (SELECT course_id FROM courses WHERE courses.name = '"+coursename+"') " +
+                        "FROM students INNER JOIN groups ON students.group_id = groups.group_id WHERE students.student_id = '"+userid+"');");
+                ResultSet r = check_team.executeQuery();
+                while (r.next()){ flag = r.getBoolean("exists");}
+                check_team.close(); r.close();
+
                 PreparedStatement st = con.prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects FROM COURSES INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name='" + coursename + "';");
                 ResultSet rs = st.executeQuery();
 
@@ -70,9 +76,11 @@ public class St_CourseServlet extends HttpServlet {
                         "<div class=\"input-group-prepend\">" +
                         "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload Project</span>" +
                         "</div><div class=\"custom-file\">" +
-                        "<input name=\"file\" type=\"file\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\">" +
+                        "<input name=\"file\" type=\"file\" class=\"custom-file-input\" id=\"inputGroupFile\" aria-describedby=\"inputGroupFileAddon01\">" +
                         "<label class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
-                        "</div></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
+                        "</div></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
+                        "<script>document.getElementById(\"group_assignment\").disabled = "+flag+";</script>" +
+                        "<script>document.getElementById(\"inputGroupFile\").disabled = "+!flag+";</script>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
                         "<script src=\"./bootstrap/js/bootstrap.js\"></script></body></html>");
                 st.close();
@@ -83,6 +91,7 @@ public class St_CourseServlet extends HttpServlet {
                 //preparedStatement.setBinaryStream(3, logo);
 
             } catch (Exception e) {
+                System.out.println(e);
             }
 
         }
