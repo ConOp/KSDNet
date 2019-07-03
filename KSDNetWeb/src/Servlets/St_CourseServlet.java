@@ -32,16 +32,13 @@ public class St_CourseServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         String userid = (String) request.getSession().getAttribute("username");
-        String teacher_id = "";
-        String teacher_name = "";
         String coursename = "";
-        if(request.getParameter("coursename")!=null) {
+        if(userid.charAt(0) != 'S') {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+        else {
             coursename = request.getParameter("coursename");
             request.getSession().setAttribute("coursename",coursename);
-        }
-        else{
-            coursename = (String) request.getSession().getAttribute("coursename");
-        }
 
             out.println("<!DOCTYPE HTML>" +
                     "<html>" +
@@ -54,19 +51,19 @@ public class St_CourseServlet extends HttpServlet {
                     "</head><body><div class=\"container d-flex justify-content-center\">" +
                     "<div class=\"shadow p-3 mb-5 bg-white rounded\">" +
                     "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">" +
-                    "<h5 class=\"card-title\">"+coursename+"</h5><br>" +
+                    "<h5 class=\"card-title\">" + coursename + "</h5><br>" +
                     "<h6 class=\"card-subtitle mb-2 text-muted\">Course Information</h6><div class = \"col\">" +
                     "<form method=\"post\" action=\"\" enctype=\"multipart/form-data\"><br>");
 
-            try{
+            try {
                 Connection con = ds.getConnection();
-                PreparedStatement st = con.prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects FROM COURSES INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name='"+coursename+"';");
-                ResultSet rs= st.executeQuery();
+                PreparedStatement st = con.prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects FROM COURSES INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name='" + coursename + "';");
+                ResultSet rs = st.executeQuery();
 
-                out.println("<table align=\"center\" class=\"table table-bordered\">"+"<tr><th>"+"Course ID"+"</th><th>"+"Coursename"+"</th><th>"+"Teacher"+"</th><th>"+"Number of projects"+"</th></tr>");
+                out.println("<table align=\"center\" class=\"table table-bordered\">" + "<tr><th>" + "Course ID" + "</th><th>" + "Coursename" + "</th><th>" + "Teacher" + "</th><th>" + "Number of projects" + "</th></tr>");
 
-                while(rs.next()){
-                    out.println("<tr><td>"+ rs.getString("course_id")+"</td><td>"+rs.getString("name")+"</td><td>"+rs.getString("surname")+"</td><td>"+rs.getString("number_projects")+"</td></tr>");
+                while (rs.next()) {
+                    out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getString("number_projects") + "</td></tr>");
                 }
                 out.println("</table>" +
                         "<br><div class=\"input-group mb-3\">" +
@@ -75,7 +72,7 @@ public class St_CourseServlet extends HttpServlet {
                         "</div><div class=\"custom-file\">" +
                         "<input name=\"file\" type=\"file\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\">" +
                         "<label class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
-                        "</div></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" value=\"CREATE GROUP\" name=\"group\"><input type=\"hidden\" name=\"course\" value=\""+coursename+"\"></form></div></div></div></div></div>" +
+                        "</div></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
                         "<script src=\"./bootstrap/js/bootstrap.js\"></script></body></html>");
                 st.close();
@@ -85,9 +82,10 @@ public class St_CourseServlet extends HttpServlet {
                 //PreparedStatement st3 = con.prepareStatement("");
                 //preparedStatement.setBinaryStream(3, logo);
 
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
-
+        }
 
     }
 
