@@ -29,12 +29,13 @@ public class AddCourseServlet extends HttpServlet {
         String userid = (String)request.getSession().getAttribute("username");
         String name = request.getParameter("name");
         String course_id = request.getParameter("course_id");
+        int groupmbembers= Integer.parseInt(request.getParameter("groupmembers"));
         int number_projects = Integer.parseInt(request.getParameter("number_projects"));
 
         try {
 
             CourseMapper cm = new CourseMapper();
-            cm.createCourse(course_id,userid,name,number_projects);
+            cm.createCourse(course_id,userid,name,number_projects,groupmbembers);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
             dispatcher.forward(request, response);
 

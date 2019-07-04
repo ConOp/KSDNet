@@ -31,9 +31,11 @@ public class GradeServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
-
         PrintWriter  out=response.getWriter();
-        ResultSet Rs=null;
+        String projectid = request.getParameter("ProjectID");
+        request.getSession().setAttribute("projectid",projectid);
+        String courseid= (String)request.getSession().getAttribute("courseid");
+
 
 
         out.println("<!DOCTYPE HTML>" +
@@ -54,8 +56,8 @@ public class GradeServlet extends HttpServlet {
 
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT  group_id FROM groups WHERE course_id='"+request.getSession().getAttribute("courseid")+"' and totalgrade is null"); //παίρνουμε το userid από τη βάση
-            Rs = st.executeQuery();
+            PreparedStatement st = con.prepareStatement("SELECT  group_id FROM groups WHERE course_id='"+courseid+"' and project_id='"+projectid+"' and total_grade is null group  by group_id"); //παίρνουμε το userid από τη βάση
+          ResultSet  Rs = st.executeQuery();
             PrintResults(Rs,out);
             if (request.getParameter("logout") != null) {
                 request.getSession().removeAttribute("username");

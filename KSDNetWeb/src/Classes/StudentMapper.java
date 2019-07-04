@@ -33,7 +33,7 @@ public class StudentMapper {
                 byte[] salt = Rs1.getBytes("salt");
                 String securePassword = RegisterServlet.SecurePassword(password,salt); /*υπολογισμός του hashed&salted password με βάση τα στοιχεία του χρήστη(pass),
 								 										και το salt της βάσης, αφού υπάρχει χρήστης με τέτοιο id*/
-                if(username.equals(Rs1.getString("teacher_id"))&&securePassword.equals(Rs1.getString("password"))) { //έλεγχος έγκυρου password και username
+                if(username.equals(Rs1.getString("student_id"))&&securePassword.equals(Rs1.getString("password"))) { //έλεγχος έγκυρου password και username
                     con.disconnect();
                     return true;
                 }

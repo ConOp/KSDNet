@@ -9,19 +9,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProjectMapper {
-    public void createProject(String projectid,String courseid,String groupmembers,String deadline,String maxgrade) throws SQLException {
+    public void createProject(String projectid,String courseid,String deadline,String maxgrade) throws SQLException {
         try {
             int max = Integer.parseInt(maxgrade);
             DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
             Date parsed = df1.parse(deadline);
             Timestamp tm = new Timestamp(parsed.getTime());
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement("INSERT INTO projects(project_id, course_id,groupmembers, deadline,max_grade) VALUES (?,?,?,?,?)");
+            PreparedStatement st = connector.connect().prepareStatement("INSERT INTO projects(project_id, course_id, deadline,max_grade) VALUES (?,?,?,?)");
             st.setString(1, projectid);
             st.setString(2, courseid);
-            st.setString(3, groupmembers);
-            st.setTimestamp(4, tm);
-            st.setInt(5, max);
+            st.setTimestamp(3, tm);
+            st.setInt(4, max);
             st.executeUpdate();
             st.close();
             connector.disconnect();
@@ -54,10 +53,10 @@ public class ProjectMapper {
                throw new SQLException("Could not delete  projects.");
          }
     }
-    public ResultSet get_projectid_groupmembers(String courseid) throws  SQLException{
+    public ResultSet get_projectid(String courseid) throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement("SELECT project_id,groupmembers FROM projects WHERE  course_id=?");
+            PreparedStatement st = connector.connect().prepareStatement("SELECT project_id FROM projects WHERE  course_id=?");
             st.setString(1, courseid);
             ResultSet rs = st.executeQuery();
             return  rs;
