@@ -6,14 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CourseMapper {
-    public void createCourse(String courseid,String teacherid,String coursename,int projectnumber) throws SQLException{
+    public void createCourse(String courseid,String teacherid,String coursename,int projectnumber,int groupmembers) throws SQLException{
         try{
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement(" INSERT INTO courses (course_id, teacher_id, name, number_projects) values (?, ?, ?, ?)") ;
+            PreparedStatement st = connector.connect().prepareStatement(" INSERT INTO courses (course_id, teacher_id, name, number_projects,groupmembers) values (?, ?, ?, ?,?)") ;
             st.setString(1, courseid);
             st.setString(2, teacherid);
             st.setString(3, coursename);
             st.setInt(4, projectnumber);
+            st.setInt(5, groupmembers);
             st.executeUpdate();
             st.close();
             connector.disconnect();

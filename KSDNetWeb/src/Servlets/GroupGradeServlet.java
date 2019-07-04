@@ -1,5 +1,7 @@
 package Servlets;
 
+import Classes.GradeMapper;
+
 import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +20,6 @@ import java.sql.SQLException;
 @WebServlet(name = "GroupGradeServlet", value="/GroupMembers")
 public class GroupGradeServlet extends HttpServlet {
     private DataSource ds = null;
-    private static String group;
     public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
         try {
             InitialContext ctx = new InitialContext(); //πόροι για datasource
@@ -32,8 +33,14 @@ public class GroupGradeServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
-        if(request.getParameter("insert")==null){
-            group = request.getParameter("group");
+        String group = "";
+        String projectid =(String) request.getSession().getAttribute("projectid");
+        if(request.getParameter("group")!=null){
+            group =request.getParameter("group");
+            request.getSession().setAttribute("groupid",group);
+        }
+        else{
+            group = (String)request.getSession().getAttribute("groupid");
         }
         PrintWriter out = response.getWriter();
         ResultSet Rs = null;
@@ -53,7 +60,7 @@ public class GroupGradeServlet extends HttpServlet {
                 "<div class = \"col\">\n");
         try{
             Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT student_id FROM students WHERE group_id='"+group+"'"); //παίρνουμε το userid από τη βάση
+            PreparedStatement st = con.prepareStatement("SELECT student_id FROM groups WHERE group_id='"+group+"'"); //παίρνουμε το userid από τη βάση
             Rs = st.executeQuery();
             PrintResults(Rs,out);
             if (request.getParameter("logout") != null) {
@@ -65,14 +72,10 @@ public class GroupGradeServlet extends HttpServlet {
                 rs.forward(request,response);
             }
             if(request.getParameter("insert") !=null){
-                System.out.println(request.getParameter("grade"));
-                st = con.prepareStatement("update groups set totalgrade="+Integer.parseInt(request.getParameter("grade"))+" where group_id='"+group+"'");
-                st.executeUpdate();
-                group="";
-                request.getSession().removeAttribute("logout");
+                int grade = Integer.parseInt(request.getParameter("grade"));
+                GradeMapper gm = new GradeMapper();
+                gm.insertGrade(group,projectid,grade);
                 request.getSession().removeAttribute("insert");
-                request.getSession().invalidate();
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 RequestDispatcher rs = request.getRequestDispatcher("/GradingTeacher");
                 rs.forward(request,response);
             }

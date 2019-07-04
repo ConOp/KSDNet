@@ -19,13 +19,12 @@ public class ProjectServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String projectid = request.getParameter("ProjectID");
         String course_id = (String)request.getSession().getAttribute("courseid");
-        String groupmembers = request.getParameter("groupmembers");
         String deadline =request.getParameter("Deadline");
         String max_grade = request.getParameter("maxgrade");
         int max = Integer.parseInt(max_grade);
         try {
             ProjectMapper pm = new ProjectMapper();
-            pm.createProject(projectid,course_id, groupmembers, deadline, max_grade);
+            pm.createProject(projectid,course_id,deadline, max_grade);
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TCourse");
             dispatcher.forward(request, response);
         }

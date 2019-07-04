@@ -47,23 +47,21 @@ public class TCourseServlet extends HttpServlet {
         try {
             out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
                     "<h3>Current Projects:</h3><br>");
-            out.println(       "<form action=\"/TCourse\" method=\"Post\">" +
+            out.println("<form action=\"/TCourse\" method=\"Post\">" +
                     "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" />" +
                     "</form>" +
-                    "<form action=\"/GradingTeacher\" method=\"Post\">" +
-                    "<input type=\"submit\" name=\""+Courseid+"\" value=\"Assign Grades\" />"+
-                    "</form>" +
                     "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\"/>" +
+                    "<form action=\"/GradingTeacher\" method=\"Post\">" +
                     "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
 
             ProjectMapper pm = new ProjectMapper();
-            ResultSet Rs = pm.get_projectid_groupmembers(Courseid);
+            ResultSet Rs = pm.get_projectid(Courseid);
 
             while(Rs.next()){
-                out.println("<tr><td><h2>"+Rs.getString("project_id")+"</h2></td><td><h2>"+Rs.getString("groupmembers")+"</h2></td></tr>");
+                out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
             }
 
-            out.println("</table>");
+            out.println("</table></form>");
 
         } catch (Exception e) {
 
