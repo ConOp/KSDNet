@@ -67,5 +67,24 @@ public class ProjectMapper {
         }
 
     }
+
+
+    public boolean DeadlineHasPast(String id) throws  SQLException{
+        try{
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("select deadline from projects where project_id='"+id+"'");
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                if(dateFormat.format((date)).compareTo(rs.getString("deadline"))>0) {//if date is after deadline date, returns more than zero and enters if statement
+                    return true;
+                }
+            }
+        }catch (Exception e){
+            throw new SQLException("Project does not exists");
+        }
+        return false;
+    }
 }
 

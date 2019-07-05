@@ -58,7 +58,11 @@ public class TCourseServlet extends HttpServlet {
             ResultSet Rs = pm.get_projectid(Courseid);
 
             while(Rs.next()){
-                out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
+                if(pm.DeadlineHasPast(Rs.getString("project_id"))){
+                    out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
+                }else{
+                    out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
+                }
             }
 
             out.println("</table></form>");
