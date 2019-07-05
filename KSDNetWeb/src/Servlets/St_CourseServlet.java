@@ -1,5 +1,8 @@
 package Servlets;
 
+import Classes.CourseMapper;
+import Classes.GroupMapper;
+
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
@@ -71,6 +74,10 @@ public class St_CourseServlet extends HttpServlet {
                 while (rs.next()) {
                     out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getString("number_projects") + "</td></tr>");
                 }
+                CourseMapper cm = new CourseMapper();
+               String courseid= cm.get_courseid(coursename);
+                GroupMapper groupmap= new GroupMapper();
+                int grade=groupmap.getCourseGrade(userid,courseid);
                 out.println("</table>" +
                         "<br><div class=\"input-group mb-3\">" +
                         "<div class=\"input-group-prepend\">" +
@@ -79,6 +86,7 @@ public class St_CourseServlet extends HttpServlet {
                         "<input name=\"file\" type=\"file\" class=\"custom-file-input\" id=\"inputGroupFile\" aria-describedby=\"inputGroupFileAddon01\">" +
                         "<label class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
                         "</div></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
+                        "<h1>Grade "+grade+"/10</h1>" +
                         "<script>document.getElementById(\"group_assignment\").disabled = "+flag+";</script>" +
                         "<script>document.getElementById(\"inputGroupFile\").disabled = "+!flag+";</script>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +

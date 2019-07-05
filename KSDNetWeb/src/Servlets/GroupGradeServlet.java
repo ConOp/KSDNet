@@ -1,6 +1,7 @@
 package Servlets;
 
 import Classes.GradeMapper;
+import Classes.GroupMapper;
 
 import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
@@ -76,6 +77,9 @@ public class GroupGradeServlet extends HttpServlet {
                 GradeMapper gm = new GradeMapper();
                 gm.insertGrade(group,projectid,grade);
                 request.getSession().removeAttribute("insert");
+                int sum =gm.SumofGrades(group);
+                GroupMapper groupmap = new GroupMapper();
+                groupmap.insertTotalgrade(group,sum);
                 RequestDispatcher rs = request.getRequestDispatcher("/GradingTeacher");
                 rs.forward(request,response);
             }

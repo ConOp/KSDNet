@@ -86,5 +86,17 @@ public class ProjectMapper {
         }
         return false;
     }
+    public int getNumOfCurrProjects(String courseid)  throws  SQLException{
+        try{
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("select count(project_id)from projects where course_id=? group by course_id");
+            st.setString(1, courseid);
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            return rs.getInt(1);
+        }catch (Exception e){
+            throw new SQLException("Could not execute query.");
+        }
+    }
 }
 

@@ -31,9 +31,7 @@ public class TCourseServlet extends HttpServlet {
                 request.getSession().setAttribute("coursename",Coursename);
             try {
                 CourseMapper cm = new CourseMapper();
-                ResultSet Rs =cm.get_courseid(Coursename);
-                Rs.next();
-                Courseid= Rs.getString("course_id");
+                Courseid =cm.get_courseid(Coursename);
                 request.getSession().setAttribute("courseid",Courseid);
             }
             catch (Exception e){
