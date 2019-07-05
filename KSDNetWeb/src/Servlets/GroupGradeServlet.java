@@ -1,6 +1,7 @@
 package Servlets;
 
 import Classes.GradeMapper;
+import Classes.ProjectMapper;
 
 import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
@@ -62,7 +63,7 @@ public class GroupGradeServlet extends HttpServlet {
             Connection con = ds.getConnection();
             PreparedStatement st = con.prepareStatement("SELECT student_id FROM groups WHERE group_id='"+group+"'"); //παίρνουμε το userid από τη βάση
             Rs = st.executeQuery();
-            PrintResults(Rs,out);
+            PrintResults(Rs,out,projectid);
             if (request.getParameter("logout") != null) {
                 group="";
                 request.getSession().removeAttribute("username");
@@ -84,14 +85,17 @@ public class GroupGradeServlet extends HttpServlet {
         }catch(Exception e){
         }
     }
-    protected void PrintResults(ResultSet rs,PrintWriter out) {
+    //added third parameter
+    protected void PrintResults(ResultSet rs,PrintWriter out,String projectid) {
         try {
             while (rs.next()){
                 out.println("<a href=\"#\" class=\"list-group-item list-group-item-action\">"+rs.getString("student_id")+"</a>");
             }
+            //code added below
+            ProjectMapper pm = new ProjectMapper();
             out.println("</ul><br>" +
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
-                    "<input type=\"number\" name=\"grade\" min=\"0\" max=\"10\"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
+                    "<input type=\"number\" name=\"grade\" min=\"0\" max="+pm.MaxGrade(projectid)+"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
                     "</form>"+
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
                     "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
