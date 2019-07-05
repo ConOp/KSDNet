@@ -1,6 +1,7 @@
 package Classes;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GradeMapper {
@@ -17,6 +18,22 @@ public class GradeMapper {
         }
         catch (Exception e){
             throw new SQLException("Could not insert grade.");
+        }
+    }
+    public int SumofGrades(String groupid) throws SQLException {
+        try {
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("select grade from grade inner join projects on projects.project_id = grade.project_id where grade.group_id=?");
+            st.setString(1, groupid);
+            ResultSet rs = st.executeQuery();
+            int sum = 0;
+            while (rs.next()) {
+                sum += rs.getInt(1);
+            }
+            connector.disconnect();
+            return sum;
+        } catch (Exception e) {
+            throw new SQLException("Could not get sum.");
         }
     }
 }

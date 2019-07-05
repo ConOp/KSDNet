@@ -40,13 +40,14 @@ public class CourseMapper {
         }
     }
 
-    public ResultSet get_courseid(String coursename) throws  SQLException{
+    public String get_courseid(String coursename) throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
             PreparedStatement st = connector.connect().prepareStatement("SELECT course_id FROM courses WHERE  name=?");
             st.setString(1, coursename);
             ResultSet rs = st.executeQuery();
-            return  rs;
+            rs.next();
+            return  rs.getString(1);
         }
         catch (Exception e){
             throw new SQLException("Could not obtain data.");
@@ -54,19 +55,31 @@ public class CourseMapper {
         }
 
     }
-    public ResultSet get_allcourses(String teacherid) throws  SQLException{
-        try{
+    public ResultSet get_allcourses(String teacherid) throws  SQLException {
+        try {
             Dbconnector connector = new Dbconnector();
             PreparedStatement st = connector.connect().prepareStatement("SELECT name FROM courses WHERE  teacher_id=?");
             st.setString(1, teacherid);
             ResultSet rs = st.executeQuery();
-            return  rs;
-        }
-        catch (Exception e){
+            return rs;
+        } catch (Exception e) {
             throw new SQLException("Could not obtain data.");
 
         }
+    }
+     public int getnumofprojects(String courseid) throws  SQLException{
+            try{
+                Dbconnector connector = new Dbconnector();
+                PreparedStatement st = connector.connect().prepareStatement("SELECT number_projects FROM courses WHERE  course_id=?");
+                st.setString(1,courseid);
+                ResultSet rs = st.executeQuery();
+                rs.next();
+                return  rs.getInt(1);
+            }
+            catch (Exception e){
+                throw new SQLException("Could not obtain data.");
 
+            }
     }
 
 }
