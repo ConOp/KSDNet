@@ -45,7 +45,7 @@ public class CreateGroupServlet extends HttpServlet {
             boolean flag = false;
             PrintWriter out = response.getWriter();
             String[] guserids;
-            String groupid = "";
+            String groupid = userid;
             try{
                 out.println("<!DOCTYPE HTML>" +
                         "<html>" +
@@ -62,7 +62,7 @@ public class CreateGroupServlet extends HttpServlet {
                         "<h6 class=\"card-subtitle mb-2 text-muted\">Choose your team members</h6><div class = \"col\">" +
                         "<form method=\"post\" action=\"/CreatGroup\"><br>");
                 Connection con = ds.getConnection();
-                PreparedStatement st = con.prepareStatement("select groupmembers from projects inner join courses on projects.course_id = courses.course_id where courses.name = '"+coursename+"';");
+                PreparedStatement st = con.prepareStatement("select groupmembers from courses where courses.name = '"+coursename+"';");
                 ResultSet rs= st.executeQuery();
 
                 while(rs.next()){
@@ -81,51 +81,57 @@ public class CreateGroupServlet extends HttpServlet {
                 guserids = new String[counter];
 
                 if(request.getParameter("assign_group")!=null) {
-
-                    for (int i = 1; i <= counter; i++) { guserids[i-1] = request.getParameter(Integer.toString(i)); }
-                    for (int i=0;i<guserids.length;i++){ groupid += guserids[i];}
-
-                    //check below if the given userids for group assignment, get counter for the ones exist in database
-                    String check_statement = "SELECT count(*) FROM students WHERE students.student_id in(";
-                    for (int i=0;i<guserids.length;i++){
-                        check_statement += "'"+guserids[i]+"'";
-                        if(i==guserids.length-1){ check_statement+=");";}else{ check_statement += ",";}
-                    }
-                    PreparedStatement initial = con.prepareStatement(check_statement);
-                    ResultSet i_rs = initial.executeQuery();
-                    while(i_rs.next()){
-                        if(i_rs.getInt("count")==counter){
-                            flag = true;
+                    if(counter!=0) {
+                        for (int i = 1; i <= counter; i++) {
+                            guserids[i - 1] = request.getParameter(Integer.toString(i));
                         }
-                    }
-                    i_rs.close();
-                    initial.close();
-                    if(flag){
-                        String statement = "UPDATE students SET group_id='"+groupid+"' WHERE students.student_id IN ('"+userid+"'";
-
-                        for (int i=0;i<guserids.length;i++){
-                            statement += ",'"+guserids[i]+"'";
-                            if(i==guserids.length-1){ statement+=");";}
+                        for (int i = 0; i < guserids.length; i++) {
+                            groupid += guserids[i];
                         }
 
-                        PreparedStatement g = con.prepareStatement(statement);
-                        g.executeUpdate();
-                        g.close();
-                        PreparedStatement p = con.prepareStatement("INSERT INTO groups(group_id,course_id) VALUES (?,(select course_id from courses where courses.name = '"+coursename+"'));");
-                        p.setString(1, groupid);
-                        p.executeUpdate();
-                        p.close();
-                        con.close();
-                        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Student_CourseHomepage?coursename="+ coursename);
-                        dispatcher.forward(request, response);
+                        //check below if the given userids for group assignment, get counter for the ones exist in database
+                        String check_statement = "SELECT count(*) FROM students WHERE students.student_id in(";
+                        for (int i = 0; i < guserids.length; i++) {
+                            check_statement += "'" + guserids[i] + "'";
+                            if (i == guserids.length - 1) {
+                                check_statement += ");";
+                            } else {
+                                check_statement += ",";
+                            }
+                        }
+                        PreparedStatement initial = con.prepareStatement(check_statement);
+                        ResultSet i_rs = initial.executeQuery();
+                        while (i_rs.next()) {
+                            if (i_rs.getInt("count") == counter) {
+                                flag = true;
+                            }
+                        }
+                        i_rs.close();
+                        initial.close();
+                        if (flag) {
+                            String statement = "INSERT INTO groups(group_id,student_id,course_id) VALUES ('" + groupid + "','" + userid + "',(select course_id from courses where courses.name = '" + coursename + "'));";
+                            for (int i = 0; i < guserids.length; i++) {
+                                statement += "INSERT INTO groups(group_id,student_id,course_id) VALUES ('" + groupid + "','" + guserids[i] + "',(select course_id from courses where courses.name = '" + coursename + "'));";
+                            }
+                            PreparedStatement p = con.prepareStatement(statement);
+                            p.executeUpdate();
+                            p.close();
 
-                    }else{ response.sendRedirect("invalid_group.html");}
-
+                        } else {
+                            response.sendRedirect("invalid_group.html");
+                        }
+                    }else{
+                        PreparedStatement single_project = con.prepareStatement("INSERT INTO groups(group_id,student_id,course_id) VALUES ('" + userid + "','" + userid + "',(select course_id from courses where courses.name = '" + coursename + "'));");
+                        single_project.executeUpdate();
+                        single_project.close();
+                    }
+                    con.close();
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Student_CourseHomepage?coursename=" + coursename);
+                    dispatcher.forward(request, response);
                 }
 
             }catch (Exception e){
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                System.out.println(e); //NA TO BGALOUME AUTO STO TELOS
             }
         }
 
