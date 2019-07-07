@@ -1,24 +1,20 @@
 package Servlets;
 
-import Classes.CourseMapper;
-import Classes.GroupMapper;
-
-import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.*;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet(name = "St_CourseServlet",value = "/Student_CourseHomepage")
+
 public class St_CourseServlet extends HttpServlet {
 
     private DataSource ds = null;
@@ -32,15 +28,17 @@ public class St_CourseServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean flag = false;
+        boolean group_created = false;
+        boolean project_exists = false;
+        boolean send = false;
         PrintWriter out = response.getWriter();
         String userid = (String) request.getSession().getAttribute("username");
-        String coursename = "";
+        String coursename = request.getParameter("coursename");
+        String project_id = "";
         if(userid.charAt(0) != 'S') {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
         else {
-            coursename = request.getParameter("coursename");
             request.getSession().setAttribute("coursename",coursename);
 
             out.println("<!DOCTYPE HTML>" +
@@ -50,34 +48,30 @@ public class St_CourseServlet extends HttpServlet {
                     "<title>Course Details</title>" +
                     "<link href=\"./bootstrap/css/bootstrap.css\" rel=\"stylesheet\">" +
                     "<link href=\"./bootstrap/css/bootstrap-grid.css\" rel=\"stylesheet\">" +
-                    "<link href=\"./bootstrap/css/bootstrap-reboot.css\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"./bootstrap/css/bootstrap.css\">" +
+                    "<link href=\"./bootstrap/css/bootstrap-reboot.css\" rel=\"stylesheet\">" +
                     "</head><body><div class=\"container d-flex justify-content-center\">" +
                     "<div class=\"shadow p-3 mb-5 bg-white rounded\">" +
                     "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">" +
                     "<h5 class=\"card-title\">" + coursename + "</h5><br>" +
                     "<h6 class=\"card-subtitle mb-2 text-muted\">Course Information</h6><div class = \"col\">" +
-                    "<form method=\"post\" action=\"\" enctype=\"multipart/form-data\"><br>");
+                    "<form method=\"post\" action=\"/UploadProject\" enctype=\"multipart/form-data\"><br>");
 
             try {
                 Connection con = ds.getConnection();
-                PreparedStatement check_team = con.prepareStatement("SELECT EXISTS (SELECT (SELECT course_id FROM courses WHERE courses.name = '"+coursename+"') " +
-                        "FROM students INNER JOIN groups ON students.group_id = groups.group_id WHERE students.student_id = '"+userid+"');");
+                PreparedStatement check_team = con.prepareStatement("SELECT EXISTS (SELECT group_id FROM groups WHERE groups.student_id = '"+userid+"' AND groups.course_id IN " +
+                        "(SELECT course_id FROM courses WHERE courses.name = '"+coursename+"'));");
                 ResultSet r = check_team.executeQuery();
-                while (r.next()){ flag = r.getBoolean("exists");}
+                while (r.next()){ group_created = r.getBoolean("exists");}
                 check_team.close(); r.close();
 
-                PreparedStatement st = con.prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects FROM COURSES INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name='" + coursename + "';");
+                PreparedStatement st = con.prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects, groupmembers FROM COURSES INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name='" + coursename + "';");
                 ResultSet rs = st.executeQuery();
 
-                out.println("<table align=\"center\" class=\"table table-bordered\">" + "<tr><th>" + "Course ID" + "</th><th>" + "Coursename" + "</th><th>" + "Teacher" + "</th><th>" + "Number of projects" + "</th></tr>");
+                out.println("<table align=\"center\" class=\"table table-bordered\">" + "<tr><th>" + "Course ID" + "</th><th>" + "Coursename" + "</th><th>" + "Teacher" + "</th><th>" + "Number of projects" + "</th><th>" + "Members of group" + "</th></tr>");
 
                 while (rs.next()) {
-                    out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getString("number_projects") + "</td></tr>");
+                    out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getInt("number_projects") + "</td><td>" + rs.getInt("groupmembers") + "</td></tr>");
                 }
-               // CourseMapper cm = new CourseMapper();
-               //String courseid= cm.get_courseid(coursename);
-              //  GroupMapper groupmap= new GroupMapper();
-               // int grade=groupmap.getCourseGrade(userid,courseid);
                 out.println("</table>");
 
                 Date date = new Date();
@@ -99,9 +93,8 @@ public class St_CourseServlet extends HttpServlet {
                 }
                 out.println("</table><br><div class=\"input-group mb-3\">" +
                         "<div class=\"input-group-prepend\">" +
-                        "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload Project</span>" +
+                        "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Project file</span>" +
                         "</div><div class=\"custom-file\">" +
-                       // "<h1>Grade "+grade+"/10</h1>" +
                         "<input name=\"zipfile\" type=\"file\" accept=\".zip,.rar,.7zip\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\" required>" +
                         "<label id=\"upload_label\" class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
                         "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
@@ -116,13 +109,12 @@ public class St_CourseServlet extends HttpServlet {
                         "var fileName = input_file.files[0].name;" +
                         "label_file.textContent = fileName;}</script>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
-                        "<script src=\"./bootstrap/js/bootstrap.js\"></script></body></html>");
+                        "<script src=\"./bootstrap/js/bootstrap.js\"></script>" +
+                        "</body></html>");
                 st.close();
                 rs.close();
                 con.close();
-                //Part file = request.getPart("file");
-                //PreparedStatement st3 = con.prepareStatement("");
-                //preparedStatement.setBinaryStream(3, logo);
+                if(project_id!=""){ request.getSession().setAttribute("project_id",project_id);}
 
             } catch (Exception e) {
                 System.out.println(e);
