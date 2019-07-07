@@ -74,21 +74,47 @@ public class St_CourseServlet extends HttpServlet {
                 while (rs.next()) {
                     out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getString("number_projects") + "</td></tr>");
                 }
-                CourseMapper cm = new CourseMapper();
-               String courseid= cm.get_courseid(coursename);
-                GroupMapper groupmap= new GroupMapper();
-                int grade=groupmap.getCourseGrade(userid,courseid);
-                out.println("</table>" +
-                        "<br><div class=\"input-group mb-3\">" +
+               // CourseMapper cm = new CourseMapper();
+               //String courseid= cm.get_courseid(coursename);
+              //  GroupMapper groupmap= new GroupMapper();
+               // int grade=groupmap.getCourseGrade(userid,courseid);
+                out.println("</table>");
+
+                Date date = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+
+                PreparedStatement project_details =  con.prepareStatement("SELECT project_id, deadline, max_grade FROM projects INNER JOIN courses ON courses.course_id = projects.course_id" +
+                        " WHERE courses.name = '"+coursename+"' AND '"+dateFormat.format(date)+"' <= projects.deadline;");
+                ResultSet details = project_details.executeQuery();
+                out.println("<table align=\"center\" class=\"table table-bordered\">" + "<tr><th>" + "Project ID" + "</th><th>" + "Deadline" + "</th><th>" + "Max grade" + "</th></tr>");
+                while (details.next()){
+                    out.println("<tr><td>" + details.getString("project_id") + "</td><td>" + details.getString("deadline") + "</td><td>" + details.getInt("max_grade") + "</td></tr>");
+                    project_exists = true;
+                    project_id += details.getString("project_id");
+                }
+                project_details.close();
+                details.close();
+                if(project_exists && group_created){
+                    send = true;
+                }
+                out.println("</table><br><div class=\"input-group mb-3\">" +
                         "<div class=\"input-group-prepend\">" +
                         "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload Project</span>" +
                         "</div><div class=\"custom-file\">" +
-                        "<input name=\"file\" type=\"file\" class=\"custom-file-input\" id=\"inputGroupFile\" aria-describedby=\"inputGroupFileAddon01\">" +
-                        "<label class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
-                        "</div></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
-                        "<h1>Grade "+grade+"/10</h1>" +
-                        "<script>document.getElementById(\"group_assignment\").disabled = "+flag+";</script>" +
-                        "<script>document.getElementById(\"inputGroupFile\").disabled = "+!flag+";</script>" +
+                       // "<h1>Grade "+grade+"/10</h1>" +
+                        "<input name=\"zipfile\" type=\"file\" accept=\".zip,.rar,.7zip\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\" required>" +
+                        "<label id=\"upload_label\" class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
+                        "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
+                        "<script>document.getElementById(\"group_assignment\").disabled = "+group_created+";</script>" +
+                        "<script>document.getElementById(\"inputGroupFile01\").disabled = "+!send+";</script>" +
+                        "<script>document.getElementById(\"upload_file\").disabled = "+!send+";</script>" +
+                        "<script>" +
+                        "var input_file = document.getElementById( 'inputGroupFile01' );" +
+                        "var label_file = document.getElementById( 'upload_label' );" +
+                        "input_file.addEventListener( 'change', showFileName );" +
+                        "function showFileName( event ) {" +
+                        "var fileName = input_file.files[0].name;" +
+                        "label_file.textContent = fileName;}</script>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
                         "<script src=\"./bootstrap/js/bootstrap.js\"></script></body></html>");
                 st.close();
