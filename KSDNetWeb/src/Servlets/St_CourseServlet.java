@@ -76,10 +76,10 @@ public class St_CourseServlet extends HttpServlet {
                 while (rs.next()) {
                     out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getInt("number_projects") + "</td><td>" + rs.getInt("groupmembers") + "</td></tr>");
                 }
-                CourseMapper cm = new CourseMapper();
-               String courseid= cm.get_courseid(coursename);
-                GroupMapper groupmap= new GroupMapper();
-                int grade=groupmap.getCourseGrade(userid,courseid);
+               // CourseMapper cm = new CourseMapper();
+               //String courseid= cm.get_courseid(coursename);
+              //  GroupMapper groupmap= new GroupMapper();
+               // int grade=groupmap.getCourseGrade(userid,courseid);
                 out.println("</table>");
 
                 Date date = new Date();
@@ -103,7 +103,7 @@ public class St_CourseServlet extends HttpServlet {
                         "<div class=\"input-group-prepend\">" +
                         "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Project file</span>" +
                         "</div><div class=\"custom-file\">" +
-                        "<h1>Grade "+grade+"/10</h1>" +
+                       // "<h1>Grade "+grade+"/10</h1>" +
                         "<input name=\"zipfile\" type=\"file\" accept=\".zip,.rar,.7zip\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\" required>" +
                         "<label id=\"upload_label\" class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
                         "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
