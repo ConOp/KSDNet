@@ -17,15 +17,18 @@ public class GroupMapper {
             throw new SQLException("Could not set total grade.");
         }
     }
-    public int getCourseGrade(String studentid,String courseid) throws SQLException {
+    public String getCourseGrade(String studentid,String courseid) throws SQLException {
         try {
             Dbconnector con = new Dbconnector();
             PreparedStatement st = con.connect().prepareStatement("select total_grade from groups where student_id=? and course_id=?");
             st.setString(1, studentid);
             st.setString(2, courseid);
             ResultSet rs = st.executeQuery();
-            rs.next();
-            return rs.getInt(1);
+            String total_grade = "- ";
+            while(rs.next()){
+                if(rs.getString(1)!=null){ total_grade = rs.getString(1); }
+            }
+            return total_grade;
         } catch (Exception e) {
             throw new SQLException("Could not get total grade.");
         }
