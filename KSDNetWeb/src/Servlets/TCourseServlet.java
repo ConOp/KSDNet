@@ -52,6 +52,7 @@ public class TCourseServlet extends HttpServlet {
                     "<form action=\"/GradingTeacher\" method=\"Post\">" +
                     "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
 
+
             ProjectMapper pm = new ProjectMapper();
             ResultSet Rs = pm.get_projectid(Courseid);
 
@@ -64,6 +65,8 @@ public class TCourseServlet extends HttpServlet {
             }
 
             out.println("</table></form>");
+            out.println("<form action=\"/DownloadProject\" method=\"Post\">" +
+                    "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" />");
 
         } catch (Exception e) {
 
