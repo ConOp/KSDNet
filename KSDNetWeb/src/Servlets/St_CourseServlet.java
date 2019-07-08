@@ -1,5 +1,8 @@
 package Servlets;
 
+import Classes.CourseMapper;
+import Classes.GroupMapper;
+
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -88,10 +91,14 @@ public class St_CourseServlet extends HttpServlet {
                 }
                 project_details.close();
                 details.close();
+                CourseMapper cm = new CourseMapper();
+                String courseid= cm.get_courseid(coursename);
+                GroupMapper groupmap= new GroupMapper();
+                String grade=groupmap.getCourseGrade(userid,courseid);
                 if(project_exists && group_created){
                     send = true;
                 }
-                out.println("</table><br><div class=\"input-group mb-3\">" +
+                out.println("</table><br><h5>Final grade "+grade+"/10</h5><br><div class=\"input-group mb-3\">" +
                         "<div class=\"input-group-prepend\">" +
                         "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Project file</span>" +
                         "</div><div class=\"custom-file\">" +
