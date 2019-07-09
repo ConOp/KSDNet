@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,9 +35,11 @@ public class UploadProjectServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String userid = (String) request.getSession().getAttribute("username");
         String coursename = (String) request.getSession().getAttribute("coursename");
         String project_id = (String) request.getSession().getAttribute("project_id");
+        String group_id = "";
         try{
             Connection con = ds.getConnection();
             Part file = request.getPart("zipfile");
@@ -49,21 +52,37 @@ public class UploadProjectServlet extends HttpServlet {
             Date parsedDate = upload_dateFormat.parse(upload_dateFormat.format(upload_date));
             Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 
-            PreparedStatement st3 = con.prepareStatement("INSERT INTO grade (group_id, project_id, upload_date, filename, file) VALUES(" +
-                    "(SELECT group_id FROM groups INNER JOIN courses on groups.course_id = courses.course_id WHERE groups.student_id = '"+userid+"' AND courses.name = '"+coursename+"')," +
-                    "?,?,?,?);");
-            st3.setString(1, project_id);
-            st3.setTimestamp(2, timestamp);
-            st3.setString(3,fileName);
-            st3.setBinaryStream(4,fileContent);
-
-            st3.executeUpdate();
+            PreparedStatement check_existing = con.prepareStatement("SELECT (SELECT group_id FROM groups INNER JOIN courses on groups.course_id = courses.course_id " +
+                    "WHERE groups.student_id = '"+userid+"' AND courses.name = '"+coursename+"') FROM grade WHERE grade.project_id = '"+project_id+"';");
+            ResultSet existing_groupid = check_existing.executeQuery();
+            while(existing_groupid.next()){
+                group_id += existing_groupid.getString("group_id");
+            }
+            check_existing.close();
+            existing_groupid.close();
+            if(group_id!=""){
+                PreparedStatement upadte_file = con.prepareStatement("UPDATE grade SET filename = ?, file = ? WHERE grade.group_id='"+group_id+"';");
+                upadte_file.setString(1,fileName);
+                upadte_file.setBinaryStream(2,fileContent);
+                upadte_file.executeUpdate();
+                upadte_file.close();
+            }else{
+                PreparedStatement st3 = con.prepareStatement("INSERT INTO grade (group_id, project_id, upload_date, filename, file) VALUES(" +
+                        "(SELECT group_id FROM groups INNER JOIN courses on groups.course_id = courses.course_id WHERE groups.student_id = '"+userid+"' AND courses.name = '"+coursename+"')," +
+                        "?,?,?,?);");
+                st3.setString(1, project_id);
+                st3.setTimestamp(2, timestamp);
+                st3.setString(3,fileName);
+                st3.setBinaryStream(4,fileContent);
+                st3.executeUpdate();
+                st3.close();
+            }
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
             dispatcher.forward(request, response);
-            st3.close();
             con.close();
-        }catch (Exception e){}
-
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 }
