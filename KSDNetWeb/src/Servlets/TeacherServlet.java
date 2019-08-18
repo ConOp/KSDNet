@@ -1,19 +1,14 @@
 package Servlets;
 
 import Classes.CourseMapper;
-import Classes.Dbconnector;
 
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -48,7 +43,7 @@ public class TeacherServlet extends HttpServlet {
 
         try{
             CourseMapper cm = new CourseMapper();
-            ResultSet Rs = cm.get_allcourses(userid);
+            ResultSet Rs = cm.get_allcoursesofteacher(userid);
             PrintResults(Rs,out);
             out.println("</form>");
             out.println("</ul><br>" +

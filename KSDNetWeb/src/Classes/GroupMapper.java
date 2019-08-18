@@ -33,4 +33,18 @@ public class GroupMapper {
             throw new SQLException("Could not get total grade.");
         }
     }
+    public ResultSet CheckExistingProject(String userid,String coursename,String projectid) throws  SQLException {
+        try {
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("SELECT (SELECT group_id FROM groups INNER JOIN courses on groups.course_id = courses.course_id WHERE groups.student_id = ? AND courses.name = ?) FROM grade WHERE grade.project_id = ?");
+            st.setString(1, userid);
+            st.setString(2, coursename);
+            st.setString(3, projectid);
+            ResultSet rs = st.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new SQLException("Could not obtain data.");
+
+        }
+    }
 }
