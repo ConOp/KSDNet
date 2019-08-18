@@ -26,15 +26,6 @@ public class LoginServlet extends HttpServlet {
     private String securePassword = null;
 
     private static final long serialVersionUID = 1L;
-    private DataSource ds = null;
-    public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
-        try {
-            InitialContext ctx = new InitialContext(); //πόροι για datasource
-            ds = (DataSource)ctx.lookup("java:comp/env/jdbc/postgres"); //lookup δεσμεύει το αντικείμενο ds τύπου datasource με το string που θέλουμε
-        }catch(Exception e) {
-            throw new ServletException(e.toString());
-        }
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
