@@ -68,7 +68,6 @@ public class ProjectMapper {
 
     }
 
-
     public boolean DeadlineHasPast(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
@@ -97,6 +96,20 @@ public class ProjectMapper {
         }catch (Exception e){
             throw new SQLException("Could not execute query.");
         }
+    }
+    //new code added below
+    public int MaxGrade(String id) throws  SQLException{
+        try{
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("select max_grade from projects where project_id='"+id+"'");
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return Integer.parseInt(rs.getString("max_grade"));
+            }
+        }catch (Exception e){
+            throw new SQLException("Project does not exists");
+        }
+        return -1;
     }
 }
 
