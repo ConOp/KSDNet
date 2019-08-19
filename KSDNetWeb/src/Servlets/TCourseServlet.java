@@ -21,6 +21,7 @@ public class TCourseServlet extends HttpServlet {
         String Coursename="";
         String Courseid="";
         PrintWriter out = response.getWriter();
+        boolean activeProject = false;
         out.println("<!DOCTYPE HTML>" +
                 "<html>" +
                 "<head>" +
@@ -57,10 +58,11 @@ public class TCourseServlet extends HttpServlet {
             ResultSet Rs = pm.get_projectid(Courseid);
 
             while(Rs.next()){
-                if(pm.DeadlineHasPast(Rs.getString("project_id"))){
-                    out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
-                }else{
+                if(pm.DeadlineHasPassed(Rs.getString("project_id"))){
+                    activeProject=true;
                     out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
+                }else{
+                    out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
                 }
             }
 
@@ -80,10 +82,9 @@ public class TCourseServlet extends HttpServlet {
                 pm.deleteallProjects(Courseid);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
                 dispatcher.forward(request, response);
-            }
-         catch (Exception e) {
+            }catch (Exception e) {
 
-        }
+            }
         }
 
     }

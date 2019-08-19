@@ -34,10 +34,12 @@ public class GroupGradeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
         String group = "";
+        String course = "";
         String projectid =(String) request.getSession().getAttribute("projectid");
         if(request.getParameter("group")!=null){
             group =request.getParameter("group");
             request.getSession().setAttribute("groupid",group);
+            request.getSession().setAttribute("courseid",course);
         }
         else{
             group = (String)request.getSession().getAttribute("groupid");
@@ -59,9 +61,7 @@ public class GroupGradeServlet extends HttpServlet {
                 "<h5 class=\"card-title\">Members of "+group+"</h5>\n" +
                 "<div class = \"col\">\n");
         try{
-            GroupMapper grm = new GroupMapper();
-            Rs = grm.GetID(group);//get student ID within group
-            PrintResults(Rs,out,projectid);
+
             if (request.getParameter("logout") != null) {
                 group="";
                 request.getSession().removeAttribute("username");
@@ -81,6 +81,9 @@ public class GroupGradeServlet extends HttpServlet {
                 RequestDispatcher rs = request.getRequestDispatcher("/GradingTeacher");
                 rs.forward(request,response);
             }
+            GroupMapper grm = new GroupMapper();
+            Rs = grm.GetID(group,course);//get student ID within group
+            PrintResults(Rs,out,projectid);
         }catch(Exception e){
         }
     }

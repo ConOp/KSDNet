@@ -68,7 +68,7 @@ public class ProjectMapper {
 
     }
 
-    public boolean DeadlineHasPast(String id) throws  SQLException{
+    public boolean DeadlineHasPassed(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
             PreparedStatement st = con.connect().prepareStatement("SELECT deadline FROM projects WHERE project_id=?");
