@@ -95,7 +95,7 @@ public class GroupGradeServlet extends HttpServlet {
             ProjectMapper pm = new ProjectMapper();
             out.println("</ul><br>" +
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
-                    "<input type=\"number\" name=\"grade\" min=\"0\" max="+pm.MaxGrade(projectid)+"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
+                    "<input type=\"number\" name=\"grade\" min=\"0\" max="+Integer.parseInt(pm.MaxGrade(projectid).getString("max_grade"))+"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
                     "</form>"+
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
                     "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
