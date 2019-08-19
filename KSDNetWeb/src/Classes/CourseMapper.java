@@ -78,6 +78,34 @@ public class CourseMapper {
 
         }
     }
+
+    public ResultSet groupmembers(String coursename) throws  SQLException {
+        try {
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("SELECT groupmembers FROM courses WHERE courses.name = ?;");
+            st.setString(1, coursename);
+            ResultSet rs = st.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new SQLException("Could not obtain data.");
+
+        }
+    }
+
+    public ResultSet course_info(String coursename) throws  SQLException {
+        try {
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects, groupmembers FROM COURSES " +
+                    "INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name=?;");
+            st.setString(1, coursename);
+            ResultSet rs = st.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new SQLException("Could not obtain data.");
+
+        }
+    }
+
      public int getnumofprojects(String courseid) throws  SQLException{
             try{
                 Dbconnector connector = new Dbconnector();

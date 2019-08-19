@@ -12,6 +12,7 @@ public class GroupMapper {
             st.setInt(1, totalgrade);
             st.setString(2, groupid);
             st.executeUpdate();
+            st.close();
             con.disconnect();
         } catch (Exception e) {
             throw new SQLException("Could not set total grade.");
@@ -28,6 +29,8 @@ public class GroupMapper {
             while(rs.next()){
                 if(rs.getString(1)!=null){ total_grade = rs.getString(1); }
             }
+            st.close();
+            con.disconnect();
             return total_grade;
         } catch (Exception e) {
             throw new SQLException("Could not get total grade.");
@@ -40,6 +43,53 @@ public class GroupMapper {
             st.setString(1, userid);
             st.setString(2, coursename);
             st.setString(3, projectid);
+            ResultSet rs = st.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new SQLException("Could not obtain data.");
+
+        }
+    }
+
+    public void group_assign(String groupid,String userid,String[] guserids,String coursename) throws SQLException {
+        try {
+            String statement = "INSERT INTO groups(group_id,student_id,course_id) VALUES ('" + groupid + "','" + userid + "',(SELECT course_id FROM courses WHERE courses.name = '" + coursename + "'));";
+            for (int i = 0; i < guserids.length; i++) {
+                statement += "INSERT INTO groups(group_id,student_id,course_id) VALUES ('" + groupid + "','" + guserids[i] + "',(SELECT course_id FROM courses WHERE courses.name = '" + coursename + "'));";
+            }
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement(statement);
+            st.executeUpdate();
+            st.close();
+            con.disconnect();
+
+        } catch (Exception e) {
+            throw new SQLException("Unsuccessful group assignment.");
+        }
+    }
+
+    public void single_project(String userid,String coursename) throws SQLException {
+        try {
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("INSERT INTO groups(group_id,student_id,course_id) VALUES (?,?,(select course_id from courses where courses.name = ?));");
+            st.setString(1, userid);
+            st.setString(2, userid);
+            st.setString(3, coursename);
+            st.executeUpdate();
+            st.close();
+            con.disconnect();
+        } catch (Exception e) {
+            throw new SQLException("Unsuccessful group assignment.");
+        }
+    }
+
+    public ResultSet check_team(String userid, String coursename) throws  SQLException {
+        try {
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("SELECT EXISTS (SELECT group_id FROM groups WHERE groups.student_id = ? AND groups.course_id IN " +
+                    "(SELECT course_id FROM courses WHERE courses.name = ?));");
+            st.setString(1, userid);
+            st.setString(2,coursename);
             ResultSet rs = st.executeQuery();
             return rs;
         } catch (Exception e) {

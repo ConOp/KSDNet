@@ -2,16 +2,13 @@ package Servlets;
 
 import Classes.CourseMapper;
 import Classes.GroupMapper;
+import Classes.ProjectMapper;
 
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,16 +16,6 @@ import java.util.Date;
 @WebServlet(name = "St_CourseServlet",value = "/Student_CourseHomepage")
 
 public class St_CourseServlet extends HttpServlet {
-
-    private DataSource ds = null;
-    public void init() throws ServletException { //φορτώνεται ο servlet και καλείται η init, για αρχικοποιήσεις και σύνδεση με τη βάση
-        try {
-            InitialContext ctx = new InitialContext(); //πόροι για datasource
-            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/postgres"); //lookup δεσμεύει το αντικείμενο ds τύπου datasource με το string που θέλουμε
-        } catch (Exception e) {
-            throw new ServletException(e.toString());
-        }
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean group_created = false;
@@ -60,15 +47,13 @@ public class St_CourseServlet extends HttpServlet {
                     "<form method=\"post\" action=\"/UploadProject\" enctype=\"multipart/form-data\"><br>");
 
             try {
-                Connection con = ds.getConnection();
-                PreparedStatement check_team = con.prepareStatement("SELECT EXISTS (SELECT group_id FROM groups WHERE groups.student_id = '"+userid+"' AND groups.course_id IN " +
-                        "(SELECT course_id FROM courses WHERE courses.name = '"+coursename+"'));");
-                ResultSet r = check_team.executeQuery();
+                GroupMapper gm = new GroupMapper();
+                ResultSet r = gm.check_team(userid,coursename);
                 while (r.next()){ group_created = r.getBoolean("exists");}
-                check_team.close(); r.close();
+                r.close();
 
-                PreparedStatement st = con.prepareStatement("SELECT course_id, courses.name, teachers.surname, number_projects, groupmembers FROM COURSES INNER JOIN teachers on courses.teacher_id = teachers.teacher_id where courses.name='" + coursename + "';");
-                ResultSet rs = st.executeQuery();
+                CourseMapper c = new CourseMapper();
+                ResultSet rs = c.course_info(coursename);
 
                 out.println("<table align=\"center\" class=\"table table-bordered\">" + "<tr><th>" + "Course ID" + "</th><th>" + "Coursename" + "</th><th>" + "Teacher" + "</th><th>" + "Number of projects" + "</th><th>" + "Members of group" + "</th></tr>");
 
@@ -76,20 +61,19 @@ public class St_CourseServlet extends HttpServlet {
                     out.println("<tr><td>" + rs.getString("course_id") + "</td><td>" + rs.getString("name") + "</td><td>" + rs.getString("surname") + "</td><td>" + rs.getInt("number_projects") + "</td><td>" + rs.getInt("groupmembers") + "</td></tr>");
                 }
                 out.println("</table>");
+                rs.close();
 
                 Date date = new Date();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+                ProjectMapper pm = new ProjectMapper();
+                ResultSet details = pm.project_details(coursename,dateFormat.format(date));
 
-                PreparedStatement project_details =  con.prepareStatement("SELECT project_id, deadline, max_grade FROM projects INNER JOIN courses ON courses.course_id = projects.course_id" +
-                        " WHERE courses.name = '"+coursename+"' AND '"+dateFormat.format(date)+"' <= projects.deadline;");
-                ResultSet details = project_details.executeQuery();
                 out.println("<table align=\"center\" class=\"table table-bordered\">" + "<tr><th>" + "Project ID" + "</th><th>" + "Deadline" + "</th><th>" + "Max grade" + "</th></tr>");
                 while (details.next()){
                     out.println("<tr><td>" + details.getString("project_id") + "</td><td>" + details.getString("deadline") + "</td><td>" + details.getInt("max_grade") + "</td></tr>");
                     project_exists = true;
                     project_id += details.getString("project_id");
                 }
-                project_details.close();
                 details.close();
                 CourseMapper cm = new CourseMapper();
                 String courseid= cm.get_courseid(coursename);
@@ -118,9 +102,8 @@ public class St_CourseServlet extends HttpServlet {
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
                         "<script src=\"./bootstrap/js/bootstrap.js\"></script>" +
                         "</body></html>");
-                st.close();
+
                 rs.close();
-                con.close();
                 if(project_id!=""){ request.getSession().setAttribute("project_id",project_id);}
 
             } catch (Exception e) {
