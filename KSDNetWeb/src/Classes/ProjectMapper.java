@@ -71,7 +71,8 @@ public class ProjectMapper {
     public boolean DeadlineHasPast(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
-            PreparedStatement st = con.connect().prepareStatement("select deadline from projects where project_id='"+id+"'");
+            PreparedStatement st = con.connect().prepareStatement("SELECT deadline FROM projects WHERE project_id=?");
+            st.setString(1, id);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
                 Date date = new Date();
@@ -88,7 +89,7 @@ public class ProjectMapper {
     public int getNumOfCurrProjects(String courseid)  throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
-            PreparedStatement st = con.connect().prepareStatement("select count(project_id)from projects where course_id=? group by course_id");
+            PreparedStatement st = con.connect().prepareStatement("SELECT COUNT(project_id) FROM projects WHERE course_id=? GROUP BY course_id");
             st.setString(1, courseid);
             ResultSet rs = st.executeQuery();
             rs.next();
@@ -101,7 +102,8 @@ public class ProjectMapper {
     public int MaxGrade(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
-            PreparedStatement st = con.connect().prepareStatement("select max_grade from projects where project_id='"+id+"'");
+            PreparedStatement st = con.connect().prepareStatement("SELECT max_grade FROM projects WHERE project_id=?");
+            st.setString(1, id);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
                 return Integer.parseInt(rs.getString("max_grade"));
@@ -110,6 +112,22 @@ public class ProjectMapper {
             throw new SQLException("Project does not exists");
         }
         return -1;
+    }
+
+    public ResultSet project_details(String coursename, String date) throws  SQLException{
+        try{
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement("SELECT project_id, deadline, max_grade FROM projects INNER JOIN courses ON courses.course_id = projects.course_id" +
+                    " WHERE courses.name = ? AND '"+date+"' <= projects.deadline;");
+            st.setString(1, coursename);
+            ResultSet rs = st.executeQuery();
+            return  rs;
+        }
+        catch (Exception e){
+            throw new SQLException("Could not obtain data.");
+
+        }
+
     }
 }
 

@@ -45,4 +45,26 @@ public class StudentMapper {
         }
         return false;
     }
+
+    public ResultSet check_userids(String[] guserids) throws  SQLException {
+        try {
+            //check below if the given userids for group assignment, get counter for the ones exist in database
+            String check_statement = "SELECT count(*) FROM students WHERE students.student_id in(";
+            for (int i = 0; i < guserids.length; i++) {
+                check_statement += "'" + guserids[i] + "'";
+                if (i == guserids.length - 1) {
+                    check_statement += ");";
+                } else {
+                    check_statement += ",";
+                }
+            }
+            Dbconnector connector = new Dbconnector();
+            PreparedStatement st = connector.connect().prepareStatement(check_statement);
+            ResultSet rs = st.executeQuery();
+            return rs;
+        } catch (Exception e) {
+            throw new SQLException("Could not obtain data.");
+
+        }
+    }
 }
