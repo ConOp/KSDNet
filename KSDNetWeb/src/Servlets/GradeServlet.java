@@ -24,7 +24,6 @@ public class GradeServlet extends HttpServlet {
         PrintWriter  out=response.getWriter();
         String projectid = request.getParameter("ProjectID");
         request.getSession().setAttribute("projectid",projectid);
-        String courseid= (String)request.getSession().getAttribute("courseid");
 
 
 

@@ -47,13 +47,9 @@ public class TCourseServlet extends HttpServlet {
             out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
                     "<h3>Current Projects:</h3><br>");
             out.println("<form action=\"/TCourse\" method=\"Post\">" +
-                    "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" />" +
-                    "</form>" +
-                    "<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\"/>" +
-                    "<form action=\"/GradingTeacher\" method=\"Post\">" +
+                    "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" /></form>");
+             out.println("<form action=\"/GradingTeacher\" method=\"Post\">" +
                     "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
-
-
             ProjectMapper pm = new ProjectMapper();
             ResultSet Rs = pm.get_projectid(Courseid);
 
@@ -65,13 +61,18 @@ public class TCourseServlet extends HttpServlet {
                     out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
                 }
             }
-
             out.println("</table></form>");
             out.println("<form action=\"/DownloadProject\" method=\"Post\">" +
                     "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" />");
 
         } catch (Exception e) {
 
+        }
+
+        if(activeProject){
+            out.println("<form id=\"createform\" action=\"/TCourse\" method=\"Post\"><input disabled type=\"submit\" name=\"CreateProject\" onclick=\"/TCourse\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/></form>");
+        }else{
+            out.println("<form id=\"createform\" action=\"/TCourse\" method=\"Post\"><input type=\"submit\" name=\"CreateProject\" onclick=\"/TCourse\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/></form>");
         }
 
         if (request.getParameter("DeleteCourse") != null) {
