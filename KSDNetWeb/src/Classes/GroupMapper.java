@@ -97,4 +97,16 @@ public class GroupMapper {
 
         }
     }
+
+    public ResultSet GetID(String group) throws SQLException{
+        try {
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("SELECT student_id FROM groups WHERE group_id=?");
+            st.setString(1,group);
+            ResultSet Rs = st.executeQuery();
+            return Rs;
+        }catch(Exception e){
+            throw new SQLException("Incorrect credentials");
+        }
+    }
 }

@@ -99,19 +99,19 @@ public class ProjectMapper {
         }
     }
     //new code added below
-    public int MaxGrade(String id) throws  SQLException{
+    public ResultSet MaxGrade(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
             PreparedStatement st = con.connect().prepareStatement("SELECT max_grade FROM projects WHERE project_id=?");
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
-                return Integer.parseInt(rs.getString("max_grade"));
+                return rs;
             }
         }catch (Exception e){
             throw new SQLException("Project does not exists");
         }
-        return -1;
+        return null;
     }
 
     public ResultSet project_details(String coursename, String date) throws  SQLException{

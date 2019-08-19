@@ -1,5 +1,6 @@
 package Classes;
 
+import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -84,4 +85,15 @@ public class GradeMapper {
     }
 
 
+
+    public ResultSet GetGroup(String projectid) throws SQLException{
+        try{
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("SELECT  group_id FROM grade WHERE project_id=? and grade is null ");
+            st.setString(1,projectid);
+            return st.executeQuery();
+        }catch(Exception e){
+            throw new SQLException("Could not get sum.");
+        }
+    }
 }

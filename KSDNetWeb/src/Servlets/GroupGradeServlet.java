@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -61,9 +59,8 @@ public class GroupGradeServlet extends HttpServlet {
                 "<h5 class=\"card-title\">Members of "+group+"</h5>\n" +
                 "<div class = \"col\">\n");
         try{
-            Connection con = ds.getConnection();
-            PreparedStatement st = con.prepareStatement("SELECT student_id FROM groups WHERE group_id='"+group+"'"); //παίρνουμε το userid από τη βάση
-            Rs = st.executeQuery();
+            GroupMapper grm = new GroupMapper();
+            Rs = grm.GetID(group);//get student ID within group
             PrintResults(Rs,out,projectid);
             if (request.getParameter("logout") != null) {
                 group="";
@@ -84,14 +81,13 @@ public class GroupGradeServlet extends HttpServlet {
                 RequestDispatcher rs = request.getRequestDispatcher("/GradingTeacher");
                 rs.forward(request,response);
             }
-            st.close();
-            con.close();
         }catch(Exception e){
         }
     }
     //added third parameter
     protected void PrintResults(ResultSet rs,PrintWriter out,String projectid) {
         try {
+
             while (rs.next()){
                 out.println("<a href=\"#\" class=\"list-group-item list-group-item-action\">"+rs.getString("student_id")+"</a>");
             }
@@ -99,7 +95,7 @@ public class GroupGradeServlet extends HttpServlet {
             ProjectMapper pm = new ProjectMapper();
             out.println("</ul><br>" +
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
-                    "<input type=\"number\" name=\"grade\" min=\"0\" max="+pm.MaxGrade(projectid)+"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
+                    "<input type=\"number\" name=\"grade\" min=\"0\" max="+Integer.parseInt(pm.MaxGrade(projectid).getString("max_grade"))+"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
                     "</form>"+
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
                     "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
