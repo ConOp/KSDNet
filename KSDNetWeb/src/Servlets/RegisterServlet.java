@@ -2,6 +2,7 @@ package Servlets;
 
 import Classes.StudentMapper;
 import Classes.TeacherMapper;
+import Classes.UserFactory;
 
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
@@ -51,13 +52,8 @@ public class RegisterServlet extends HttpServlet {
         try {
             salt = getSalt();
             securePassword = SecurePassword(pass, salt);
-            if(userid.charAt(0) == 'S'){
-                StudentMapper sm = new StudentMapper();
-                sm.register(userid, uname, surname, securePassword, email, salt);
-            }else if(userid.charAt(0) == 'T') {
-                TeacherMapper tm = new TeacherMapper();
-                tm.register(userid, uname, surname, securePassword, email, salt);
-            }
+            UserFactory factory = new UserFactory();
+            factory.UserIdentification(userid).register(userid, uname, surname, securePassword, email, salt);//User Factory Pattern
         } catch (Exception e) {
             PrintWriter out = response.getWriter();	//για εκτύπωση στην html
             String title = "Registration failed";
