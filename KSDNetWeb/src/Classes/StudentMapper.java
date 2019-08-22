@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class StudentMapper {
+public class StudentMapper implements User {
     public void register(String id,String name,String surname,String password,String email,byte[] salt) throws SQLException {
         try{
             Dbconnector con = new Dbconnector();
