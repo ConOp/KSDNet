@@ -110,4 +110,16 @@ public class GroupMapper {
             throw new SQLException("Incorrect credentials");
         }
     }
+    public void DeleteGroupsFromCourse(String courseid) throws SQLException {
+        try {
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("DELETE FROM groups WHERE course_id=? ;");
+            st.setString(1, courseid);
+            st.executeUpdate();
+            st.close();
+            con.disconnect();
+        } catch (Exception e) {
+            throw new SQLException("Unsuccessful group assignment.");
+        }
+    }
 }

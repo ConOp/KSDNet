@@ -96,4 +96,21 @@ public class GradeMapper {
             throw new SQLException("Could not get sum.");
         }
     }
+    public void DeleteGrades(String courseid) throws SQLException{
+        try{
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("select grade.project_id from grade,projects where grade.project_id=projects.project_id and projects.course_id=?");
+            st.setString(1, courseid);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()){
+                 st = con.connect().prepareStatement("DELETE FROM grade WHERE project_id=?");
+                st.setString(1,rs.getString(1));
+                st.executeUpdate();
+            }
+            st.close();
+            con.disconnect();
+        }catch(Exception e){
+            throw new SQLException("Could not get sum.");
+        }
+    }
 }

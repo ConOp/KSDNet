@@ -1,6 +1,8 @@
 package Servlets;
 
 import Classes.CourseMapper;
+import Classes.GradeMapper;
+import Classes.GroupMapper;
 import Classes.ProjectMapper;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -77,10 +79,14 @@ public class TCourseServlet extends HttpServlet {
 
         if (request.getParameter("DeleteCourse") != null) {
             try {
-                CourseMapper cm = new CourseMapper();
-                cm.deleteCourse(Courseid);
+                GroupMapper gm = new GroupMapper();
+                gm.DeleteGroupsFromCourse(Courseid);
+                GradeMapper grm=new GradeMapper();
+                grm.DeleteGrades(Courseid);
                 ProjectMapper pm = new ProjectMapper();
                 pm.deleteallProjects(Courseid);
+                CourseMapper cm = new CourseMapper();
+                cm.deleteCourse(Courseid);
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/TeacherHomepage");
                 dispatcher.forward(request, response);
             }catch (Exception e) {
