@@ -44,15 +44,16 @@ public class GradeServlet extends HttpServlet {
 
 
         try{
-            GradeMapper gm = new GradeMapper();
-            ResultSet Rs = gm.GetGroup(projectid);
-            PrintResults(Rs,out);
             if (request.getParameter("logout") != null) {
                 request.getSession().removeAttribute("username");
                 request.getSession().invalidate();
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 response.sendRedirect("/TeacherHomepage");
             }
+            GradeMapper gm = new GradeMapper();
+            ResultSet Rs = gm.GetGroup(projectid);
+            PrintResults(Rs,out);
+
         }catch(Exception e){
 
         }

@@ -42,6 +42,13 @@ public class TeacherServlet extends HttpServlet {
 
 
         try{
+            if (request.getParameter("logout") != null) {
+
+                request.getSession().removeAttribute("username");
+                request.getSession().invalidate();
+                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                response.sendRedirect("index.html");
+            }
             CourseMapper cm = new CourseMapper();
             ResultSet Rs = cm.get_allcoursesofteacher(userid);
             PrintResults(Rs,out);
@@ -55,13 +62,6 @@ public class TeacherServlet extends HttpServlet {
                     "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
                     "</body>" +
                     "</html>");
-            if (request.getParameter("logout") != null) {
-
-                request.getSession().removeAttribute("username");
-                request.getSession().invalidate();
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                response.sendRedirect("index.html");
-            }
         }catch(Exception e){
 
         }

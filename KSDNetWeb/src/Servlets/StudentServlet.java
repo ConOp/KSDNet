@@ -38,10 +38,6 @@ public class StudentServlet extends HttpServlet {
                 "<h6 class=\"card-subtitle mb-2 text-muted\">Selected Courses</h6><div class = \"col\">\n" +
                 "<form method=\"post\" action=\"/Student_CourseHomepage\"><ul class=\"list-group list-group-flush\">");
         try {
-            CourseMapper cm = new CourseMapper();
-            ResultSet rs=cm.get_allcourses();
-            PrintResults(rs,out);
-
             if(request.getParameter("logout")!=null) {
 
                 request.getSession().removeAttribute("username");
@@ -49,6 +45,9 @@ public class StudentServlet extends HttpServlet {
                 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
                 response.sendRedirect("index.html");
             }
+            CourseMapper cm = new CourseMapper();
+            ResultSet rs=cm.get_allcourses();
+            PrintResults(rs,out);
 
         }
         catch (Exception e){

@@ -55,24 +55,24 @@ public class TCourseServlet extends HttpServlet {
 
             while(Rs.next()){
                 if(pm.DeadlineHasPassed(Rs.getString("project_id"))){
-                    activeProject=true;
                     out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
                 }else{
+                    activeProject=true;
                     out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
                 }
             }
             out.println("</table></form>");
             out.println("<form action=\"/DownloadProject\" method=\"Post\">" +
-                    "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" />");
+                    "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" /></form>");
 
         } catch (Exception e) {
 
         }
 
         if(activeProject){
-            out.println("<form id=\"createform\" action=\"/TCourse\" method=\"Post\"><input disabled type=\"submit\" name=\"CreateProject\" onclick=\"/TCourse\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/></form>");
+            out.println("<input disabled type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
         }else{
-            out.println("<form id=\"createform\" action=\"/TCourse\" method=\"Post\"><input type=\"submit\" name=\"CreateProject\" onclick=\"/TCourse\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/></form>");
+            out.println("<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
         }
 
         if (request.getParameter("DeleteCourse") != null) {
