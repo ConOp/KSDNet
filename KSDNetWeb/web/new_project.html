@@ -17,9 +17,7 @@
 </head>
 <body>
 <h3>Add new Project</h3>
-<form action="/CreateNewProject" method="post">
     <table>
-
         <tr>
             <td><h4>Project ID:</h4></td>
             <td><input name="ProjectID"  placeholder="P???"  type="text"  maxlength="4" pattern="^[P][0-9][0-9][0-9]"
@@ -29,16 +27,18 @@
         <td><h4>Max Grade:</h4></td>
         <td><input name="maxgrade"   type="number" min="0" max="10" step="1" required></td>
     </tr>
-
         <tr>
             <td><h4>Deadline</h4></td>
             <td><input name="Deadline"   placeholder="Deadline" type="datetime-local">
-
         </tr>
 
     </table><br>
-    <input name="added_project"  type="submit" value="Add Project">
-</form>
+    <form action="/CreateNewProject" method="post">
+        <input name="added_project"  type="submit" value="Add Project">
+    </form>
+    <form action="/TCourse" method="post">
+        <input name="backbutton" type="submit" value="Go Back">
+    </form>
 <script src="./bootstrap/js/bootstrap.bundle.js" ></script>
 <script src="./bootstrap/js/bootstrap.js" ></script>
 </body>

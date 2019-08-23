@@ -88,7 +88,7 @@ public class St_CourseServlet extends HttpServlet {
                         "</div><div class=\"custom-file\">" +
                         "<input name=\"zipfile\" type=\"file\" accept=\".zip,.rar,.7zip\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\" required>" +
                         "<label id=\"upload_label\" class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
-                        "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
+                        "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form><form action=\"/StudentHomepage\" method=\"post\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back\"></form></div></div></div></div></div>" +
                         "<script>document.getElementById(\"group_assignment\").disabled = "+group_created+";</script>" +
                         "<script>document.getElementById(\"inputGroupFile01\").disabled = "+!send+";</script>" +
                         "<script>document.getElementById(\"upload_file\").disabled = "+!send+";</script>" +

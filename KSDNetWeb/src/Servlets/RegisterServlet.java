@@ -79,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
            "<body bgcolor = \"#f0f0f0\">\n" +
            "<h1 align = \"center\">" + title + "</h1>\n" +
            "<h3 align=\"center\">Successfull registration!!!</h3>"+
-           "<input onclick=\"location.href='index.html'\" type=\"button\" value=\"GO_BACK_TO_LOGIN\">"+"</body></html>");
+           "<input onclick=\"location.href='index.html'\" type=\"button\" value=\"Back to Login\">"+"</body></html>");
 
 
     }

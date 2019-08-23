@@ -100,8 +100,8 @@ public class GroupGradeServlet extends HttpServlet {
                     "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
                     "<input type=\"number\" name=\"grade\" min=\"0\" max="+Integer.parseInt(pm.MaxGrade(projectid).getString("max_grade"))+"><input type=\"submit\" value=\"InsertGrade\" name=\"insert\"><br>" +
                     "</form>"+
-                    "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">"+
-                    "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
+                    "<form method=\"post\" action=\"/GradingTeacher\"><ul class=\"list-group list-group-flush\">"+
+                    "<br><input type=\"submit\" id=\"back\" value=\"Go Back\" name=\"backbutton\">\n" +
                     "</form></div></div></div></div></div>" +
                     "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
                     "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +

@@ -9,7 +9,6 @@
 </head>
 <body>
     <h3>Add new Course</h3>
-    <form action="/Add_course" method="post">
         <table>
             <tr>
                 <td><h4>Group Members:</h4></td>
@@ -32,7 +31,11 @@
             </tr>
 
         </table><br>
+    <form action="/Add_course" method="post">
             <input name="added_course" id="added_course" type="submit" value="Add Course">
+    </form>
+    <form action="/TeacherHomepage" method="post">
+        <input name="backbutton" id="backbutton" type="submit" value="Go Back">
     </form>
     <script>
         function check_id(){

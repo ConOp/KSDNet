@@ -61,7 +61,7 @@ public class CreateGroupServlet extends HttpServlet {
                             "pattern=\"^[S][0-9][0-9][0-9][0-9][0-9]\" title=\"First character must be S followed by 5 digits\" required><br>");
                 }
 
-                out.println("<br><input type=\"submit\" value=\"TEAM ASSIGNMENT\" name=\"assign_group\"></form></div></div></div></div></div>" +
+                out.println("<br><input type=\"submit\" value=\"TEAM ASSIGNMENT\" name=\"assign_group\"></form><form method=\"post\" action=\"/StudentHomepage\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back to Home\"></form></div></div></div></div></div>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
                         "<script src=\"./bootstrap/js/bootstrap.js\"></script></body></html>");
 

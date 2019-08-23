@@ -71,7 +71,7 @@ public class TeacherServlet extends HttpServlet {
             out.println("<form method=\"POST\" action=\"/TCourse\">" +
                     "<ul class=\"list-group list-group-flush\">");
             while (rs.next()){
-                out.println("<input type=\"submit\" name=\"coursename\"  class=\"list-group-item list-group-item-action\" value=\""+rs.getString("name")+"\">");
+                out.println("<input type=\"submit\" name=\"coursename\" class=\"list-group-item list-group-item-action\" value=\""+rs.getString("name")+"\">");
             }
 
         } catch (SQLException e){

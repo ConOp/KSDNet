@@ -33,7 +33,6 @@ public class CourseMapper {
             st.executeUpdate();
             st.close();
             connector.disconnect();
-
         }
         catch (Exception e){
             throw new SQLException("Could not delete course");

@@ -45,37 +45,6 @@ public class TCourseServlet extends HttpServlet {
             Coursename=(String)request.getSession().getAttribute("coursename");
             Courseid=(String)request.getSession().getAttribute("courseid");
         }
-        try {
-            out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
-                    "<h3>Current Projects:</h3><br>");
-            out.println("<form action=\"/TCourse\" method=\"Post\">" +
-                    "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" /></form>");
-             out.println("<form action=\"/GradingTeacher\" method=\"Post\">" +
-                    "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
-            ProjectMapper pm = new ProjectMapper();
-            ResultSet Rs = pm.get_projectid(Courseid);
-
-            while(Rs.next()){
-                if(pm.DeadlineHasPassed(Rs.getString("project_id"))){
-                    out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
-                }else{
-                    activeProject=true;
-                    out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
-                }
-            }
-            out.println("</table></form>");
-            out.println("<form action=\"/DownloadProject\" method=\"Post\">" +
-                    "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" /></form>");
-
-        } catch (Exception e) {
-
-        }
-
-        if(activeProject){
-            out.println("<input disabled type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
-        }else{
-            out.println("<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
-        }
 
         if (request.getParameter("DeleteCourse") != null) {
             try {
@@ -93,6 +62,50 @@ public class TCourseServlet extends HttpServlet {
 
             }
         }
+        int numAllowed = 0;
+        try {
+            out.println("<h1  name=\"coursename\" >" + Coursename + "</h1>" +
+                    "<h3>Current Projects:</h3><br>");
+            out.println("<form action=\"/TCourse\" method=\"Post\">" +
+                    "    <input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\" /></form>");
+             out.println("<form action=\"/GradingTeacher\" method=\"Post\">" +
+                    "<table><tr><td><h3>Project ID</h3></td><td><h3>Group-Members</h3></td></tr>");
+            ProjectMapper pm = new ProjectMapper();
+            ResultSet Rs = pm.get_projectid(Courseid);
+
+
+            try{
+                CourseMapper cm = new CourseMapper();
+                numAllowed = cm.getnumofprojects(Courseid);
+            }catch (Exception e){}
+            int numExisting = 0;
+
+
+            while(Rs.next()){
+                if(pm.DeadlineHasPassed(Rs.getString("project_id"))&& numAllowed>numExisting){
+                    out.println("<tr><td><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\"</h2></td></tr>");
+                }else{
+                    activeProject=true;
+                    out.println("<tr><td><p>Grading will be available past the deadline</p><input type=\"submit\" name =\"ProjectID\"value=\""+Rs.getString("project_id")+"\" disabled></h2></td></tr>");
+                }
+                numExisting+=1;
+            }
+            out.println("</table></form>");
+            out.println("<form action=\"/DownloadProject\" method=\"Post\">" +
+                    "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" /></form>");
+
+        } catch (Exception e) {
+
+        }
+
+        if(activeProject){
+            out.println("<input disabled type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
+        }else{
+            out.println("<input type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
+        }
+
+
+        out.println("<form action=\"/TeacherHomepage\"  method=\"Post\"><input type=\"submit\" value=\"Go Back\"/></form>");
 
     }
 }

@@ -57,8 +57,8 @@ public class GradeServlet extends HttpServlet {
         }catch(Exception e){
 
         }
-        out.println("<form method=\"post\" action=\"/index.html\">" +
-                "<br><input type=\"submit\" id=\"log\" value=\"LOGOUT\" name=\"logout\">\n" +
+        out.println("<form method=\"post\" action=\"/TCourse\">" +
+                "<br><input type=\"submit\" id=\"back\" value=\"Go Back\" name=\"backbutton\">\n" +
                 "</form></div></div></div></div></div>" +
                 "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
                 "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
