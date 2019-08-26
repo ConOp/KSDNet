@@ -53,13 +53,13 @@ public class TeacherServlet extends HttpServlet {
             ResultSet Rs = cm.get_allcoursesofteacher(userid);
             PrintResults(Rs,out);
             out.println("</form>");
-            out.println("</ul><br>" +
+            out.println("<br>" +
+                    "<input type=\"button\" onclick=\"location.href='new_course.html'\" value=\"Add new course\"><br><br>" +
                     "<form method=\"post\" action=\"/TeacherHomepage\">" +
-                    "<input type=\"button\" onclick=\"location.href='new_course.html'\"  value=\"Add new course\"><br>" +
-                    "<input type=\"submit\" id=\"log\"  value=\"LOGOUT\" name=\"logout\">\n" +
+                    "<input type=\"submit\" id=\"log\"  value=\"Logout\" name=\"logout\">\n" +
                     "</form></div></div></div></div></div>" +
-                    "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
-                    "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
+                    "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
+                    "<script src=\"./bootstrap/js/bootstrap.js\"></script>" +
                     "</body>" +
                     "</html>");
         }catch(Exception e){
@@ -68,12 +68,12 @@ public class TeacherServlet extends HttpServlet {
     }
     protected void PrintResults(ResultSet rs,PrintWriter out) {
         try {
-            out.println("<form method=\"POST\" action=\"/TCourse\">" +
+            out.println("<form method=\"post\" action=\"/TCourse\">" +
                     "<ul class=\"list-group list-group-flush\">");
             while (rs.next()){
                 out.println("<input type=\"submit\" name=\"coursename\" class=\"list-group-item list-group-item-action\" value=\""+rs.getString("name")+"\">");
             }
-
+            out.println("</ul>");
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

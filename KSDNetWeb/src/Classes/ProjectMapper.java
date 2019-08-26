@@ -53,11 +53,13 @@ public class ProjectMapper {
                throw new SQLException("Could not delete  projects.");
          }
     }
-    public ResultSet get_projectid(String courseid) throws  SQLException{
+    public ResultSet project_info(String courseid) throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement("SELECT project_id FROM projects WHERE  course_id=?");
+            PreparedStatement st = connector.connect().prepareStatement("SELECT project_id,deadline,(SELECT groupmembers FROM courses WHERE courses.course_id= ?) " +
+                    "FROM projects WHERE projects.course_id= ?;",ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             st.setString(1, courseid);
+            st.setString(2, courseid);
             ResultSet rs = st.executeQuery();
             return  rs;
         }

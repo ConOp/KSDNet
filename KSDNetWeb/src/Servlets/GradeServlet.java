@@ -31,25 +31,21 @@ public class GradeServlet extends HttpServlet {
                 "<html>" +
                 "<head>" +
                 "<meta charset=\"UTF-8\">" +
-                "<title>Teacher Homepage</title>" +
+                "<title>Grade assignment of groups</title>" +
                 "<link href=\"./bootstrap/css/bootstrap.css\" rel=\"stylesheet\">" +
                 "<link href=\"./bootstrap/css/bootstrap-grid.css\" rel=\"stylesheet\">" +
                 "<link href=\"./bootstrap/css/bootstrap-reboot.css\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"./bootstrap/css/bootstrap.css\">" +
                 "</head><body><div class=\"container d-flex justify-content-center\">\n" +
                 "<div class=\"shadow p-3 mb-5 bg-white rounded\">\n" +
-                "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">\n" +
+                "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\"><div>" +
+                "<div style=\"float: left;\"><form action=\"/TCourse\" method=\"post\">" +
+                "<input name=\"backbutton\" type=\"submit\" value=\"Go Back\"></form></div>" +
                 "<h5 class=\"card-title\">List of Groups</h5>\n" +
                 "<div class = \"col\">\n" +
                 "<form method=\"post\" action=\"/GroupMembers\"><ul class=\"list-group list-group-flush\">");
 
 
         try{
-            if (request.getParameter("logout") != null) {
-                request.getSession().removeAttribute("username");
-                request.getSession().invalidate();
-                response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                response.sendRedirect("/TeacherHomepage");
-            }
             GradeMapper gm = new GradeMapper();
             ResultSet Rs = gm.GetGroup(projectid);
             PrintResults(Rs,out);
@@ -57,9 +53,7 @@ public class GradeServlet extends HttpServlet {
         }catch(Exception e){
 
         }
-        out.println("<form method=\"post\" action=\"/TCourse\">" +
-                "<br><input type=\"submit\" id=\"back\" value=\"Go Back\" name=\"backbutton\">\n" +
-                "</form></div></div></div></div></div>" +
+        out.println("</div></div></div></div></div>" +
                 "<script src=\"./bootstrap/js/bootstrap.bundle.js\" ></script>" +
                 "<script src=\"./bootstrap/js/bootstrap.js\" ></script>" +
                 "</body>" +
@@ -71,12 +65,10 @@ public class GradeServlet extends HttpServlet {
             out.println("<form method=\"POST\" action=\"/GroupMembers\">" +
                     "<ul class=\"list-group list-group-flush\">");
             while (rs.next()){
-                System.out.println(rs.getString("group_id"));
                 out.println("<input type=\"submit\" name=\"group\" id="+i+" class=\"list-group-item list-group-item-action\" value=\""+rs.getString("group_id")+"\">");
                 i++;
             }
-            out.println("</form>");
-            out.println("</ul><br>");
+            out.println("</ul></form><br>");
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

@@ -41,7 +41,8 @@ public class St_CourseServlet extends HttpServlet {
                     "<link href=\"./bootstrap/css/bootstrap-reboot.css\" rel=\"stylesheet\">" +
                     "</head><body><div class=\"container d-flex justify-content-center\">" +
                     "<div class=\"shadow p-3 mb-5 bg-white rounded\">" +
-                    "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">" +
+                    "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\"><div class=\"text-left \">" +
+                    "<form action=\"/StudentHomepage\" method=\"post\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back\"></form></div>" +
                     "<h5 class=\"card-title\">" + coursename + "</h5><br>" +
                     "<h6 class=\"card-subtitle mb-2 text-muted\">Course Information</h6><div class = \"col\">" +
                     "<form method=\"post\" action=\"/UploadProject\" enctype=\"multipart/form-data\"><br>");
@@ -88,7 +89,7 @@ public class St_CourseServlet extends HttpServlet {
                         "</div><div class=\"custom-file\">" +
                         "<input name=\"zipfile\" type=\"file\" accept=\".zip,.rar,.7zip\" class=\"custom-file-input\" id=\"inputGroupFile01\" aria-describedby=\"inputGroupFileAddon01\" required>" +
                         "<label id=\"upload_label\" class=\"custom-file-label\" for=\"inputGroupFile01\">Choose file</label></div>" +
-                        "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form><form action=\"/StudentHomepage\" method=\"post\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back\"></form></div></div></div></div></div>" +
+                        "</div><br><input type=\"submit\" value=\"UPLOAD PROJECT\" name=\"upload\" id=\"upload_file\"></form><br><form method=\"post\" action=\"/CreatGroup\"><input type=\"submit\" id=\"group_assignment\" value=\"CREATE GROUP\" name=\"group\"></form></div></div></div></div></div>" +
                         "<script>document.getElementById(\"group_assignment\").disabled = "+group_created+";</script>" +
                         "<script>document.getElementById(\"inputGroupFile01\").disabled = "+!send+";</script>" +
                         "<script>document.getElementById(\"upload_file\").disabled = "+!send+";</script>" +

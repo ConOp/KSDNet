@@ -21,7 +21,6 @@ public class ProjectServlet extends HttpServlet {
         String course_id = (String)request.getSession().getAttribute("courseid");
         String deadline =request.getParameter("Deadline");
         String max_grade = request.getParameter("maxgrade");
-        int max = Integer.parseInt(max_grade);
         try {
             ProjectMapper pm = new ProjectMapper();
             pm.createProject(projectid,course_id,deadline, max_grade);

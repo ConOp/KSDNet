@@ -1,42 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Course</title>
-    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap-grid.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap-reboot.css" rel="stylesheet"><link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-</head>
-<body>
-    <h3>Add new Course</h3>
-        <table>
-            <tr>
-                <td><h4>Group Members:</h4></td>
-                <td><input name="groupmembers"   type="number" min="0" max="20" step="1" required></td>
-            </tr>
-            <tr>
-                <td><h4>Course Name:</h4></td>
-                <td><input name="name" id="name" placeholder="name" pattern="^[a-zA-Z ]+$" type="text" required></td>
-            </tr>
-            <tr>
-                <td><h4>Course id:</h4></td>
-                <td><input name="course_id" id="course_id" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]"
-                           title="First character must be C, followed by 5 digits" required></td>
-            </tr>
-
-            <tr>
-                <td><h4>Enter the number of projects</h4></td>
-                <td><input name="number_projects" id="number_projects" placeholder="number of projects:" type="number" min="0" step="1">
-
-            </tr>
-
-        </table><br>
-    <form action="/Add_course" method="post">
-            <input name="added_course" id="added_course" type="submit" value="Add Course">
-    </form>
-    <form action="/TeacherHomepage" method="post">
-        <input name="backbutton" id="backbutton" type="submit" value="Go Back">
-    </form>
+    <head>
+        <meta charset="UTF-8">
+        <title>Add Course</title>
+        <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="./bootstrap/css/bootstrap-grid.css" rel="stylesheet">
+        <link href="./bootstrap/css/bootstrap-reboot.css" rel="stylesheet"><link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    </head>
+    <body>
+    <div class="container d-flex justify-content-center">
+        <div class="shadow p-3 mb-5 bg-white rounded">
+            <div class="card text-center " style="width: 45rem;">
+                <div class="card-body">
+                    <div class="text-left ">
+                        <form action="/TeacherHomepage" method="post">
+                            <input name="backbutton" type="submit" value="Go Back">
+                        </form>
+                    </div>
+                    <br>
+                    <h5 class="card-title">Add new Course</h5><br>
+                    <form action="/Add_course" method="post">
+                        <table align="center" class="table table-bordered">
+                            <tr><td><h6>Group Members:</h6></td><td><input name="groupmembers"   type="number" min="0" max="20" step="1" required></td></tr>
+                            <tr><td><h6>Course Name:</h6></td><td><input name="name" id="name" placeholder="name" pattern="^[a-zA-Z ]+$" type="text" required></td></tr>
+                            <tr><td><h6>Course id:</h6></td><td><input requierd name="course_id" id="course_id" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]"
+                               title="First character must be C, followed by 5 digits" required></td></tr>
+                            <tr><td><h6>Enter the number of projects</h6></td><td><input required name="number_projects" id="number_projects" placeholder="number of projects:" type="number" min="0" step="1"></tr>
+                        </table><br>
+                            <input name="added_course" id="added_course" type="submit" value="Add Course">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     <script>
         function check_id(){
             var courseid = document.getElementById("courseid").value;
@@ -44,8 +41,9 @@
                 document.getElementById("courseid").value = "";
             }
         }
-        </script>
-<script src="./bootstrap/js/bootstrap.bundle.js" ></script>
-<script src="./bootstrap/js/bootstrap.js" ></script>
+    </script>
+    <script src="./bootstrap/js/bootstrap.bundle.js" ></script>
+    <script src="./bootstrap/js/bootstrap.js" ></script>
+
 </body>
 </html>
