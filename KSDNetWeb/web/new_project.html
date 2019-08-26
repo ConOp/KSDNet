@@ -1,46 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Course Details</title>
+        <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="./bootstrap/css/bootstrap-grid.css" rel="stylesheet">
+        <link href="./bootstrap/css/bootstrap-reboot.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container d-flex justify-content-center">
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                <div class="card text-center " style="width: 45rem;">
+                    <div class="card-body">
+                        <div class="text-left ">
+                            <form action="/TCourse" method="post">
+                                <input name="backbutton" type="submit" value="Go Back">
+                            </form>
+                        </div>
+                        <h5 class="card-title">Add new Project</h5>
+                        <br>
+                        <div class = "col">
+                            <form action="/CreateNewProject" method="post">
+                                <table align="center" class="table table-bordered">
+                                    <tr><td><h6>Project ID:</h6></td><td><input name="ProjectID"  placeholder="P???"  type="text"  maxlength="4" pattern="^[P][0-9][0-9][0-9]"
+                               title="First character must be P, followed by 3 digits" required></td></tr>
+                                    <tr><td><h6>Max Grade:</h6></td><td><input name="maxgrade"   type="number" min="0" max="10" step="1" required></td></tr>
+                                    <tr><td><h6>Deadline:</h6></td><td><input name="Deadline"   placeholder="Deadline" type="datetime-local"></tr>
 
-</body><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Course</title>
-    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap-grid.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap-reboot.css" rel="stylesheet"><link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-</head>
-<body>
-<h3>Add new Project</h3>
-    <table>
-        <tr>
-            <td><h4>Project ID:</h4></td>
-            <td><input name="ProjectID"  placeholder="P???"  type="text"  maxlength="4" pattern="^[P][0-9][0-9][0-9]"
-                       title="First character must be P, followed by 3 digits" required></td>
-        </tr>
-        <tr>
-        <td><h4>Max Grade:</h4></td>
-        <td><input name="maxgrade"   type="number" min="0" max="10" step="1" required></td>
-    </tr>
-        <tr>
-            <td><h4>Deadline</h4></td>
-            <td><input name="Deadline"   placeholder="Deadline" type="datetime-local">
-        </tr>
-
-    </table><br>
-    <form action="/CreateNewProject" method="post">
-        <input name="added_project"  type="submit" value="Add Project">
-    </form>
-    <form action="/TCourse" method="post">
-        <input name="backbutton" type="submit" value="Go Back">
-    </form>
-<script src="./bootstrap/js/bootstrap.bundle.js" ></script>
-<script src="./bootstrap/js/bootstrap.js" ></script>
-</body>
-</html>
+                                </table><br>
+                                    <input name="added_project"  type="submit" value="Add Project">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="./bootstrap/js/bootstrap.js"></script>
+    </body>
 </html>

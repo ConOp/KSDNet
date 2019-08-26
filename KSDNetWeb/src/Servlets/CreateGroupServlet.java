@@ -47,6 +47,8 @@ public class CreateGroupServlet extends HttpServlet {
                         "</head><body><div class=\"container d-flex justify-content-center\">" +
                         "<div class=\"shadow p-3 mb-5 bg-white rounded\">" +
                         "<div class=\"card text-center \" style=\"width: 45rem;\"><div class=\"card-body\">" +
+                        "<div class=\"text-left \">" +
+                        "<form method=\"post\" action=\"/StudentHomepage\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back to Home\"></form></div>" +
                         "<h5 class=\"card-title\">Create Group</h5><br>" +
                         "<h6 class=\"card-subtitle mb-2 text-muted\">Choose your team</h6><div class = \"col\">" +
                         "<form method=\"post\" action=\"/CreatGroup\"><br>");
@@ -61,7 +63,7 @@ public class CreateGroupServlet extends HttpServlet {
                             "pattern=\"^[S][0-9][0-9][0-9][0-9][0-9]\" title=\"First character must be S followed by 5 digits\" required><br>");
                 }
 
-                out.println("<br><input type=\"submit\" value=\"TEAM ASSIGNMENT\" name=\"assign_group\"></form><form method=\"post\" action=\"/StudentHomepage\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back to Home\"></form></div></div></div></div></div>" +
+                out.println("<br><input type=\"submit\" value=\"TEAM ASSIGNMENT\" name=\"assign_group\"></form></div></div></div></div></div>" +
                         "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script>" +
                         "<script src=\"./bootstrap/js/bootstrap.js\"></script></body></html>");
 
