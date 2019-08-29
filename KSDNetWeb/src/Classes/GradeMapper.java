@@ -74,7 +74,7 @@ public class GradeMapper {
     public ResultSet DownloadProject(String projectid) throws SQLException{
         try {
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement("select filename,file from grade  inner join projects on grade.project_id= projects.project_id where grade.project_id=? and grade.grade=NULL");
+            PreparedStatement st = connector.connect().prepareStatement("select filename,file from grade  inner join projects on grade.project_id= projects.project_id where grade.project_id=? and grade.grade is NULL ");
             st.setString(1, projectid);
             ResultSet rs = st.executeQuery();
             return rs;
@@ -116,7 +116,7 @@ public class GradeMapper {
     public Boolean project_exist_for_grade(String projectid){
         try{
             Dbconnector con = new Dbconnector();
-            PreparedStatement st = con.connect().prepareStatement("SELECT * FROM grade WHERE project_id=? and grade=NULL");
+            PreparedStatement st = con.connect().prepareStatement("SELECT * FROM grade WHERE project_id=? and grade is NULL");
             st.setString(1, projectid);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
