@@ -22,8 +22,14 @@ public class GradeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
         PrintWriter  out=response.getWriter();
-        String projectid = request.getParameter("ProjectID");
-        request.getSession().setAttribute("projectid",projectid);
+        String projectid;
+        if(request.getSession().getAttribute("projectid")==null) {
+            projectid = request.getParameter("ProjectID");
+            request.getSession().setAttribute("projectid", projectid);
+        }
+        else{
+            projectid=(String)request.getSession().getAttribute("projectid");
+        }
 
 
 
