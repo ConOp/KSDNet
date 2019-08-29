@@ -24,7 +24,9 @@ public class TCourseServlet extends HttpServlet {
         String Courseid="";
         PrintWriter out = response.getWriter();
         boolean activeProject = false;
-
+        if(request.getSession().getAttribute("projectid")!=null){
+            request.getSession().setAttribute("projectid",null);
+        }
         if (request.getParameter("coursename") != null) {
             Coursename = request.getParameter("coursename");
             request.getSession().setAttribute("coursename",Coursename);
@@ -100,25 +102,22 @@ public class TCourseServlet extends HttpServlet {
                     "<form class=\"justify-content-center\" action=\"/GradingTeacher\" method=\"post\">" +
                                 "<div class=\"form-group\"><label style=\"padding-right:5px;\">Grade assign of the project:</label>");
             Rs.beforeFirst();
-            while (Rs.next()){
-                if(pm.DeadlineHasPassed(Rs.getString("project_id"))){
-                    activeProject=false;
-                    out.println("<input id=\""+Rs.getString("project_id")+"\" title=\" \" type=\"submit\" name =\"ProjectID\" value=\""+Rs.getString("project_id")+"\">");
+            while (Rs.next()) {
+                if (pm.DeadlineHasPassed(Rs.getString("project_id"))) {
+                    activeProject = false;
+                    out.println("<input id=\"" + Rs.getString("project_id") + "\" title=\" \" type=\"submit\" name =\"ProjectID\" value=\"" + Rs.getString("project_id") + "\">");
 
-                }else{
-                    activeProject=true;
-                    out.println("<input id=\""+Rs.getString("project_id")+"\" title=\" \" type=\"submit\" name =\"ProjectID\" value=\""+Rs.getString("project_id")+"\" disabled>");
+                } else {
+                    activeProject = true;
+                    out.println("<input id=\"" + Rs.getString("project_id") + "\" title=\" \" type=\"submit\" name =\"ProjectID\" value=\"" + Rs.getString("project_id") + "\" disabled>");
                 }
-                out.println("<script>var grade_assign = document.getElementById('"+Rs.getString("project_id")+"\').disabled;\n" +
-                        "if(grade_assign){document.getElementById('"+Rs.getString("project_id")+"\').title = \"Grading will be available past the deadline\";}" +
-                        "else{document.getElementById('"+Rs.getString("project_id")+"\').title = \"Grade assignment available\";}</script>");
+                out.println("<script>var grade_assign = document.getElementById('" + Rs.getString("project_id") + "\').disabled;\n" +
+                        "if(grade_assign){document.getElementById('" + Rs.getString("project_id") + "\').title = \"Grading will be available past the deadline\";}" +
+                        "else{document.getElementById('" + Rs.getString("project_id") + "\').title = \"Grade assignment available\";}</script>");
 
             }
-
             out.println("</div></form><br>\n" +
-                    "<form action=\"/DownloadProject\" method=\"Post\">\n" +
-                    "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\">\n" +
-                    "</form><br>");
+                    "<br>");
 
             if(activeProject || numAllowed<=numExisting){
                 out.println("<input disabled type=\"submit\" name=\"CreateProject\" onclick=\"location.href='new_project.html'\" value=\"Create Project\" name=\"createproject\" id=\"createproject\"/>");
