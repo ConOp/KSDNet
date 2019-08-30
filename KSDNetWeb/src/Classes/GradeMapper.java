@@ -71,11 +71,11 @@ public class GradeMapper {
             throw new SQLException("Could not insert grade.");
         }
     }
-    public ResultSet DownloadProject(String courseid) throws SQLException{
+    public ResultSet DownloadProject(String projectid) throws SQLException{
         try {
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement("select filename,file from grade  inner join projects on grade.project_id= projects.project_id where projects.course_id=?");
-            st.setString(1, courseid);
+            PreparedStatement st = connector.connect().prepareStatement("select filename,file from grade  inner join projects on grade.project_id= projects.project_id where grade.project_id=? and grade.grade is NULL ");
+            st.setString(1, projectid);
             ResultSet rs = st.executeQuery();
             return rs;
         }catch (Exception e) {
@@ -112,5 +112,24 @@ public class GradeMapper {
         }catch(Exception e){
             throw new SQLException("Could not get sum.");
         }
+    }
+    public Boolean project_exist_for_grade(String projectid){
+        try{
+            Dbconnector con = new Dbconnector();
+            PreparedStatement st = con.connect().prepareStatement("SELECT * FROM grade WHERE project_id=? and grade is NULL");
+            st.setString(1, projectid);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        catch (Exception e){
+
+        }
+        return false;
+
     }
 }

@@ -22,8 +22,14 @@ public class GradeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
         response.setCharacterEncoding("UTF-8");
         PrintWriter  out=response.getWriter();
-        String projectid = request.getParameter("ProjectID");
-        request.getSession().setAttribute("projectid",projectid);
+        String projectid;
+        if(request.getSession().getAttribute("projectid")==null) {
+            projectid = request.getParameter("ProjectID");
+            request.getSession().setAttribute("projectid", projectid);
+        }
+        else{
+            projectid=(String)request.getSession().getAttribute("projectid");
+        }
 
 
 
@@ -48,7 +54,7 @@ public class GradeServlet extends HttpServlet {
         try{
             GradeMapper gm = new GradeMapper();
             ResultSet Rs = gm.GetGroup(projectid);
-            PrintResults(Rs,out);
+            PrintResults(Rs,out,projectid);
 
         }catch(Exception e){
 
@@ -59,7 +65,7 @@ public class GradeServlet extends HttpServlet {
                 "</body>" +
                 "</html>");
     }
-    protected void PrintResults(ResultSet rs,PrintWriter out) {
+    protected void PrintResults(ResultSet rs,PrintWriter out,String projectid) {
         try {
             int i =0;
             out.println("<form method=\"POST\" action=\"/GroupMembers\">" +
@@ -68,7 +74,18 @@ public class GradeServlet extends HttpServlet {
                 out.println("<input type=\"submit\" name=\"group\" id="+i+" class=\"list-group-item list-group-item-action\" value=\""+rs.getString("group_id")+"\">");
                 i++;
             }
-            out.println("</ul></form><br>");
+            out.println("</ul></form><br><br>");
+            GradeMapper gm = new GradeMapper();
+            if(gm.project_exist_for_grade(projectid)){
+                out.println("<form action=\"/DownloadProject\" method=\"Post\">"+
+                        "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\">"  +
+                        "</form>");
+            }
+            else{
+                out.println("<form action=\"/DownloadProject\" method=\"Post\">"+
+                        "<input type=\"submit\" name=\"DownloadProject\" value=\"Download Project\" disabled>"  +
+                        "</form>");
+            }
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }

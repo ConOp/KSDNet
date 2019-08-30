@@ -21,7 +21,7 @@
                     <h5 class="card-title">Add new Course</h5><br>
                     <form action="/Add_course" method="post">
                         <table align="center" class="table table-bordered">
-                            <tr><td><h6>Group Members:</h6></td><td><input name="groupmembers"   type="number" min="0" max="20" step="1" required></td></tr>
+                            <tr><td><h6>Group Members:</h6></td><td><input name="groupmembers"   type="number" min="1" max="20" step="1" required></td></tr>
                             <tr><td><h6>Course Name:</h6></td><td><input name="name" id="name" placeholder="name" pattern="^[a-zA-Z ]+$" type="text" required></td></tr>
                             <tr><td><h6>Course id:</h6></td><td><input requierd name="course_id" id="course_id" placeholder="course id"  type="text"  maxlength="6" pattern="^[C][0-9][0-9][0-9][0-9][0-9]"
                                title="First character must be C, followed by 5 digits" required></td></tr>

@@ -16,12 +16,12 @@ import java.sql.SQLException;
 public class DownloadProjectServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String courseid = "";
-        courseid = (String) request.getSession().getAttribute("courseid");
+        String projectid = "";
+       projectid= (String) request.getSession().getAttribute("projectid");
         try {
             GradeMapper cm = new GradeMapper();
 
-            ResultSet rs= cm.DownloadProject(courseid);
+            ResultSet rs= cm.DownloadProject(projectid);
 
             while (rs.next()) {
                 String filename = rs.getString("filename");

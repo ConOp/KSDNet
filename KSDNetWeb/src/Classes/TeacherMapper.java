@@ -10,7 +10,7 @@ public class TeacherMapper implements  User {
     public void register(String id,String name,String surname,String password,String email,byte[] salt) throws SQLException {
         try{
             Dbconnector con = new Dbconnector();
-            PreparedStatement st = con.connect().prepareStatement("INSERT INTO teacher (teacher_id,name,surname,password,email,salt) VALUES(?,?,?,?,?,?);");
+            PreparedStatement st = con.connect().prepareStatement("INSERT INTO teachers (teacher_id,name,surname,password,email,salt) VALUES(?,?,?,?,?,?);");
             st.setString(1, id);
             st.setString(2, name);
             st.setString(3, surname);
