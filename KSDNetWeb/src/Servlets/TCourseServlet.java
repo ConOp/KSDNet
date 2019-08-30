@@ -60,7 +60,7 @@ public class TCourseServlet extends HttpServlet {
                 "<form action=\"/TeacherHomepage\" method=\"Post\">" +
                 "<input name=\"backbutton\" type=\"submit\" value=\"Go Back\"></form></div>" +
                 "<div style=\"float: right;\"><form float=\"left\" action=\"/TCourse\" method=\"post\">" +
-                "<input type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\">" +
+                "<input id=\"del\" class=\"btn btn-outline-danger\" type=\"submit\" name=\"DeleteCourse\" value=\"Delete Course\">" +
                 "</form></div></div><br><h5 name=\"coursename\" class=\"card-title\">"+Coursename+"</h5><br>" +
                 "<h6 class=\"card-subtitle mb-2 text-muted\">Course Information</h6>" +
                 "<div class = \"col\"><br><table align=\"center\" class=\"table table-bordered\">" +
@@ -126,6 +126,9 @@ public class TCourseServlet extends HttpServlet {
             }
 
             out.print("</div></div></div></div></div>" +
+                    "<script>document.getElementById(\"del\").addEventListener(\"click\",\n" +
+                    "function(event){var flag = window.confirm(\"Are you sure you want to delete this course?\");\n" +
+                    "if(flag){return;}else {event.preventDefault();}});</script>" +
                     "<script src=\"./bootstrap/js/bootstrap.bundle.js\"></script><script src=\"./bootstrap/js/bootstrap.js\"></script>" +
                     "</body> </html>");
 
