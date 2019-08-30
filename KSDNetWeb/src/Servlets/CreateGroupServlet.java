@@ -32,6 +32,7 @@ public class CreateGroupServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
             boolean flag = false;
+            boolean duplicate_exists = false;
             PrintWriter out = response.getWriter();
             String[] guserids;
             String groupid = userid;
@@ -50,7 +51,7 @@ public class CreateGroupServlet extends HttpServlet {
                         "<div class=\"text-left \">" +
                         "<form method=\"post\" action=\"/StudentHomepage\"><input name=\"backbutton\" type=\"submit\" value=\"Go Back to Home\"></form></div>" +
                         "<h5 class=\"card-title\">Create Group</h5><br>" +
-                        "<h6 class=\"card-subtitle mb-2 text-muted\">Choose your team</h6><div class = \"col\">" +
+                        "<h6 class=\"card-subtitle mb-2 text-muted\">Choose carefully your team</h6><div class = \"col\">" +
                         "<form method=\"post\" action=\"/CreatGroup\"><br>");
 
                 CourseMapper cm = new CourseMapper();
@@ -78,9 +79,13 @@ public class CreateGroupServlet extends HttpServlet {
                         }
                         for (int i = 0; i < guserids.length; i++) {
                             groupid += guserids[i];
+                            String temp = guserids[i];
+                            if (temp.equals(userid)){
+                                duplicate_exists = true;
+                            }
                         }
                         StudentMapper students = new StudentMapper();
-                        ResultSet i_rs = students.check_userids(guserids);
+                        ResultSet i_rs = students.check_userids(guserids); //check if students exist in db
 
                         while (i_rs.next()) {
                             if (i_rs.getInt("count") == counter) {
@@ -89,11 +94,12 @@ public class CreateGroupServlet extends HttpServlet {
                         }
                         i_rs.close();
 
-                        if (flag) {
+                        if (flag && duplicate_exists==false) {
                             gm.group_assign(groupid,userid,guserids,coursename);
 
                         } else {
                             response.sendRedirect("invalid_group.html");
+                            return;
                         }
                     }else{                                              //group assignment with one member
                         gm.single_project(userid,coursename);
