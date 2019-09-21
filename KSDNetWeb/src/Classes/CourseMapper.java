@@ -1,11 +1,11 @@
 package Classes;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CourseMapper {
+    //Creates a course
     public void createCourse(String courseid,String teacherid,String coursename,int projectnumber,int groupmembers) throws SQLException{
         try{
             Dbconnector connector = new Dbconnector();
@@ -25,6 +25,7 @@ public class CourseMapper {
         }
 
     }
+    //Deletes a course
     public void deleteCourse(String courseid)throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
@@ -38,7 +39,7 @@ public class CourseMapper {
             throw new SQLException("Could not delete course");
         }
     }
-
+    //Returns the courseid given the coursename
     public String get_courseid(String coursename) throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
@@ -54,6 +55,7 @@ public class CourseMapper {
         }
 
     }
+    //Return the courses of a specific teacher
     public ResultSet get_allcoursesofteacher(String teacherid) throws  SQLException {
         try {
             Dbconnector connector = new Dbconnector();
@@ -66,6 +68,7 @@ public class CourseMapper {
 
         }
     }
+    //Returns all the available courses
     public ResultSet get_allcourses() throws  SQLException {
         try {
             Dbconnector connector = new Dbconnector();
@@ -77,7 +80,7 @@ public class CourseMapper {
 
         }
     }
-
+    //Returns the groupmembers of a group given the coursename
     public ResultSet groupmembers(String coursename) throws  SQLException {
         try {
             Dbconnector connector = new Dbconnector();
@@ -90,7 +93,7 @@ public class CourseMapper {
 
         }
     }
-
+    //Returns information about a specific course
     public ResultSet course_info(String coursename) throws  SQLException {
         try {
             Dbconnector connector = new Dbconnector();
@@ -104,7 +107,7 @@ public class CourseMapper {
 
         }
     }
-
+    //Returns the number of projects of a specific course
      public int getnumofprojects(String courseid) throws  SQLException{
             try{
                 Dbconnector connector = new Dbconnector();

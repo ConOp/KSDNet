@@ -3,15 +3,12 @@ package Servlets;
 import Classes.GradeMapper;
 import Classes.GroupMapper;
 import Classes.ProjectMapper;
-
-import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -21,19 +18,20 @@ import java.sql.SQLException;
 public class GroupGradeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
-        request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String group = "";
         String course = "";
         String projectid =(String) request.getSession().getAttribute("projectid");
+        //Sets group id for session if its not set yet
         if(request.getParameter("group")!=null){
-            group =request.getParameter("group");
-            request.getSession().setAttribute("groupid",group);
-            course = (String)request.getSession().getAttribute("courseid");
+            group =request.getParameter("group");//gets group id from form
+            request.getSession().setAttribute("groupid",group);//sets group id in session
+            course = (String)request.getSession().getAttribute("courseid");//gets course id from session
         }
         else{
-            group = (String)request.getSession().getAttribute("groupid");
+            group = (String)request.getSession().getAttribute("groupid");//gets group id from session
         }
         PrintWriter out = response.getWriter();
 
@@ -54,6 +52,7 @@ public class GroupGradeServlet extends HttpServlet {
                 "<div class = \"col\">\n");
         try{
             if(request.getParameter("insert") !=null){
+                //insert grade and adds it to the sum
                 int grade = Integer.parseInt(request.getParameter("grade"));
                 GradeMapper gm = new GradeMapper();
                 gm.insertGrade(group,projectid,grade);
@@ -77,7 +76,6 @@ public class GroupGradeServlet extends HttpServlet {
             while (rs.next()){
                 out.println("<li class=\"list-group-item list-group-item-action\">"+rs.getString("student_id")+"</li>");
             }
-            //code added below
             ProjectMapper pm = new ProjectMapper();
             out.println("</ul><br>" +
                     "<form method=\"post\" action=\"/GroupMembers\">"+
@@ -89,7 +87,6 @@ public class GroupGradeServlet extends HttpServlet {
                     "</body>" +
                     "</html>");
         } catch (SQLException e){
-            System.out.println(e.getMessage());
         }
     }
 
