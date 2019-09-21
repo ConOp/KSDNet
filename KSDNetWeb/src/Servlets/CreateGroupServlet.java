@@ -26,8 +26,9 @@ public class CreateGroupServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String userid = (String) request.getSession().getAttribute("username");
-        String coursename =(String) request.getSession().getAttribute("coursename");
+        String userid = (String) request.getSession().getAttribute("username");//gets user id from session
+        String coursename =(String) request.getSession().getAttribute("coursename");//gets coursename from session
+        //if user is not a student
         if (userid.charAt(0) != 'S') {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {
@@ -70,7 +71,6 @@ public class CreateGroupServlet extends HttpServlet {
 
                 rs.close();
                 guserids = new String[counter];
-
                 if(request.getParameter("assign_group")!=null) {
                     GroupMapper gm = new GroupMapper();
                     if(counter!=0) {                                    //group assignment with more than one members

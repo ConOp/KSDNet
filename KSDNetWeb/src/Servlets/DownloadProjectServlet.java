@@ -17,21 +17,15 @@ public class DownloadProjectServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String projectid = "";
-       projectid= (String) request.getSession().getAttribute("projectid");
+        projectid= (String) request.getSession().getAttribute("projectid");//gets project id from session
         try {
             GradeMapper cm = new GradeMapper();
-
             ResultSet rs= cm.DownloadProject(projectid);
-
+            //Downloads all files from all groups
             while (rs.next()) {
                 String filename = rs.getString("filename");
                 byte[] file = rs.getBytes("file");
-                System.out.println("File Name: " + filename);
-
-
                 String contentType = this.getServletContext().getMimeType(filename);
-                System.out.println("Content Type: " + contentType);
-
                 response.setHeader("Content-Type", contentType);
                 response.setContentLength(file.length);
                 response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
@@ -42,7 +36,6 @@ public class DownloadProjectServlet extends HttpServlet {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
         }
 
 

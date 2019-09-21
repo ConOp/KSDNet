@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
@@ -15,20 +14,20 @@ import java.sql.SQLException;
 
 @WebServlet(name = "GradeServlet", value="/GradingTeacher")
 public class GradeServlet extends HttpServlet {
-    private DataSource ds = null;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
-        request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         PrintWriter  out=response.getWriter();
         String projectid;
+        //Sets project id for session if its not set yet
         if(request.getSession().getAttribute("projectid")==null) {
-            projectid = request.getParameter("ProjectID");
-            request.getSession().setAttribute("projectid", projectid);
+            projectid = request.getParameter("ProjectID");//gets project id from form
+            request.getSession().setAttribute("projectid", projectid);//sets project id in session
         }
         else{
-            projectid=(String)request.getSession().getAttribute("projectid");
+            projectid=(String)request.getSession().getAttribute("projectid");//gets project id from session
         }
 
 
@@ -87,7 +86,6 @@ public class GradeServlet extends HttpServlet {
                         "</form>");
             }
         } catch (SQLException e){
-            System.out.println(e.getMessage());
         }
 
     }

@@ -22,8 +22,8 @@ public class St_CourseServlet extends HttpServlet {
         boolean project_exists = false;
         boolean send = false;
         PrintWriter out = response.getWriter();
-        String userid = (String) request.getSession().getAttribute("username");
-        String coursename = request.getParameter("coursename");
+        String userid = (String) request.getSession().getAttribute("username");//gets user id from session
+        String coursename = request.getParameter("coursename");//gets coursename from form
         String project_id = "";
         if(userid.charAt(0) != 'S') {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -31,7 +31,7 @@ public class St_CourseServlet extends HttpServlet {
         else {
             request.getSession().setAttribute("coursename",coursename);
 
-            out.println("<!DOCTYPE HTML>" +
+            out.println("<!DOCTYPE HTML>" + // print html
                     "<html>" +
                     "<head>" +
                     "<meta charset=\"UTF-8\">" +
@@ -108,7 +108,6 @@ public class St_CourseServlet extends HttpServlet {
                 if(project_id!=""){ request.getSession().setAttribute("project_id",project_id);}
 
             } catch (Exception e) {
-                System.out.println(e);
             }
 
         }

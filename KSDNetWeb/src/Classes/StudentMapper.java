@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StudentMapper implements User {
+    //Inserts student information to database
     public void register(String id,String name,String surname,String password,String email,byte[] salt) throws SQLException {
         try{
             Dbconnector con = new Dbconnector();
@@ -24,6 +25,7 @@ public class StudentMapper implements User {
             throw new SQLException("Student could not register");
         }
     }
+    //Checks user information
     public boolean login(String username,String password) throws SQLException {
         try{
             Dbconnector con = new Dbconnector();
@@ -45,10 +47,9 @@ public class StudentMapper implements User {
         }
         return false;
     }
-
+    //Returns the number of student ids that exist in the database
     public ResultSet check_userids(String[] guserids) throws  SQLException {
         try {
-            //check below if the given userids for group assignment, get counter for the ones exist in database
             String check_statement = "SELECT count(*) FROM students WHERE students.student_id in(";
             for (int i = 0; i < guserids.length; i++) {
                 check_statement += "'" + guserids[i] + "'";

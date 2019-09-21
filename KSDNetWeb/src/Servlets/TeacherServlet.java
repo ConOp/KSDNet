@@ -17,11 +17,11 @@ public class TeacherServlet extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8"); //θέτει τον τύπο περιεχομένου της απάντησης που αποστέλλεται στον πελάτη, εάν η απάντηση δεν έχει δεσμευτεί ακόμα
-        request.setCharacterEncoding("UTF-8"); //κωδικοποίηση χαρακτήρων request
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String userid = (String)request.getSession().getAttribute("username");
+        String userid = (String)request.getSession().getAttribute("username");//gets user id from session
 
         PrintWriter  out=response.getWriter();
         out.println("<!DOCTYPE HTML>" +
@@ -75,7 +75,6 @@ public class TeacherServlet extends HttpServlet {
             }
             out.println("</ul>");
         } catch (SQLException e){
-            System.out.println(e.getMessage());
         }
     }
 }

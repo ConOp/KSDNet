@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GroupMapper {
+    //Inserts total grade to a specific group
     public void insertTotalgrade(String groupid, int totalgrade) throws SQLException {
         try {
             Dbconnector con = new Dbconnector();
@@ -18,6 +19,7 @@ public class GroupMapper {
             throw new SQLException("Could not set total grade.");
         }
     }
+    //Returns the grade of a student at a specific course
     public String getCourseGrade(String studentid,String courseid) throws SQLException {
         try {
             Dbconnector con = new Dbconnector();
@@ -36,6 +38,7 @@ public class GroupMapper {
             throw new SQLException("Could not get total grade.");
         }
     }
+    //Returns the groupid given the userid,coursename and projectid
     public ResultSet CheckExistingProject(String userid,String coursename,String projectid) throws  SQLException {
         try {
             Dbconnector connector = new Dbconnector();
@@ -50,7 +53,7 @@ public class GroupMapper {
 
         }
     }
-
+    //Assigns multiple students to a group
     public void group_assign(String groupid,String userid,String[] guserids,String coursename) throws SQLException {
         try {
             String statement = "INSERT INTO groups(group_id,student_id,course_id) VALUES ('" + groupid + "','" + userid + "',(SELECT course_id FROM courses WHERE courses.name = '" + coursename + "'));";
@@ -67,7 +70,7 @@ public class GroupMapper {
             throw new SQLException("Unsuccessful group assignment.");
         }
     }
-
+    //Assigns a student to a group
     public void single_project(String userid,String coursename) throws SQLException {
         try {
             Dbconnector con = new Dbconnector();
@@ -82,7 +85,7 @@ public class GroupMapper {
             throw new SQLException("Unsuccessful group assignment.");
         }
     }
-
+    //Returns true if students with specific IDs exist and are available for a group and false if one or more IDs don't exist or aren't available
     public ResultSet check_team(String userid, String coursename) throws  SQLException {
         try {
             Dbconnector con = new Dbconnector();
@@ -97,7 +100,7 @@ public class GroupMapper {
 
         }
     }
-
+    //Returns student id given a group and a course
     public ResultSet GetID(String group,String course) throws SQLException{
         try {
             Dbconnector con = new Dbconnector();
@@ -107,9 +110,10 @@ public class GroupMapper {
             ResultSet Rs = st.executeQuery();
             return Rs;
         }catch(Exception e){
-            throw new SQLException("Incorrect credentials");
+            throw new SQLException("Could not get ID");
         }
     }
+    //Deletes all groups from a course
     public void DeleteGroupsFromCourse(String courseid) throws SQLException {
         try {
             Dbconnector con = new Dbconnector();
@@ -119,7 +123,7 @@ public class GroupMapper {
             st.close();
             con.disconnect();
         } catch (Exception e) {
-            throw new SQLException("Unsuccessful group assignment.");
+            throw new SQLException("Could not delete groups");
         }
     }
 }

@@ -26,9 +26,9 @@ public class UploadProjectServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String userid = (String) request.getSession().getAttribute("username");
-        String coursename = (String) request.getSession().getAttribute("coursename");
-        String project_id = (String) request.getSession().getAttribute("project_id");
+        String userid = (String) request.getSession().getAttribute("username");//gets user id from session
+        String coursename = (String) request.getSession().getAttribute("coursename");//gets course name from session
+        String project_id = (String) request.getSession().getAttribute("project_id");//gets project id frim seesion
         String group_id = "";
         try{
             Part file = request.getPart("zipfile");
@@ -59,7 +59,6 @@ public class UploadProjectServlet extends HttpServlet {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/StudentHomepage");
             dispatcher.forward(request, response);
         }catch (Exception e){
-            System.out.println(e);
         }
     }
 

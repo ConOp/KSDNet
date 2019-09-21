@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TeacherMapper implements  User {
+    //Inserts student information to database
     public void register(String id,String name,String surname,String password,String email,byte[] salt) throws SQLException {
         try{
             Dbconnector con = new Dbconnector();
@@ -24,7 +25,7 @@ public class TeacherMapper implements  User {
             throw new SQLException("Teacher could not register");
         }
     }
-
+    //Checks user information
     public boolean login(String username,String password) throws SQLException {
         try{
             Dbconnector con = new Dbconnector();
@@ -42,7 +43,6 @@ public class TeacherMapper implements  User {
                 return false;
             }
         }catch(Exception e){
-            System.out.println(e);
             throw new SQLException("Incorrect credentials");
         }
         return false;

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProjectMapper {
+    //Creates a project
     public void createProject(String projectid,String courseid,String deadline,String maxgrade) throws SQLException {
         try {
             int max = Integer.parseInt(maxgrade);
@@ -28,8 +29,8 @@ public class ProjectMapper {
             throw new SQLException("Could not create  project.");
         }
     }
-
-        public void deleteProject(String projectid) throws SQLException {
+    //Deletes a project
+    public void deleteProject(String projectid) throws SQLException {
             try {
                 Dbconnector connector = new Dbconnector();
                 PreparedStatement st = connector.connect().prepareStatement("DELETE FROM projects WHERE  project_id=?");
@@ -41,7 +42,9 @@ public class ProjectMapper {
                 throw new SQLException("Could not delete  project.");
             }
         }
-        public void deleteallProjects(String courseid) throws SQLException {
+
+    //Deletes all projects from a course
+    public void deleteallProjects(String courseid) throws SQLException {
             try {
                 Dbconnector connector = new Dbconnector();
                 PreparedStatement st = connector.connect().prepareStatement("DELETE FROM projects WHERE  course_id=?");
@@ -53,6 +56,7 @@ public class ProjectMapper {
                throw new SQLException("Could not delete  projects.");
          }
     }
+    //Returns all project information give a courseid
     public ResultSet project_info(String courseid) throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
@@ -69,7 +73,7 @@ public class ProjectMapper {
         }
 
     }
-
+    //Returns true if deadline has passed for a specific project and false if it hasn't
     public boolean DeadlineHasPassed(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
@@ -88,6 +92,7 @@ public class ProjectMapper {
         }
         return false;
     }
+    //Returns the current number of project of a specific course
     public int getNumOfCurrProjects(String courseid)  throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
@@ -97,10 +102,10 @@ public class ProjectMapper {
             rs.next();
             return rs.getInt(1);
         }catch (Exception e){
-            throw new SQLException("Could not execute query.");
+            throw new SQLException("Could not get number of projects.");
         }
     }
-    //new code added below
+    //Returns the max grade of a project
     public ResultSet MaxGrade(String id) throws  SQLException{
         try{
             Dbconnector con = new Dbconnector();
@@ -115,7 +120,7 @@ public class ProjectMapper {
         }
         return null;
     }
-
+    //Returns project details ( id , deadline,max grade)
     public ResultSet project_details(String coursename, String date) throws  SQLException{
         try{
             Dbconnector connector = new Dbconnector();
