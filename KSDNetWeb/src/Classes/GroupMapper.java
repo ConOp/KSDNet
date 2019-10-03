@@ -42,10 +42,10 @@ public class GroupMapper {
     public ResultSet CheckExistingProject(String userid,String coursename,String projectid) throws  SQLException {
         try {
             Dbconnector connector = new Dbconnector();
-            PreparedStatement st = connector.connect().prepareStatement("SELECT (SELECT group_id FROM groups INNER JOIN courses on groups.course_id = courses.course_id WHERE groups.student_id = ? AND courses.name = ?) FROM grade WHERE grade.project_id = ?");
-            st.setString(1, userid);
-            st.setString(2, coursename);
-            st.setString(3, projectid);
+            PreparedStatement st = connector.connect().prepareStatement("SELECT group_id FROM grade WHERE grade.project_id = ? and group_id in (SELECT group_id FROM groups INNER JOIN courses on groups.course_id = courses.course_id WHERE groups.student_id = ? AND courses.name = ?);");
+            st.setString(1, projectid);
+            st.setString(2, userid);
+            st.setString(3, coursename);
             ResultSet rs = st.executeQuery();
             return rs;
         } catch (Exception e) {
