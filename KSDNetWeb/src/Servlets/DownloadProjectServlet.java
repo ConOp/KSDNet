@@ -7,9 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 
 @WebServlet(name = "DownloadProjectServlet", value="/DownloadProject")
@@ -22,18 +25,22 @@ public class DownloadProjectServlet extends HttpServlet {
             GradeMapper cm = new GradeMapper();
             ResultSet rs= cm.DownloadProject(projectid);
             //Downloads all files from all groups
-            while (rs.next()) {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ZipOutputStream output = new ZipOutputStream(baos);
+            while (rs.next()){
                 String filename = rs.getString("filename");
                 byte[] file = rs.getBytes("file");
-                String contentType = this.getServletContext().getMimeType(filename);
-                response.setHeader("Content-Type", contentType);
-                response.setContentLength(file.length);
-                response.setHeader("Content-Disposition", "inline; filename=\"" + filename + "\"");
-                response.getOutputStream().write(file);
-
-
+                ZipEntry entry = new ZipEntry(filename);
+                entry.setSize(file.length);
+                output.putNextEntry(entry);
+                output.write(file);
             }
-
+            output.closeEntry();
+            output.close();
+            String contentType = this.getServletContext().getMimeType("application/zip");
+            response.setContentType(contentType);
+            response.setHeader("Content-Disposition", "inline; filename=\"" + projectid + ".zip\"");
+            response.getOutputStream().write(baos.toByteArray());
 
         } catch (SQLException e) {
         }

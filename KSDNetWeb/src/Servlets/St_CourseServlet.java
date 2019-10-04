@@ -83,6 +83,9 @@ public class St_CourseServlet extends HttpServlet {
                 if(project_exists && group_created){
                     send = true;
                 }
+                if(Integer.parseInt(grade) > 10){
+                    grade = "10";
+                }
                 out.println("</table><br><h5>Final grade "+grade+"/10</h5><br><div class=\"input-group mb-3\">" +
                         "<div class=\"input-group-prepend\">" +
                         "<span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Project file</span>" +
